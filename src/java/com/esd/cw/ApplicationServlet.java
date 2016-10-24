@@ -48,7 +48,7 @@ public class ApplicationServlet extends HttpServlet {
 
             DbBean dbBean = new DbBean(url,username,password);
             
-            dbBean.doQuery("SELECT * from test_table");
+            String queryReturnValues = dbBean.doQuery("SELECT * from test_table");
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
