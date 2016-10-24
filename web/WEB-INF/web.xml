@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <description>Host for db connection</description>
+        <param-name>database-url</param-name>
+        <param-value>esd-cw.cqlibx6ep0t7.eu-central-1.rds.amazonaws.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>database-port</param-name>
+        <param-value>3306</param-value>
+    </context-param>
+    <context-param>
+        <param-name>database-name</param-name>
+        <param-value>esd</param-value>
+    </context-param>
+    <context-param>
+        <param-name>database-username</param-name>
+        <param-value>esdcw</param-value>
+    </context-param>
+    <context-param>
+        <param-name>database-password</param-name>
+        <param-value>esd-pass</param-value>
+    </context-param>
     <servlet>
         <servlet-name>ApplicationServlet</servlet-name>
         <servlet-class>com.esd.cw.ApplicationServlet</servlet-class>

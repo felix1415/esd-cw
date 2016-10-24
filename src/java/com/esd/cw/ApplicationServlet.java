@@ -5,8 +5,12 @@
  */
 package com.esd.cw;
 
+import com.esd.cw.dao.DbBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author shaun
  */
 public class ApplicationServlet extends HttpServlet {
+    
+    private static final String URL_KEY = "database-url";
+    private static final String PORT_KEY = "database-url";
+    private static final String USERNAME_KEY = "database-username";
+    private static final String PASSWORD_KEY = "database-password";
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,9 +38,17 @@ public class ApplicationServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, InstantiationException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+            String url = getServletContext().getInitParameter(URL_KEY);
+            String username = getServletContext().getInitParameter(USERNAME_KEY);
+            String password = getServletContext().getInitParameter(PASSWORD_KEY);
+
+            DbBean dbBean = new DbBean(url,username,password);
+            
+            dbBean.doQuery("SELECT * from test_table");
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -56,7 +74,13 @@ public class ApplicationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ApplicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ApplicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +94,13 @@ public class ApplicationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ApplicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(ApplicationServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
