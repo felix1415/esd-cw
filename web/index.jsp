@@ -4,9 +4,7 @@
 
 <!-- page content start (customise) -->
 <h1>Home Page</h1>
-<p>
-    Page content here.
-</p>
+<p>Page content here.</p>
 <!-- page content end -->
 
 <!-- include footer start (leave alone) -->
