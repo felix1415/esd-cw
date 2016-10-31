@@ -1,11 +1,11 @@
 <!-- include header start (leave alone) -->
 <jsp:include page='header.jsp'/>
 <!-- include header end -->
-
+<c:set var="loginMessage" scope="session" value="."/>
 <!-- page content start (customise) -->
 <h1>Login</h1>
 <br>
-<form action="LoginServlet" method="post">
+<form action="login" method="post">
   <div class="form-group">
     <label for="username">Username</label>
     <input type="text" name="username" class="form-control" id="username" placeholder="">
@@ -18,7 +18,10 @@
 </form>
 <br>
 <span id="loginErrorMessage" class="app-error-box">
-    Any error message here...
+    
+    <%=
+        request.getAttribute("loginMessage")
+    %>
 </span>
 <!-- page content end -->
 
