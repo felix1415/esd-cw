@@ -21,6 +21,17 @@ public class Member
     private final Date dateOfRegistration;
     private String status;
     private float balance;
+    private boolean claimsMade;
+
+    public boolean isClaimsMade()
+    {
+        return claimsMade;
+    }
+
+    public void setClaimsMade(boolean claimsMade)
+    {
+        this.claimsMade = claimsMade;
+    }
 
     public Member(String memberId, String name, Date dateOfBirth)
     {
