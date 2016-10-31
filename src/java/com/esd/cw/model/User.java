@@ -15,6 +15,17 @@ public class User
     private String userId;
     private String password;
     private String userStatus;
+    private boolean isAdmin;
+
+    public boolean isIsAdmin()
+    {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin)
+    {
+        this.isAdmin = isAdmin;
+    }
 
     public String getUserStatus()
     {
