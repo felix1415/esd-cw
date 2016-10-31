@@ -9,6 +9,7 @@ import com.esd.cw.services.RegistrationService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -79,13 +80,14 @@ public class RegisterServlet extends HttpServlet {
         RegistrationService registerService = new RegistrationService();
         
         // register the user
-        HashMap registerResponse = registerService.registerUser(
+        Map registerResponse = registerService.registerUser(
                 request.getParameter("username"), 
                 request.getParameter("firstName"), 
                 request.getParameter("lastName"), 
                 request.getParameter("address"), 
                 request.getParameter("dob"), 
-                request.getParameter("password")
+                request.getParameter("password"),
+                request.getParameter("confirmPassword")
         );
         
         request.setAttribute("registerResponse", registerResponse);
