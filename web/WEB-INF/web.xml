@@ -25,9 +25,17 @@
         <servlet-name>ApplicationServlet</servlet-name>
         <servlet-class>com.esd.cw.servlet.ApplicationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.esd.cw.servlet.RegisterServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ApplicationServlet</servlet-name>
         <url-pattern>/ApplicationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
