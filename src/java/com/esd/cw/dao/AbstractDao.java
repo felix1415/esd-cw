@@ -15,7 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Abstract DAO class, for all over DAOs to extend. 
+ * Contains methods to execute queries and get statements.
  * @author shaun
  */
 public abstract class AbstractDao {
