@@ -23,7 +23,7 @@
     </context-param>
     <servlet>
         <servlet-name>ApplicationServlet</servlet-name>
-        <servlet-class>com.esd.cw.ApplicationServlet</servlet-class>
+        <servlet-class>com.esd.cw.servlet.ApplicationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApplicationServlet</servlet-name>
