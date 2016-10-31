@@ -5,7 +5,7 @@
  */
 package com.esd.cw.servlet;
 
-import com.esd.cw.dao.DbBean;
+import com.esd.cw.dao.ClaimDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -42,13 +42,15 @@ public class ApplicationServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            String url = getServletContext().getInitParameter(URL_KEY);
-            String username = getServletContext().getInitParameter(USERNAME_KEY);
-            String password = getServletContext().getInitParameter(PASSWORD_KEY);
+//            String url = getServletContext().getInitParameter(URL_KEY);
+//            String username = getServletContext().getInitParameter(USERNAME_KEY);
+//            String password = getServletContext().getInitParameter(PASSWORD_KEY);
+//
+//            DbBean dbBean = new DbBean(url,username,password);
 
-            DbBean dbBean = new DbBean(url,username,password);
+            ClaimDao claimDao = new ClaimDao();
             
-            String queryReturnValues = dbBean.doQuery("SELECT * from test_table");
+            String queryReturnValues = claimDao.doQueryReturningXColumns("SELECT * from Members",3);
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -59,6 +61,8 @@ public class ApplicationServlet extends HttpServlet {
             out.println("<h1>Servlet ApplicationServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+            
+            
         }
     }
 
