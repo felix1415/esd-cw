@@ -88,7 +88,7 @@ public class PaymentServlet extends HttpServlet {
         System.out.println(paymentType);
         int paymentAmount = Integer.parseInt(request.getParameter("paymentAmount"));
         System.out.println(paymentAmount);
-
+        
     }
 
     /**

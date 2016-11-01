@@ -58,6 +58,8 @@ public class LoginServlet extends HttpServlet
         if(loginSuccess)
         {
             loginMessage = "Success!";
+            
+            request.getRequestDispatcher("dashboard").forward(request, response);
         }
         else
         {

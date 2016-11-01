@@ -65,7 +65,7 @@ public class UserDao extends AbstractDao {
         
         if (result.size() > 0) {
             return new User(
-                    result.get(0).get("username").toString(),
+                    result.get(0).get("id").toString(),
                     result.get(0).get("password").toString(),
                     result.get(0).get("status").toString(),
                     Boolean.valueOf(result.get(0).get("is_admin").toString())
