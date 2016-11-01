@@ -74,6 +74,9 @@ public abstract class AbstractDao {
             
             result.add(row);
         }
+        rs.close();
+        state.close();
+        con.close();
         
         return result;
     }
