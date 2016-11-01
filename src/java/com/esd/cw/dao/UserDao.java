@@ -9,7 +9,7 @@ package com.esd.cw.dao;
  *
  * @author shaun
  */
-public class UserDao {
+public class UserDao extends AbstractDao {
  
     public UserDao(){
         super();

@@ -5,6 +5,7 @@
  */
 package com.esd.cw.services;
 
+import com.esd.cw.dao.UserDao;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,6 +17,9 @@ import java.util.Map;
 public class RegistrationService {
     
     public Map<String, String> registerUser(String username, String firstName, String lastName, String address, String dob, String password, String confirmPassword) {
+        
+        // user DAO for checking if a user already exists with the same username
+        UserDao userDao = new UserDao();
         
         // response hashmap
         Map<String, String> registerResponse = new HashMap<>();        
