@@ -52,8 +52,27 @@ public class UserDao extends AbstractDao {
         return allUsers;
     }
     
-    public User findById() {
-        return new User();
+    public User findById(String userId) {
+        
+        // define a hash map to store the result in
+        ArrayList<HashMap> result = new ArrayList();
+        
+        try {
+            result = super.select("SELECT * FROM users WHERE id='" + userId + "'");
+        } catch (SQLException e) {
+            
+        }
+        
+        if (result.size() > 0) {
+            return new User(
+                    result.get(0).get("username").toString(),
+                    result.get(0).get("password").toString(),
+                    result.get(0).get("status").toString(),
+                    Boolean.valueOf(result.get(0).get("is_admin").toString())
+            );
+        } else {
+            return new User();
+        }
     }
     
     boolean insertUser(User user) {

@@ -5,6 +5,8 @@
  */
 package com.esd.cw.services;
 
+import com.esd.cw.dao.UserDao;
+import com.esd.cw.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +25,10 @@ public class LoginService {
     
     public boolean login(String username, String password)
     {
+        UserDao userDao = new UserDao();
+        
+        User user = userDao.findById(username);
+        
         if("swag".equals(username) && "yolo".equals(password))
         {
             HttpSession session = request.getSession();
