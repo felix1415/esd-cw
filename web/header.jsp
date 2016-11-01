@@ -41,12 +41,13 @@ User user = (User) session.getAttribute("user");
                     <ul class="nav navbar-nav">
                          <%
                         if (user != null) {
-                            %>
-                            <li><a href="dashboard">Dashboard</a></li>
-                            <%
                             if (user.isIsAdmin()) {
                                 %>
                                 <li><a href="admin/dashboard">Admin Dashboard</a></li>
+                                <%
+                            } else {
+                                %>
+                                <li><a href="dashboard">Dashboard</a></li>                                
                                 <%
                             }
                         }
