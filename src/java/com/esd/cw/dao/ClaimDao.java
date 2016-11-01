@@ -20,12 +20,4 @@ public class ClaimDao extends AbstractDao {
     public ClaimDao() {
         super();
     }
-    
-
-   
-    
-    
-
-    
-    
 }
