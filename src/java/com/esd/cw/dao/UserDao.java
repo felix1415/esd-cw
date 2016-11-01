@@ -51,4 +51,20 @@ public class UserDao extends AbstractDao {
         // return all the users
         return allUsers;
     }
+    
+    public User findById() {
+        return new User();
+    }
+    
+    boolean insertUser(User user) {
+        return true;
+    }
+    
+    boolean updateUser(User user) {
+        return true;
+    }
+    
+    boolean deleteUser(User user) {
+        return true;
+    }
 }
