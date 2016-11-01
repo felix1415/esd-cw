@@ -1,4 +1,11 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.esd.cw.model.User"%>
+
+<%
+User user = (User) session.getAttribute("user");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,13 +39,33 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="dashboard">Dashboard</a></li>
-                        <li><a href="admin/dashboard">Admin Dashboard</a></li>
+                         <%
+                        if (user != null) {
+                            %>
+                            <li><a href="dashboard">Dashboard</a></li>
+                            <%
+                            if (user.isIsAdmin()) {
+                                %>
+                                <li><a href="admin/dashboard">Admin Dashboard</a></li>
+                                <%
+                            }
+                        }
+                        %>
+                        
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="login">Login</a></li>
-                        <li><a href="register">Register</a></li>
-                        <li><a href="logout">Logout</a></li>
+                        <%
+                        if (user != null) {
+                            %>
+                            <li><a href="logout">Logout</a></li>
+                            <%
+                        } else {
+                            %>
+                            <li><a href="login">Login</a></li>
+                            <li><a href="register">Register</a></li>
+                            <%
+                        }
+                        %>
                     </ul>
                 </div>
             </div>
