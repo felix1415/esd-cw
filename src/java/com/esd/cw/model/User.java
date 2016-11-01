@@ -16,6 +16,17 @@ public class User
     private String password;
     private String userStatus;
     private boolean isAdmin;
+    
+    public User() {
+        
+    }
+    
+    public User(String userId, String password, String userStatus, boolean isAdmin) {
+        this.userId = userId;
+        this.password = password;
+        this.userStatus = userStatus;
+        this.isAdmin = isAdmin;
+    }
 
     public boolean isIsAdmin()
     {

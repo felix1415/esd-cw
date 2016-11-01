@@ -6,6 +6,7 @@
 package com.esd.cw.services;
 
 import com.esd.cw.dao.UserDao;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,6 +22,12 @@ public class RegistrationService {
         // user DAO for checking if a user already exists with the same username
         UserDao userDao = new UserDao();
         
+        try {
+            String result = userDao.doQueryReturningTwoColumns("SELECT * FROM users");
+            System.out.println(result);
+        } catch (SQLException e) {
+            
+        }
         // response hashmap
         Map<String, String> registerResponse = new HashMap<>();        
         

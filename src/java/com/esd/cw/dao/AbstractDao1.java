@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * Contains methods to execute queries and get statements.
  * @author shaun
  */
-public abstract class AbstractDao {
+public abstract class AbstractDao1 {
         
     private Connection con;
     private Statement state;
@@ -34,7 +34,7 @@ public abstract class AbstractDao {
     private static final String PASSWORD_KEY = "database-password";
     private static final String DATABASE_NAME = "database-name";
 
-    public AbstractDao() {
+    public AbstractDao1() {
         try {
             String url = PropertiesUtil.getPropertyAsString(URL_KEY);
             String username = PropertiesUtil.getPropertyAsString(USERNAME_KEY);
