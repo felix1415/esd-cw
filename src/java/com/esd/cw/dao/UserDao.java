@@ -31,7 +31,7 @@ public class UserDao extends AbstractDao {
         
         try {
             // run the query and get a hash map of all rows
-            result = super.doQuery("SELECT * FROM users");
+            result = super.select("SELECT * FROM users");
         } catch (SQLException e) {
             
         }

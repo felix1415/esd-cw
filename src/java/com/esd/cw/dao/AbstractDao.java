@@ -55,7 +55,7 @@ public abstract class AbstractDao {
         }
     }
     
-    public ArrayList doQuery(String query) throws SQLException {
+    public ArrayList select(String query) throws SQLException {
         
         state = con.createStatement();
         rs = state.executeQuery(query);
