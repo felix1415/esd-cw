@@ -6,9 +6,9 @@
 package com.esd.cw.dao;
 
 import com.esd.cw.model.Member;
+import com.esd.cw.util.Util;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,8 +44,8 @@ public class MemberDao extends AbstractDao {
                             r.get("id").toString(), 
                             r.get("name").toString(), 
                             r.get("address").toString(), 
-                            new Date(r.get("dob").toString()), 
-                            new Date(r.get("dor").toString()),
+                            Util.getDateFromString(r.get("dob").toString()),
+                            Util.getDateFromString(r.get("dor").toString()),
                             r.get("status").toString(), 
                             Float.parseFloat(r.get("balance").toString()), 
                             Integer.parseInt(r.get("claims_remaining").toString())
@@ -73,8 +73,8 @@ public class MemberDao extends AbstractDao {
                     result.get(0).get("id").toString(), 
                     result.get(0).get("name").toString(), 
                     result.get(0).get("address").toString(), 
-                    new Date(result.get(0).get("dob").toString()), 
-                    new Date(result.get(0).get("dor").toString()),
+                    Util.getDateFromString(result.get(0).get("dob").toString()),
+                    Util.getDateFromString(result.get(0).get("dor").toString()),
                     result.get(0).get("status").toString(), 
                     Float.parseFloat(result.get(0).get("balance").toString()), 
                     Integer.parseInt(result.get(0).get("claims_remaining").toString())
