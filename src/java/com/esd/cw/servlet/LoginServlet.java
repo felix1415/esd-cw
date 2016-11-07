@@ -57,16 +57,16 @@ public class LoginServlet extends HttpServlet
         String loginMessage = "";
         if(loginSuccess)
         {
-            loginMessage = "Success!";
-            
-            request.getRequestDispatcher("dashboard").forward(request, response);
+            request.setAttribute("loginMessage", loginMessage);
+            request.getRequestDispatcher("/").forward(request, response);
         }
         else
         {
             loginMessage = "Incorrect login information!";
+            request.setAttribute("loginMessage", loginMessage);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     
-        request.setAttribute("loginMessage", loginMessage);
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        
     }    
 }

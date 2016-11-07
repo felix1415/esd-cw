@@ -1,7 +1,7 @@
-!<-- include header start (leave alone) -->
+<!-- include header start (leave alone) -->
 <jsp:include page='header.jsp'/>
 <!-- include header end -->
-<c:set var="loginMessage" scope="session" value=""/>
+<c:set var="loginMessage" scope="session" value="."/>
 <!-- page content start (customise) -->
 <h1>Login</h1>
 <br>
@@ -20,7 +20,7 @@
 <span id="loginErrorMessage" class="app-error-box">
     
     <%=
-        (String)request.getAttribute("loginMessage")
+        request.getAttribute("loginMessage")
     %>
 </span>
 <!-- page content end -->
