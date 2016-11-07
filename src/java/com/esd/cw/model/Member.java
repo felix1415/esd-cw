@@ -21,16 +21,33 @@ public class Member
     private final Date dateOfRegistration;
     private String status;
     private float balance;
-    private boolean claimsMade;
+    private int claimsRemaining;
 
-    public boolean isClaimsMade()
+    public Member()
     {
-        return claimsMade;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setClaimsMade(boolean claimsMade)
+    public int getClaimsRemaining()
     {
-        this.claimsMade = claimsMade;
+        return claimsRemaining;
+    }
+
+    public void setClaimsRemaining(int claimsRemaining)
+    {
+        this.claimsRemaining = claimsRemaining;
+    }
+
+    public Member(String memberId, String name, String address, Date dateOfBirth, Date dateOfRegistration, String status, float balance, int claimsRemaining)
+    {
+        this.memberId = memberId;
+        this.name = name;
+        this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.dateOfRegistration = dateOfRegistration;
+        this.status = status;
+        this.balance = balance;
+        this.claimsRemaining = claimsRemaining;
     }
 
     public Member(String memberId, String name, Date dateOfBirth)
@@ -42,6 +59,7 @@ public class Member
         this.dateOfRegistration = new Date();
         this.status = "Unpaid";
         this.balance = (float)0.0;
+        this.claimsRemaining = 0;
     }
     
     public float getBalance()
