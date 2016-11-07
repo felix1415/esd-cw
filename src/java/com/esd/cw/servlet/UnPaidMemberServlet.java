@@ -32,19 +32,32 @@ public class UnPaidMemberServlet extends HttpServlet
         String path = "unpaid_member_dashboard.jsp";
         HttpSession session = request.getSession();
         
-        System.out.println("UNPAID ON : " + session.getId());
         if(session.getAttribute("user") != null )
         {
             User user = (User) session.getAttribute("user");
-            Member member = memberDao.findById(user.getUserId());
+            Member member;
+            if(session.getAttribute("member") != null )
+            {
+                member = (Member)session.getAttribute("member");
+            }
+            else
+            {
+                member = memberDao.findById(user.getUserId());
+                session.setAttribute("member", member);
+            }
             
-            System.out.println(member.getMemberId());
-            System.out.println("UNPAID ON : " + session.getId());
-            //            request.setAttribute(userName, "njkvrnj");
+            request.setAttribute("test", user.getUserId());
+            request.setAttribute("id", member.getMemberId());
+            request.setAttribute("name", member.getName());
+            request.setAttribute("address", member.getAddress());
+            request.setAttribute("dob", member.getDateOfBirth());
+            request.setAttribute("dor", member.getDateOfRegistration());
+            request.setAttribute("status", member.getStatus());
+            request.setAttribute("balance", member.getBalance());
+            request.setAttribute("claims_remaining", member.getClaimsRemaining());
         }
         else
         {
-            System.out.println("Go to home page");
             path = "index.jsp";
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
