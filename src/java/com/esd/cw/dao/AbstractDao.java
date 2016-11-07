@@ -128,4 +128,8 @@ public abstract class AbstractDao {
         return statement;
     }
     
+    public void insert(String query){
+        
+    }
+        
 }

@@ -21,7 +21,7 @@ public class LoginService {
     public LoginService(HttpServletRequest request) {
         this.request = request;
     }
-
+    
     public boolean login(String username, String password) {
         UserDao userDao = new UserDao();
 
