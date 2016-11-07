@@ -1,3 +1,4 @@
+<%@page import="com.esd.cw.model.User"%>
 <!-- include header start (leave me alone) -->
 <jsp:include page='header.jsp'/>
 <!-- include header end -->
@@ -16,11 +17,12 @@
         <select name="paymentType">
             <option></option>
             <option>Card</option>
-            <option>Cash</option>
+            <option selected="selected">Cash</option>
 
         </select>
 
     </div>
+   
 
     <input type="submit" value="submit">
 

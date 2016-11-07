@@ -18,16 +18,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Abstract DAO class, for all over DAOs to extend. 
- * Contains methods to execute queries and get statements.
+ * Abstract DAO class, for all over DAOs to extend. Contains methods to execute
+ * queries and get statements.
+ *
  * @author shaun
  */
 public abstract class AbstractDao {
-        
+
     private Connection con;
     private Statement state;
     private ResultSet rs;
-    
+
     private static final String URL_KEY = "database-url";
     private static final String PORT_KEY = "database-port";
     private static final String USERNAME_KEY = "database-username";
@@ -40,7 +41,7 @@ public abstract class AbstractDao {
             String username = PropertiesUtil.getPropertyAsString(USERNAME_KEY);
             String password = PropertiesUtil.getPropertyAsString(PASSWORD_KEY);
             String databaseName = PropertiesUtil.getPropertyAsString(DATABASE_NAME);
-            
+
             MysqlDataSource dataSource = new MysqlDataSource();
             dataSource.setUser(username);
             dataSource.setPassword(password);
@@ -54,71 +55,72 @@ public abstract class AbstractDao {
 
         }
     }
-    
+
     public ArrayList select(String query) throws SQLException {
-        
+
         state = con.createStatement();
         rs = state.executeQuery(query);
-        
+
         ResultSetMetaData md = rs.getMetaData();
         int columns = md.getColumnCount();
-        ArrayList <HashMap> result = new ArrayList<>();
-        
+        ArrayList<HashMap> result = new ArrayList<>();
+
         while (rs.next()) {
-            
+
             HashMap row = new HashMap(columns);
-            
+
             for (int i = 1; i <= columns; i++) {
                 row.put(md.getColumnName(i), rs.getObject(i));
             }
-            
+
             result.add(row);
         }
         rs.close();
         state.close();
         con.close();
-        
+
         return result;
     }
-    
+
     public String doQueryReturningTwoColumns(String query) throws SQLException {
-       StringBuilder sb = new StringBuilder();
-       state = con.createStatement();
-       rs = state.executeQuery(query);
-       while (rs.next()) {
-           sb.append(rs.getString(1) + "," + rs.getString(2));
-       }
-       rs.close();
-       state.close();
-       con.close();
-       return sb.toString();
-   }
-    
+        StringBuilder sb = new StringBuilder();
+        state = con.createStatement();
+        rs = state.executeQuery(query);
+        while (rs.next()) {
+            sb.append(rs.getString(1) + "," + rs.getString(2));
+        }
+        rs.close();
+        state.close();
+        con.close();
+        return sb.toString();
+    }
+
     /**
-     * Return a comma separated string containing the results of your query.
-     * The result is aggregated for how many columns you specify. 
+     * Return a comma separated string containing the results of your query. The
+     * result is aggregated for how many columns you specify.
+     *
      * @param query : String query to execute
-     * @param columns : Amount of columns to combine and return 
+     * @param columns : Amount of columns to combine and return
      * @return : comma separated string results.
-     * @throws SQLException 
+     * @throws SQLException
      */
-    public String doQueryReturningXColumns(String query,int columns) throws SQLException {
-       StringBuilder sb = new StringBuilder();
-       state = con.createStatement();
-       rs = state.executeQuery(query);
-       while (rs.next()) {
-           for (int i = 0; i < columns; i++) {
-               sb.append(rs.getString(i) + ",");
-           }
-           
-       }
-       rs.close();
-       state.close();
-       con.close();
-       return sb.toString();
-   }
-    
-    public Statement getStatement(){
+    public String doQueryReturningXColumns(String query, int columns) throws SQLException {
+        StringBuilder sb = new StringBuilder();
+        state = con.createStatement();
+        rs = state.executeQuery(query);
+        while (rs.next()) {
+            for (int i = 0; i < columns; i++) {
+                sb.append(rs.getString(i) + ",");
+            }
+
+        }
+        rs.close();
+        state.close();
+        con.close();
+        return sb.toString();
+    }
+
+    public Statement getStatement() {
         Statement statement = null;
         try {
             statement = con.createStatement();
@@ -127,5 +129,15 @@ public abstract class AbstractDao {
         }
         return statement;
     }
-    
+
+    public void insert(String query) throws SQLException {
+
+        state = con.createStatement();
+        state.execute(query);
+
+        state.close();
+        con.close();
+
+    }
+
 }

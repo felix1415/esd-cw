@@ -5,6 +5,9 @@
  */
 package com.esd.cw.servlet;
 
+import com.esd.cw.dao.MemberDao;
+import com.esd.cw.model.Member;
+import com.esd.cw.model.User;
 import com.esd.cw.services.LoginService;
 import java.io.*;
 import javax.servlet.*;
@@ -14,9 +17,10 @@ import javax.servlet.http.*;
  *
  * @author alexgray
  */
-public class LoginServlet extends HttpServlet
+public class UnPaidMemberServlet extends HttpServlet
 {
-  /** Handles the HTTP <code>GET</code> method.
+    MemberDao memberDao = new MemberDao();
+    /** Handles the HTTP <code>GET</code> method.
    * @param request servlet request
    * @param response servlet response
      * @throws javax.servlet.ServletException
@@ -25,12 +29,24 @@ public class LoginServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String path = "login.jsp";
+        String path = "unpaid_member_dashboard.jsp";
         HttpSession session = request.getSession();
-        if(session.getAttribute("username") != null )
+        
+        System.out.println("UNPAID ON : " + session.getId());
+        if(session.getAttribute("user") != null )
         {
-            path = "dashboard.jsp";
-        }        
+            User user = (User) session.getAttribute("user");
+            Member member = memberDao.findById(user.getUserId());
+            
+            System.out.println(member.getMemberId());
+            System.out.println("UNPAID ON : " + session.getId());
+            //            request.setAttribute(userName, "njkvrnj");
+        }
+        else
+        {
+            System.out.println("Go to home page");
+            path = "index.jsp";
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
         dispatcher.forward(request, response);
         
@@ -69,4 +85,5 @@ public class LoginServlet extends HttpServlet
     
         
     }    
+    
 }
