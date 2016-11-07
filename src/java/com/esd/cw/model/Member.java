@@ -25,7 +25,14 @@ public class Member
 
     public Member()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.memberId = null;
+        this.name = null;
+        this.address = null;
+        this.dateOfBirth = null;
+        this.dateOfRegistration = null;
+        this.status = null;
+        this.balance = 0;
+        this.claimsRemaining = 0;
     }
 
     public int getClaimsRemaining()
