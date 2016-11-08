@@ -1,4 +1,4 @@
-!<-- include header start (leave alone) -->
+<!-- include header start (leave alone) -->
 <jsp:include page='header.jsp'/>
 <!-- include header end -->
 <c:set var="loginMessage" scope="session" value=""/>
