@@ -8,7 +8,7 @@
 <%
     // get the registration response if we have one. to prefill form.
     if (request.getAttribute("registerResponse") != null) {
-        Map registerResponse = (Map) request.getAttribute("registerResponse");   
+        Map registerResponse = (Map) request.getAttribute("registerResponse");
     }
 %>
 
