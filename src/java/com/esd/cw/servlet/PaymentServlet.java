@@ -6,6 +6,8 @@
 package com.esd.cw.servlet;
 
 import com.esd.cw.*;
+import com.esd.cw.dao.MemberDao;
+import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
 import com.esd.cw.services.PaymentService;
 import java.io.IOException;
@@ -24,13 +26,14 @@ import javax.servlet.http.HttpSession;
  * @author shaun
  */
 public class PaymentServlet extends HttpServlet {
-
+    
     PaymentService paymentService;
-
+    MemberDao memberDao = new MemberDao();
+    
     public PaymentServlet() {
         this.paymentService = new PaymentService();
     }
-   
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -43,9 +46,9 @@ public class PaymentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         request.getRequestDispatcher("payment.jsp").forward(request, response);
-
+        
     }
 
     /**
@@ -59,7 +62,7 @@ public class PaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String paymentType = request.getParameter("paymentType");
         System.out.println(paymentType);
         int paymentAmount = Integer.parseInt(request.getParameter("paymentAmount"));
@@ -68,7 +71,10 @@ public class PaymentServlet extends HttpServlet {
         HttpSession session = request.getSession();
         com.esd.cw.model.User user = (com.esd.cw.model.User) session.getAttribute("user");
         
-        paymentService.makeMembershipPayment(paymentAmount, paymentType, user);
+        Member member = memberDao.findById(user.getUserId());
+        member.setBalance(member.getBalance() + paymentAmount);
+        
+        paymentService.makeMembershipPayment(paymentAmount, paymentType, user, member);
         
     }
 

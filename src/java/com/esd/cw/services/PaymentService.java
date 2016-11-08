@@ -5,7 +5,9 @@
  */
 package com.esd.cw.services;
 
+import com.esd.cw.dao.MemberDao;
 import com.esd.cw.dao.PaymentDao;
+import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
 import java.util.Date;
 
@@ -14,25 +16,30 @@ import java.util.Date;
  * @author shaun
  */
 public class PaymentService {
-    
+
     PaymentDao paymentDao;
-    
-    public PaymentService(){
+    MemberDao memberDao;
+
+    public PaymentService() {
         paymentDao = new PaymentDao();
+        memberDao = new MemberDao();
     }
-    
-    public boolean makeMembershipPayment(float value, String typeOfPayment, User user){
-        try{
-            
+
+    public boolean makeMembershipPayment(float value, String typeOfPayment, User user, Member member) {
+        try {
+
             Date date = new Date();
             String memId = user.getUserId();
-            paymentDao.makePayment(value,typeOfPayment,memId,date);
-            
-        }catch(Exception e){
+
+            memberDao.updateMember(member);
+
+            paymentDao.makePayment(value, typeOfPayment, memId, date);
+
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
         return true;
     }
-    
+
 }

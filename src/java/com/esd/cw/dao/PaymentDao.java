@@ -24,7 +24,7 @@ public class PaymentDao extends AbstractDao {
 
         try {
             String dateString = new SimpleDateFormat("YYYY-MM-dd hh-mm-ss").format(date);
-            insert(String.format(Queries.INSERT_PAYMENT.getStatement(),1, memId, typeOfPayment, amount, dateString));
+            insert(String.format(Queries.INSERT_PAYMENT.getStatement(), memId, typeOfPayment, amount, dateString));
         } catch (Exception e) {
             System.out.println(e);
         }

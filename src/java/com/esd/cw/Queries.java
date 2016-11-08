@@ -10,21 +10,18 @@ package com.esd.cw;
  * @author shaun
  */
 public enum Queries {
-    
-    INSERT_PAYMENT("INSERT INTO payments VALUES (%s ,'%s', '%s', %s , '%s')"),
+
+    INSERT_PAYMENT("INSERT INTO payments VALUES ('%s', '%s', %s , '%s')"),
     SELECT("");
-    
-    
-    Queries(String sql){
+
+    Queries(String sql) {
         this.sql = sql;
     }
-    
+
     String sql;
-    
-    public String getStatement(){
+
+    public String getStatement() {
         return sql;
     }
-    
-    
-    
+
 }
