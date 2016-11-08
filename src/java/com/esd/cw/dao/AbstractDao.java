@@ -59,6 +59,7 @@ public abstract class AbstractDao {
     public ArrayList select(String query) throws SQLException {
 
         state = con.createStatement();
+        
         rs = state.executeQuery(query);
 
         ResultSetMetaData md = rs.getMetaData();
@@ -89,9 +90,9 @@ public abstract class AbstractDao {
         while (rs.next()) {
             sb.append(rs.getString(1) + "," + rs.getString(2));
         }
-        rs.close();
-        state.close();
-        con.close();
+        //rs.close();
+        //state.close();
+        //con.close();
         return sb.toString();
     }
 
@@ -131,13 +132,42 @@ public abstract class AbstractDao {
     }
 
     public void insert(String query) throws SQLException {
-
+        // TODO - BUG
+        // There is a bit of a bug here. As we initialise the connection in the constructor,
+        // if you attempt to make 2 or more queries to the DB, it will error because the conenction
+        // will be closed.
+        // We can either reinstance *Dao object every time we need to make a connection.
+        // or create a get connection function which is called at the start or every query function
+        // see below functions
+        
+        con = getConnection();
         state = con.createStatement();
         state.execute(query);
-
         state.close();
         con.close();
+    }
+    
+    public Connection getConnection () {
+        
+        try {
+            String url = PropertiesUtil.getPropertyAsString(URL_KEY);
+            String username = PropertiesUtil.getPropertyAsString(USERNAME_KEY);
+            String password = PropertiesUtil.getPropertyAsString(PASSWORD_KEY);
+            String databaseName = PropertiesUtil.getPropertyAsString(DATABASE_NAME);
 
+            MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setUser(username);
+            dataSource.setPassword(password);
+            dataSource.setServerName(url);
+            dataSource.setDatabaseName(databaseName); // TODO shouldn't hardcode this. Should set as a context attribute? (or whichever is relevant)
+
+            con = dataSource.getConnection();
+            
+        } catch (Exception e) {
+            System.err.println("Error: " + e);
+        }
+        
+        return con;
     }
 
 }

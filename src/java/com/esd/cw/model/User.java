@@ -58,4 +58,8 @@ public class User
         return userId;
     }
 
+    public String getStatus() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

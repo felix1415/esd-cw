@@ -12,6 +12,8 @@ package com.esd.cw;
 public enum Queries {
 
     INSERT_PAYMENT("INSERT INTO payments VALUES ('%s', '%s', %s , '%s')"),
+    INSERT_USER("INSERT INTO users (id, password, status, is_admin) VALUES ('%s', '%s', '%s', %b)"),
+    INSERT_MEMBER("INSERT INTO Members (id, name, address, dob, dor, status, balance, claims_remaining) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"),
     SELECT("");
 
     Queries(String sql) {

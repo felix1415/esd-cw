@@ -43,7 +43,7 @@
         <input type="text" name="address" class="form-control" id="address" placeholder="" value="${registerResponse.get("address")}">
     </div>
     <div class="form-group">
-        <label for="dob">Date of Birth</label>
+        <label for="dob">Date of Birth (dd-MM-yyyy)</label>
         <input type="text" name="dob" class="form-control" id="dob" placeholder="" value="${registerResponse.get("dob")}">
     </div>
     <div class="form-group">

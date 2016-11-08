@@ -82,6 +82,9 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // define forwarding path
+        String forwardPath = "login.jsp";
+        
         // instance registration service
         RegistrationService registerService = new RegistrationService();
         
@@ -96,14 +99,13 @@ public class RegisterServlet extends HttpServlet {
                 request.getParameter("confirmPassword")
         );
         
-        UserDao userDao = new UserDao();
+        // if registration was not successfull, change the forwarding path
+        if (!Boolean.valueOf((String) registerResponse.get("success"))) {
+            forwardPath = "register.jsp";
+        }
         
-        PrintWriter out = response.getWriter();
-        
-            userDao.findAll();
-            //request.setAttribute("registerResponse", registerResponse);
-            //request.getRequestDispatcher("register.jsp").forward(request, response);
-
+        request.setAttribute("registerResponse", registerResponse);
+        request.getRequestDispatcher(forwardPath).forward(request, response);
     }
 
     /**
