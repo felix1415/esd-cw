@@ -15,31 +15,23 @@ import javax.servlet.http.HttpSession;
  * @author shaun
  */
 public class LoginService {
+    UserDao userDao;
 
-    private final HttpServletRequest request;
-
-    public LoginService(HttpServletRequest request) {
-        this.request = request;
+    public LoginService() {
+        this.userDao = new UserDao();
     }
     
-    public boolean login(String username, String password) {
-        
-        UserDao userDao = new UserDao();
-
+    public User login(String username, String password) {
         User user = userDao.findById(username);
 
         if (user.getUserId() == null) {
-            return false;
-
+            return null;
         }
 
         if (user.getPassword().equals(password)) {
-
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            return true;
+            return user;
         } else {
-            return false;
+            return null;
         }
 
     }
