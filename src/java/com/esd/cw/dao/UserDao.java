@@ -109,7 +109,9 @@ public class UserDao {
         return true;
     }
 
-    boolean updateUser(User user) {
+    public boolean updateUserStatus(User user) throws SQLException {
+
+        insert(String.format(Queries.UPDATE_USER_STATUS.getStatement(), user.getUserId(), user.getStatus()));
         return true;
     }
 

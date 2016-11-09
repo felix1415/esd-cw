@@ -71,11 +71,17 @@ public class PaymentServlet extends HttpServlet {
         HttpSession session = request.getSession();
         com.esd.cw.model.User user = (com.esd.cw.model.User) session.getAttribute("user");
         
-        Member member = memberDao.findById(user.getUserId());
-        member.setBalance(member.getBalance() + paymentAmount);
-        
-        paymentService.makeMembershipPayment(paymentAmount, paymentType, user, member);
-        
+        String paymentStatus = "";
+        if (paymentAmount != 500 && paymentType.equals("Membership")) {
+            
+            paymentStatus = " payment failed: Membership payments cost 500";
+            
+            request.setAttribute("paymentStatus", user);
+        } else {
+            paymentStatus = "payment processed, Membership pending admin approval ";
+            paymentService.makeMembershipPayment(paymentAmount, paymentType, user);
+            request.setAttribute(paymentType, user);
+        }
     }
 
     /**

@@ -14,7 +14,8 @@ public enum Queries {
     INSERT_PAYMENT("INSERT INTO payments VALUES ('%s', '%s', %s , '%s')"),
     INSERT_USER("INSERT INTO users (id, password, status, is_admin) VALUES ('%s', '%s', '%s', %b)"),
     INSERT_MEMBER("INSERT INTO Members (id, name, address, dob, dor, status, balance, claims_remaining) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"),
-    SELECT("");
+    UPDATE_MEMBER_STATUS("UPDATE Members WHERE id = %s SET status= '%s'"),
+    UPDATE_USER_STATUS("UPDATE users WHERE id= %s SET status = '%s'");
 
     Queries(String sql) {
         this.sql = sql;

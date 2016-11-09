@@ -5,18 +5,20 @@
  */
 package com.esd.cw.dao;
 
+import com.esd.cw.Queries;
 import com.esd.cw.model.Member;
 import com.esd.cw.util.Util;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javafx.scene.shape.QuadCurve;
 
 /**
  *
  * @author shaun
  */
-public class MemberDao  {
+public class MemberDao {
 
     public MemberDao() {
 
@@ -88,21 +90,9 @@ public class MemberDao  {
         return true;
     }
 
-   public boolean updateMember(Member member) throws SQLException {
-        StringBuilder s = new StringBuilder();
-        try {
+    public boolean updateMemberStatus(Member member) throws SQLException {
 
-            s.append("UPDATE Members SET balance =");
-            s.append(member.getBalance());
-            s.append("WHERE id='");
-            s.append(member.getMemberId());
-            s.append("'");
-
-            DbBean.getInstance().runQuery(s.toString());
-
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
+        DbBean.getInstance().runQuery(String.format(Queries.UPDATE_MEMBER_STATUS.getStatement(), member.getStatus(), member.getMemberId()));
 
         return true;
     }
