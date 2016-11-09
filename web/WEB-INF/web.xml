@@ -68,6 +68,14 @@
         <servlet-name>UnPaidMemberServlet</servlet-name>
         <url-pattern>/upmember</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>PaidMemberServlet</servlet-name>
+        <servlet-class>com.esd.cw.servlet.PaidMemberServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaidMemberServlet</servlet-name>
+        <url-pattern>/pmember</url-pattern>
+    </servlet-mapping>
     <listener>
         <listener-class>
             com.esd.cw.MyServletContextListener

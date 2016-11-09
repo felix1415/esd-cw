@@ -48,28 +48,29 @@ public class LoginServlet extends HttpServlet
     throws ServletException, IOException {
         response.setContentType("text/html");
     
-        //get username and 
+        //get username and password
         String username = request.getParameter("username");
         String password = request.getParameter("password");
     
+        //get user from login service, add user to session
         LoginService loginService = new LoginService();
         User user = loginService.login(username, password);
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         
+        //send to paid/unpaid dashboard dependent on user status
         if(user != null)
         {
             String path;
             if("PAID".equals(user.getUserStatus()))
             {
-                path = "paid_member_dashboard.jsp";
+                path = "pmember";
             }
             else
             {
-                path = "unpaid_member_dashboard.jsp";
+                path = "upmember";
             }
-//            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-            request.getRequestDispatcher(path).forward(request, response);
+            response.sendRedirect(path);
         }
         else
         {
