@@ -16,15 +16,19 @@
 
         <select name="paymentType">
             <option></option>
-            <option>Card</option>
-            <option selected="selected">Cash</option>
+            <option>Membership</option>
+            <option selected="selected">Claim????</option>
 
         </select>
 
     </div>
-   
+
 
     <input type="submit" value="submit">
+    
+    <div>
+        <% out.print(request.getAttribute("paymentStatus"));%>
+    </div>
 
 
 </form>

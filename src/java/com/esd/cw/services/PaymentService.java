@@ -26,31 +26,32 @@ public class PaymentService {
         paymentDao = new PaymentDao();
         memberDao = new MemberDao();
     }
-
+/**
+ * 
+ * @param value
+ * @param typeOfPayment
+ * @param user
+ * @return 
+ */
     public boolean makeMembershipPayment(float value, String typeOfPayment, User user) {
         try {
 
+            userDao = new UserDao();
+            memberDao = new MemberDao();
             Date date = new Date();
             String memId = user.getUserId();
             Member member = memberDao.findById(memId);
 
-            //Process the payment...
+            //Process the payment with given values plus curent date
             paymentDao.makePayment(value, typeOfPayment, memId, date);
 
             //Update member and user status....
-            if (member == null) {
-                //TODO If this is a new member and not a renewell then create a member entry for this user
+            member.setStatus("PENDING");
+            user.setUserStatus("PENDING");
 
-            } else {
-
-                //IF this is not a renewall then update existing user and member status'
-                member.setStatus("PENDING");
-                user.setUserStatus("PENDING");
-
-                userDao.updateUserStatus(user);
-                memberDao.updateMember(member);
-
-            }
+            //update the database to reflect the changes
+            userDao.updateUserStatus(user);
+            memberDao.updateMemberStatus(member);
 
         } catch (Exception e) {
             e.printStackTrace();
