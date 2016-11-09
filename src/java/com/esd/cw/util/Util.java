@@ -17,9 +17,9 @@ import java.util.Locale;
  */
 public class Util
 {
+    static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     public static Date getDateFromString(String dateIn)
     {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         Date dob;
         try
         {

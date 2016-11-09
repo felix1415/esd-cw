@@ -1,7 +1,6 @@
 <!-- include header start (leave alone) -->
 <jsp:include page='header.jsp'/>
 <!-- include header end -->
-<c:set var="loginMessage" scope="session" value="."/>
 <!-- page content start (customise) -->
 <h1>Unpaid Member Dashboard</h1>
 <br>
