@@ -51,9 +51,11 @@ public class User {
         return userId;
     }
 
+
     public String getStatus() {
 
         return userStatus;
     }
+
 
 }

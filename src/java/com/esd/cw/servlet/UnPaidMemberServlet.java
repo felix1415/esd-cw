@@ -8,6 +8,7 @@ package com.esd.cw.servlet;
 import com.esd.cw.dao.MemberDao;
 import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
+import com.esd.cw.services.DashboardService;
 import com.esd.cw.services.LoginService;
 import java.io.*;
 import javax.servlet.*;
@@ -29,23 +30,27 @@ public class UnPaidMemberServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String path = "unpaid_member_dashboard.jsp";
+        String path;
         HttpSession session = request.getSession();
+        DashboardService dbService = new DashboardService();
         
-        if(session.getAttribute("user") != null )
+        //get user from session, check if logged in
+        User user = (User) session.getAttribute("user");
+        if(user != null )
         {
-            User user = (User) session.getAttribute("user");
             Member member;
+            //if no memeber in the session, get one from the dashboard service
             if(session.getAttribute("member") != null )
             {
                 member = (Member)session.getAttribute("member");
             }
             else
             {
-                member = memberDao.findById(user.getUserId());
+                member = dbService.getMember(user);
                 session.setAttribute("member", member);
             }
             
+            //put member attributes into session for ease of use on dashboards
             request.setAttribute("test", user.getUserId());
             request.setAttribute("id", member.getMemberId());
             request.setAttribute("name", member.getName());
@@ -55,11 +60,20 @@ public class UnPaidMemberServlet extends HttpServlet
             request.setAttribute("status", member.getStatus());
             request.setAttribute("balance", member.getBalance());
             request.setAttribute("claims_remaining", member.getClaimsRemaining());
-        }
-        else
-        {
+            
+            //go to the paid member dashboard if member has paid
+            if(member.getStatus() == "PAID")
+            {
+                path = "paid_member_dashboard.jsp";
+            }
+            else
+            {
+                path = "unpaid_member_dashboard.jsp";
+            }
+        } else {
             path = "index.jsp";
         }
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
         dispatcher.forward(request, response);
         
@@ -73,29 +87,7 @@ public class UnPaidMemberServlet extends HttpServlet
    */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html");
-    
-        //get username and 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-    
-        LoginService loginService = new LoginService(request);
-        boolean loginSuccess = loginService.login(username, password);
-        
-        String loginMessage = "";
-        if(loginSuccess)
-        {
-            request.setAttribute("loginMessage", loginMessage);
-            request.getRequestDispatcher("/").forward(request, response);
-        }
-        else
-        {
-            loginMessage = "Incorrect login information!";
-            request.setAttribute("loginMessage", loginMessage);
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-    
+    throws ServletException, IOException {    
         
     }    
     

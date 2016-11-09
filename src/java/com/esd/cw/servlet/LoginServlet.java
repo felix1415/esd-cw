@@ -5,6 +5,7 @@
  */
 package com.esd.cw.servlet;
 
+import com.esd.cw.model.User;
 import com.esd.cw.services.LoginService;
 import java.io.*;
 import javax.servlet.*;
@@ -47,22 +48,33 @@ public class LoginServlet extends HttpServlet
     throws ServletException, IOException {
         response.setContentType("text/html");
     
-        //get username and 
+        //get username and password
         String username = request.getParameter("username");
         String password = request.getParameter("password");
     
-        LoginService loginService = new LoginService(request);
-        boolean loginSuccess = loginService.login(username, password);
+        //get user from login service, add user to session
+        LoginService loginService = new LoginService();
+        User user = loginService.login(username, password);
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
         
-        String loginMessage = "";
-        if(loginSuccess)
+        //send to paid/unpaid dashboard dependent on user status
+        if(user != null)
         {
-            request.setAttribute("loginMessage", loginMessage);
-            request.getRequestDispatcher("/").forward(request, response);
+            String path;
+            if("PAID".equals(user.getUserStatus()))
+            {
+                path = "pmember";
+            }
+            else
+            {
+                path = "upmember";
+            }
+            response.sendRedirect(path);
         }
         else
         {
-            loginMessage = "Incorrect login information!";
+            String loginMessage = "Incorrect login information!";
             request.setAttribute("loginMessage", loginMessage);
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }

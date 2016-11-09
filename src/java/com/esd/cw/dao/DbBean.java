@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.esd.cw.dao;
 
 import com.esd.cw.util.PropertiesUtil;
@@ -42,6 +37,14 @@ public class DbBean {
         
     }
     
+    /**
+     * Method to set database parameters before singleton is instantiated.
+     * Called by context initialised in listener class.
+     * @param url
+     * @param username
+     * @param password
+     * @param databaseName 
+     */
     public static void setParameters(String url, String username, String password, String databaseName) {
         try {
             getInstance().url = url;
@@ -60,42 +63,18 @@ public class DbBean {
     }
 
     /**
-     * The Static initializer constructs the instance at class
-     * loading time; this is to simulate a more involved
-     * construction process (it it were really simple, you'd just
-     * use an initializer)
+     * The Static initialiser constructs the instance at class loading time
      */
     static {
         instance = new DbBean();
     }
 
-    /** Static 'instance' method */
+    /** Static instance method 
+        @return : the only instance we have is returned
+      */
     public static DbBean getInstance() {
         return instance;
     }
-
-    // other methods protected by singleton-ness would be here...
-    /** A simple demo method */
-    public String demoMethod() {
-        return "demo";
-    }
-
-//    public DbBean(String url, String username, String password,String databaseName) {
-//        try {
-//            
-//            MysqlDataSource dataSource = new MysqlDataSource();
-//            dataSource.setUser(username);
-//            dataSource.setPassword(password);
-//            dataSource.setServerName(url);
-//            dataSource.setDatabaseName(databaseName); 
-//
-//            con = dataSource.getConnection();
-//
-//        } catch (Exception e) {
-//            System.err.println("Error creating database connection: " + e);
-//
-//        }
-//    }
 
     public ArrayList select(String query) throws SQLException {
 
@@ -169,14 +148,6 @@ public class DbBean {
     }
 
     public void runQuery(String query) throws SQLException {
-        // TODO - BUG
-        // There is a bit of a bug here. As we initialise the connection in the constructor,
-        // if you attempt to make 2 or more queries to the DB, it will error because the conenction
-        // will be closed.
-        // We can either reinstance *Dao object every time we need to make a connection.
-        // or create a get connection function which is called at the start or every query function
-        // see below functions
-        
         con = instance.getConnection();
         state = con.createStatement();
         state.execute(query);
