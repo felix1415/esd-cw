@@ -8,22 +8,20 @@ package com.esd.cw.dao;
 import com.esd.cw.Queries;
 import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
-import com.sun.istack.internal.logging.Logger;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  *
  * @author shaun
  */
-public class UserDao extends AbstractDao {
+public class UserDao {
 
     public UserDao() {
-        super();
+        
     }
 
     public List<User> findAll() {
@@ -36,7 +34,7 @@ public class UserDao extends AbstractDao {
 
         try {
             // run the query and get a hash map of all rows
-            result = super.select("SELECT * FROM users");
+            result = DbBean.getInstance().select("SELECT * FROM users");
         } catch (SQLException e) {
             // error
             System.out.println("ERROR: UserDao().findAll() - " + e.toString());
@@ -64,7 +62,7 @@ public class UserDao extends AbstractDao {
         ArrayList<HashMap> result = new ArrayList();
 
         try {
-            result = super.select("SELECT * FROM users WHERE id='" + userId + "'");
+            result = DbBean.getInstance().select("SELECT * FROM users WHERE id='" + userId + "'");
         } catch (SQLException e) {
 
         }
@@ -86,7 +84,7 @@ public class UserDao extends AbstractDao {
         ArrayList<HashMap> result = new ArrayList();
 
         try {
-            result = super.select("SELECT * FROM users WHERE id='" + userId + "'");
+            result = DbBean.getInstance().select("SELECT * FROM users WHERE id='" + userId + "'");
         } catch (SQLException e) {
 
         }
@@ -98,8 +96,8 @@ public class UserDao extends AbstractDao {
         try {
             String dob = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(member.getDateOfBirth());
             String dor = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(member.getDateOfRegistration());
-            insert(String.format(Queries.INSERT_USER.getStatement(), user.getUserId(), user.getPassword(), user.getUserStatus(), user.isIsAdmin()));
-            insert(String.format(Queries.INSERT_MEMBER.getStatement(), member.getMemberId(), member.getName(), member.getAddress(), dob, dor, member.getStatus(), member.getBalance(), member.getClaimsRemaining()));
+            DbBean.getInstance().runQuery(String.format(Queries.INSERT_USER.getStatement(), user.getUserId(), user.getPassword(), user.getUserStatus(), user.isIsAdmin()));
+            DbBean.getInstance().runQuery(String.format(Queries.INSERT_MEMBER.getStatement(), member.getMemberId(), member.getName(), member.getAddress(), dob, dor, member.getStatus(), member.getBalance(), member.getClaimsRemaining()));
             return true;
         } catch (Exception e) {
             System.out.println(e);

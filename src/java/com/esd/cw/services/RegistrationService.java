@@ -5,6 +5,7 @@
  */
 package com.esd.cw.services;
 
+import com.esd.cw.dao.DbBean;
 import com.esd.cw.dao.MemberDao;
 import com.esd.cw.dao.UserDao;
 import com.esd.cw.model.Member;
@@ -33,7 +34,7 @@ public class RegistrationService {
         MemberDao memberDao = new MemberDao();
 
         try {
-            String result = userDao.doQueryReturningTwoColumns("SELECT * FROM users");
+            String result = DbBean.getInstance().doQueryReturningTwoColumns("SELECT * FROM users");
             System.out.println(result);
         } catch (SQLException e) {
 

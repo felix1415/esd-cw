@@ -15,9 +15,9 @@ import java.util.logging.Logger;
  *
  * @author shaun
  */
-public class ClaimDao extends AbstractDao {
+public class ClaimDao {
     
     public ClaimDao() {
-        super();
+       
     }
 }

@@ -16,10 +16,10 @@ import java.util.List;
  *
  * @author shaun
  */
-public class MemberDao extends AbstractDao {
+public class MemberDao  {
 
     public MemberDao() {
-        super();
+
     }
 
     public List<Member> findAll() {
@@ -32,7 +32,7 @@ public class MemberDao extends AbstractDao {
 
         try {
             // run the query and get a hash map of all rows
-            result = super.select("SELECT * FROM Members");
+            result = DbBean.getInstance().select("SELECT * FROM Members");
         } catch (SQLException e) {
 
         }
@@ -63,7 +63,7 @@ public class MemberDao extends AbstractDao {
         ArrayList<HashMap> result = new ArrayList();
 
         try {
-            result = super.select("SELECT * FROM Members WHERE id='" + memberId + "'");
+            result = DbBean.getInstance().select("SELECT * FROM Members WHERE id='" + memberId + "'");
         } catch (SQLException e) {
 
         }
@@ -98,7 +98,7 @@ public class MemberDao extends AbstractDao {
             s.append(member.getMemberId());
             s.append("'");
 
-            super.insert(s.toString());
+            DbBean.getInstance().runQuery(s.toString());
 
         } catch (Exception e) {
             System.out.println(e.toString());

@@ -13,18 +13,17 @@ import java.util.Date;
  *
  * @author shaun
  */
-public class PaymentDao extends AbstractDao {
+public class PaymentDao {
 
     public PaymentDao() {
 
-        super();
     }
 
     public void makePayment(float amount, String typeOfPayment, String memId, Date date) {
 
         try {
             String dateString = new SimpleDateFormat("YYYY-MM-dd hh-mm-ss").format(date);
-            insert(String.format(Queries.INSERT_PAYMENT.getStatement(), memId, typeOfPayment, amount, dateString));
+            DbBean.getInstance().runQuery(String.format(Queries.INSERT_PAYMENT.getStatement(), memId, typeOfPayment, amount, dateString));
         } catch (Exception e) {
             System.out.println(e);
         }

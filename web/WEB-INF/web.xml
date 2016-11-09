@@ -10,7 +10,7 @@
     </context-param>
     <context-param>
         <param-name>database-name</param-name>
-        <param-value>esd</param-value>
+        <param-value>XYZ_Assoc</param-value>
     </context-param>
     <context-param>
         <param-name>database-username</param-name>
@@ -68,7 +68,11 @@
         <servlet-name>UnPaidMemberServlet</servlet-name>
         <url-pattern>/upmember</url-pattern>
     </servlet-mapping>
-    
+    <listener>
+        <listener-class>
+            com.esd.cw.MyServletContextListener
+        </listener-class>
+    </listener>
     <session-config>
         <session-timeout>
             30

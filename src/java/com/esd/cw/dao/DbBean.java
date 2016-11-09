@@ -18,47 +18,88 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Abstract DAO class, for all over DAOs to extend. Contains methods to execute
- * queries and get statements.
+ * DbBean
  *
  * @author shaun
  */
-public abstract class AbstractDao {
-
-    private Connection con;
+public class DbBean {
+    
+    private static DbBean instance;
+    private static Connection con;
+    private static MysqlDataSource dataSource;
     private Statement state;
     private ResultSet rs;
+    private static String url;
+    private static String username;
+    private static String password;
+    private static String databaseName;
 
-    private static final String URL_KEY = "database-url";
-    private static final String PORT_KEY = "database-port";
-    private static final String USERNAME_KEY = "database-username";
-    private static final String PASSWORD_KEY = "database-password";
-    private static final String DATABASE_NAME = "database-name";
-
-    public AbstractDao() {
+    /**
+     * A private Constructor prevents any other class from
+     * instantiating.
+     */
+    private DbBean() {
+        
+    }
+    
+    public static void setParameters(String url, String username, String password, String databaseName) {
         try {
-            String url = PropertiesUtil.getPropertyAsString(URL_KEY);
-            String username = PropertiesUtil.getPropertyAsString(USERNAME_KEY);
-            String password = PropertiesUtil.getPropertyAsString(PASSWORD_KEY);
-            String databaseName = PropertiesUtil.getPropertyAsString(DATABASE_NAME);
-
-            MysqlDataSource dataSource = new MysqlDataSource();
+            getInstance().url = url;
+            getInstance().username = username;
+            getInstance().password = password;
+            getInstance().databaseName = databaseName;
+            dataSource = new MysqlDataSource();
             dataSource.setUser(username);
             dataSource.setPassword(password);
             dataSource.setServerName(url);
-            dataSource.setDatabaseName(databaseName); // TODO shouldn't hardcode this. Should set as a context attribute? (or whichever is relevant)
-
+            dataSource.setDatabaseName(databaseName);
             con = dataSource.getConnection();
-
-        } catch (Exception e) {
-            System.err.println("Error: " + e);
-
+        } catch (SQLException ex) {
+            System.out.println("Error setting up database connection");
         }
     }
 
+    /**
+     * The Static initializer constructs the instance at class
+     * loading time; this is to simulate a more involved
+     * construction process (it it were really simple, you'd just
+     * use an initializer)
+     */
+    static {
+        instance = new DbBean();
+    }
+
+    /** Static 'instance' method */
+    public static DbBean getInstance() {
+        return instance;
+    }
+
+    // other methods protected by singleton-ness would be here...
+    /** A simple demo method */
+    public String demoMethod() {
+        return "demo";
+    }
+
+//    public DbBean(String url, String username, String password,String databaseName) {
+//        try {
+//            
+//            MysqlDataSource dataSource = new MysqlDataSource();
+//            dataSource.setUser(username);
+//            dataSource.setPassword(password);
+//            dataSource.setServerName(url);
+//            dataSource.setDatabaseName(databaseName); 
+//
+//            con = dataSource.getConnection();
+//
+//        } catch (Exception e) {
+//            System.err.println("Error creating database connection: " + e);
+//
+//        }
+//    }
+
     public ArrayList select(String query) throws SQLException {
 
-        state = con.createStatement();
+        state = instance.getConnection().createStatement();
         
         rs = state.executeQuery(query);
 
@@ -78,21 +119,19 @@ public abstract class AbstractDao {
         }
         rs.close();
         state.close();
-        con.close();
 
         return result;
     }
 
     public String doQueryReturningTwoColumns(String query) throws SQLException {
         StringBuilder sb = new StringBuilder();
-        state = con.createStatement();
+        state = instance.getConnection().createStatement();
         rs = state.executeQuery(query);
         while (rs.next()) {
             sb.append(rs.getString(1) + "," + rs.getString(2));
         }
-        //rs.close();
-        //state.close();
-        //con.close();
+        rs.close();
+        state.close();
         return sb.toString();
     }
 
@@ -107,31 +146,29 @@ public abstract class AbstractDao {
      */
     public String doQueryReturningXColumns(String query, int columns) throws SQLException {
         StringBuilder sb = new StringBuilder();
-        state = con.createStatement();
+        state = instance.getConnection().createStatement();
         rs = state.executeQuery(query);
         while (rs.next()) {
             for (int i = 0; i < columns; i++) {
                 sb.append(rs.getString(i) + ",");
             }
-
         }
         rs.close();
         state.close();
-        con.close();
         return sb.toString();
     }
 
     public Statement getStatement() {
         Statement statement = null;
         try {
-            statement = con.createStatement();
+            statement = instance.getConnection().createStatement();
         } catch (SQLException ex) {
-            Logger.getLogger(AbstractDao.class.getName()).log(Level.SEVERE, "Failed to get statement", ex);
+            Logger.getLogger(DbBean.class.getName()).log(Level.SEVERE, "Failed to get statement", ex);
         }
         return statement;
     }
 
-    public void insert(String query) throws SQLException {
+    public void runQuery(String query) throws SQLException {
         // TODO - BUG
         // There is a bit of a bug here. As we initialise the connection in the constructor,
         // if you attempt to make 2 or more queries to the DB, it will error because the conenction
@@ -140,34 +177,24 @@ public abstract class AbstractDao {
         // or create a get connection function which is called at the start or every query function
         // see below functions
         
-        con = getConnection();
+        con = instance.getConnection();
         state = con.createStatement();
         state.execute(query);
         state.close();
-        con.close();
     }
     
-    public Connection getConnection () {
-        
-        try {
-            String url = PropertiesUtil.getPropertyAsString(URL_KEY);
-            String username = PropertiesUtil.getPropertyAsString(USERNAME_KEY);
-            String password = PropertiesUtil.getPropertyAsString(PASSWORD_KEY);
-            String databaseName = PropertiesUtil.getPropertyAsString(DATABASE_NAME);
-
-            MysqlDataSource dataSource = new MysqlDataSource();
-            dataSource.setUser(username);
-            dataSource.setPassword(password);
-            dataSource.setServerName(url);
-            dataSource.setDatabaseName(databaseName); // TODO shouldn't hardcode this. Should set as a context attribute? (or whichever is relevant)
-
-            con = dataSource.getConnection();
-            
-        } catch (Exception e) {
-            System.err.println("Error: " + e);
-        }
-        
-        return con;
+    private Connection getConnection(){
+        return instance.con;
     }
+
+    public void shutDown() {
+        try {
+            getConnection().close();
+        } catch (SQLException ex) {
+            System.out.println("Failed to close the database connection");
+        }
+    }
+    
+  
 
 }
