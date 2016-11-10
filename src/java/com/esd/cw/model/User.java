@@ -13,20 +13,19 @@ import java.util.List;
  *
  * @author alexgray
  */
-public class User
-{
-    
+public class User {
+
     private String userId;
     private String password;
     private String userStatus;
     private boolean isAdmin;
     Member member;
     List<Payment> payments;
-    
+
     public User() {
-        
+
     }
-    
+
     public User(String userId, String password, String userStatus, boolean isAdmin) {
         this.userId = userId;
         this.password = password;
@@ -40,33 +39,27 @@ public class User
         }
     }
 
-    public boolean isIsAdmin()
-    {
+    public boolean isIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean isAdmin)
-    {
+    public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 
-    public String getUserStatus()
-    {
+    public String getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(String userStatus)
-    {
+    public void setUserStatus(String userStatus) {
         this.userStatus = userStatus;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
-    public String getUserId()
-    {
+    public String getUserId() {
         return userId;
     }
     
@@ -87,5 +80,9 @@ public class User
     
     public List<Payment> getPayments() {
         return payments;
+    }
+
+    public String getStatus() {
+        return userStatus;
     }
 }

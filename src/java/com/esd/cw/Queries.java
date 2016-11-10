@@ -11,10 +11,11 @@ package com.esd.cw;
  */
 public enum Queries {
 
-    INSERT_PAYMENT("INSERT INTO payments VALUES ('%s', '%s', %s , '%s')"),
+    INSERT_PAYMENT("INSERT INTO payments (mem_id, type_of_payment, amount, date) VALUES ('%s','%s',%s ,'%s')"),
     INSERT_USER("INSERT INTO users (id, password, status, is_admin) VALUES ('%s', '%s', '%s', %b)"),
     INSERT_MEMBER("INSERT INTO Members (id, name, address, dob, dor, status, balance, claims_remaining) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"),
-    SELECT("");
+    UPDATE_MEMBER_STATUS("UPDATE Members SET status = '%s' WHERE id = '%s'"),
+    UPDATE_USER_STATUS("UPDATE users SET status = '%s' WHERE id= '%s'");
 
     Queries(String sql) {
         this.sql = sql;

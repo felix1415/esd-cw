@@ -21,7 +21,7 @@ import java.util.List;
 public class UserDao {
     
     public UserDao() {
-        
+
     }
 
     public List<User> findAll() {
@@ -141,7 +141,9 @@ public class UserDao {
         return true;
     }
 
-    boolean updateUser(User user) {
+    public boolean updateUserStatus(User user) throws SQLException {
+
+        DbBean.getInstance().runQuery(String.format(Queries.UPDATE_USER_STATUS.getStatement(), user.getStatus(), user.getUserId()));
         return true;
     }
 
