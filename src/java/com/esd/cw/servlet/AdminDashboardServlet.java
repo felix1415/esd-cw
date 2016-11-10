@@ -62,19 +62,13 @@ public class AdminDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String path;
         User user = (User) request.getSession().getAttribute("user");
         
-        PrintWriter out = response.getWriter();
-
-        if (false) {
-        //if (user == null) {
+        if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
-            if (true) {
-            //if (!user.isIsAdmin()) {
+            if (!user.isIsAdmin()) {
                 
-                out.println("IS ADMIN");
                 // get all users data
                 request.setAttribute("allUsers", ads.getUsers());
                 

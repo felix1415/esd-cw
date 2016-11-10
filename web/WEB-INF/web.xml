@@ -95,7 +95,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminManageUserServlet</servlet-name>
-        <url-pattern>/admin/manage</url-pattern>
+        <url-pattern>/admin/manageuser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

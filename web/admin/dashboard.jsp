@@ -18,7 +18,7 @@
         <%
             for (User u : (List<User>) request.getAttribute("allUsers")) {
         %>
-    <form role="form" method="post" action="manageuser">
+    <form role="form" method="get" action="manageuser">
         <tr>
             <td><input hidden name="userId" value="<%=u.getUserId()%>"><%=u.getUserId()%></td>
             <td><%=u.getUserStatus()%></td>

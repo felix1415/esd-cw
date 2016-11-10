@@ -5,6 +5,8 @@
  */
 package com.esd.cw.servlet;
 
+import com.esd.cw.model.User;
+import com.esd.cw.services.AdminManageUserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AdminManageUserServlet extends HttpServlet {
 
+    AdminManageUserService manageUserService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,7 +59,22 @@ public class AdminManageUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        manageUserService = new AdminManageUserService(request.getParameter("userId"));
+
+        // get the logged in user for authentication
+        User user = (User) request.getSession().getAttribute("user");
+        
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        } else {
+            if (!user.isIsAdmin()) {
+                request.setAttribute("manageUser", manageUserService.getUser());
+                request.getRequestDispatcher("manage_user.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("authentication_error.jsp").forward(request, response);
+            }
+        }
     }
 
     /**
@@ -70,7 +88,9 @@ public class AdminManageUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        PrintWriter out = response.getWriter();
+        out.println("POST");
     }
 
     /**
