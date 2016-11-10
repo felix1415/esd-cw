@@ -16,11 +16,11 @@ public class Payment
     
     private final int paymentId;
     private final String memberId;
-    private final char typeOfPayment;
+    private final String typeOfPayment;
     private final Date dateOfPayment;
     private final float paymentAmount;
 
-    public Payment(int paymentId, String memberId, char typeOfPayment, float paymentAmount)
+    public Payment(int paymentId, String memberId, String typeOfPayment, float paymentAmount)
     {
         this.paymentId = paymentId;
         this.memberId = memberId;
@@ -39,7 +39,7 @@ public class Payment
         return dateOfPayment;
     }
 
-    public char getTypeOfPayment()
+    public String getTypeOfPayment()
     {
         return typeOfPayment;
     }

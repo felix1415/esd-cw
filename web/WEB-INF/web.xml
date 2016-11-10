@@ -36,6 +36,14 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.esd.cw.servlet.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <servlet-class>com.esd.cw.servlet.AdminDashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminManageUserServlet</servlet-name>
+        <servlet-class>com.esd.cw.servlet.AdminManageUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ApplicationServlet</servlet-name>
         <url-pattern>/ApplicationServlet</url-pattern>
@@ -81,6 +89,14 @@
             com.esd.cw.MyServletContextListener
         </listener-class>
     </listener>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminManageUserServlet</servlet-name>
+        <url-pattern>/admin/manage</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
