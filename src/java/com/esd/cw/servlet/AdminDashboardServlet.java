@@ -67,7 +67,7 @@ public class AdminDashboardServlet extends HttpServlet {
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
-            if (!user.isIsAdmin()) {
+            if (user.isIsAdmin()) {
                 
                 // get all users data
                 request.setAttribute("allUsers", ads.getUsers());

@@ -68,7 +68,7 @@ public class AdminManageUserServlet extends HttpServlet {
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
-            if (!user.isIsAdmin()) {
+            if (user.isIsAdmin()) {
                 request.setAttribute("manageUser", manageUserService.getUser());
                 request.getRequestDispatcher("manage_user.jsp").forward(request, response);
             } else {
