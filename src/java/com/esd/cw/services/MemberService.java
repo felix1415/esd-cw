@@ -1,0 +1,38 @@
+/*
+ * Stephen Turner, Computer Science BSc Year 3
+ * University Of the West Of England
+ */
+package com.esd.cw.services;
+
+import com.esd.cw.dao.MemberDao;
+import com.esd.cw.dao.UserDao;
+import com.esd.cw.model.Member;
+import com.esd.cw.util.PropertiesUtil;
+
+/**
+ *
+ * @author sturner
+ */
+public class MemberService {
+
+    MemberDao memberDao;
+    UserDao userDao;
+
+    public MemberService() {
+        this.memberDao = new MemberDao();
+        this.userDao = new UserDao();
+    }
+
+    public boolean claimBalanceCheck(String memId, double claimAmount) {
+
+        Member member = this.memberDao.findById(memId);
+
+        if ((claimAmount / 100 * Integer.parseInt(PropertiesUtil.getPropertyAsString("claim-percentage"))) < member.getBalance()) {
+
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+}

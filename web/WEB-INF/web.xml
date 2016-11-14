@@ -39,6 +39,10 @@
     <servlet>
         <servlet-name>AdminDashboardServlet</servlet-name>
         <servlet-class>com.esd.cw.servlet.AdminDashboardServlet</servlet-class>
+    </servlet>  
+    <servlet>   
+        <servlet-name>ClaimServlet</servlet-name>
+        <servlet-class>com.esd.cw.servlet.ClaimServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminManageUserServlet</servlet-name>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>ApplicationServlet</servlet-name>
         <url-pattern>/ApplicationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClaimServlet</servlet-name>
+        <url-pattern>/claim</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
