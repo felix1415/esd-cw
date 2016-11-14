@@ -15,12 +15,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.DefaultHttpClient;
-import sun.net.www.http.HttpClient;
 
 /**
  *
@@ -54,7 +48,7 @@ public class AddressLookupService {
             
           
         
-        return stringBuilder.toString().replace(" , , , ,", "");
+        return stringBuilder.toString();
     }
     
 }
