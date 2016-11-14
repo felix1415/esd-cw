@@ -14,8 +14,8 @@ import com.esd.cw.dao.UserDao;
  */
 public class ClaimService {
 
-    ClaimDao claimDa0;
-    MemberDao memberDao;
-    UserDao userDao;
-
+    ClaimDao claimDao = new ClaimDao();
+    MemberDao memberDao = new MemberDao();
+    UserDao userDao = new UserDao();
+    
 }

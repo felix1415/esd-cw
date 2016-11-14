@@ -29,7 +29,7 @@ public class PaymentDao {
 
         try {
             String dateString = new SimpleDateFormat("YYYY-MM-dd hh-mm-ss").format(date);
-            DbBean.getInstance().runQuery(String.format(Queries.INSERT_PAYMENT.getStatement(), memId, typeOfPayment, amount, dateString));
+            DbBean.getInstance().runQuery(String.format(Queries.INSERT_PAYMENT.getSql(), memId, typeOfPayment, amount, dateString));
         } catch (Exception e) {
             System.out.println(e);
         }
