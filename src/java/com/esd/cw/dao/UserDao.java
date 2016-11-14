@@ -28,7 +28,7 @@ public class UserDao {
 
     }
 
-    public List<User> findAll() {
+    public List<User> findAll() throws SQLException {
 
         // define a list of users
         List<User> allUsers = new ArrayList<User>();
@@ -63,7 +63,7 @@ public class UserDao {
         return allUsers;
     }
 
-    public List<User> findAllNonAdminUsers() {
+    public List<User> findAllNonAdminUsers() throws SQLException {
 
         // define a list of users
         List<User> allUsers = new ArrayList<User>();
@@ -98,7 +98,7 @@ public class UserDao {
         return allUsers;
     }
 
-    public User findById(String userId) {
+    public User findById(String userId) throws SQLException {
 
         // define a hash map to store the result in
         ArrayList<HashMap> result = new ArrayList();

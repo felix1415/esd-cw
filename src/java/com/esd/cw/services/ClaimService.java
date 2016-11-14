@@ -6,7 +6,6 @@ package com.esd.cw.services;
 
 import com.esd.cw.dao.ClaimDao;
 import com.esd.cw.dao.MemberDao;
-import com.esd.cw.dao.UserDao;
 import com.esd.cw.model.Claim;
 import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
@@ -16,7 +15,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import jdk.nashorn.internal.parser.TokenType;
 
 /**
  *
