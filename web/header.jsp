@@ -25,7 +25,6 @@
         <style>
             body{
                 text-transform: uppercase;
-                color: pink;
             }
             .info-heading {
                 color: green;
