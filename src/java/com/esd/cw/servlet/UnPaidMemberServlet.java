@@ -38,31 +38,8 @@ public class UnPaidMemberServlet extends HttpServlet
         User user = (User) session.getAttribute("user");
         if(user != null )
         {
-            Member member;
-            //if no memeber in the session, get one from the dashboard service
-            if(session.getAttribute("member") != null )
-            {
-                member = (Member)session.getAttribute("member");
-            }
-            else
-            {
-                member = dbService.getMember(user);
-                session.setAttribute("member", member);
-            }
-            
-            //put member attributes into session for ease of use on dashboards
-            request.setAttribute("test", user.getUserId());
-            request.setAttribute("id", member.getMemberId());
-            request.setAttribute("name", member.getName());
-            request.setAttribute("address", member.getAddress());
-            request.setAttribute("dob", member.getDateOfBirth());
-            request.setAttribute("dor", member.getDateOfRegistration());
-            request.setAttribute("status", member.getStatus());
-            request.setAttribute("balance", member.getBalance());
-            request.setAttribute("claims_remaining", member.getClaimsRemaining());
-            
             //go to the paid member dashboard if member has paid
-            if(member.getStatus() == "PAID")
+            if(user.getMember().getStatus().equals("PAID"))
             {
                 path = "paid_member_dashboard.jsp";
             }
