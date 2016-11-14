@@ -1,20 +1,42 @@
+<%@page import="com.esd.cw.model.User"%>
 <!-- include header start (leave alone) -->
 <jsp:include page='header.jsp'/>
 <!-- include header end -->
 <!-- page content start (customise) -->
-<h1>Paid Member Dashboard</h1>
-<br>
-<br>
-<span id="loginErrorMessage" class="app-error-box">
-<%  out.println("Member ID: " + request.getAttribute("id")); %> <br/>
-<%  out.println("Name: " + request.getAttribute("name")); %> <br/>
-<%  out.println("Address: " + request.getAttribute("address")); %> <br/>
-<%  out.println("Date Of Birth: " + request.getAttribute("dob")); %> <br/>
-<%  out.println("Date Of Registration: " + request.getAttribute("dor")); %> <br/>
-<%  out.println("Account Status: " + request.getAttribute("status")); %> <br/>
-<%  out.println("Balance: " + request.getAttribute("balance")); %> <br/>
-<%  out.println("Claims Remaining: " + request.getAttribute("claims_remaining")); %> <br/>
-</span>
+<%
+User user = (User) session.getAttribute("user");
+%>
+<h1>Unpaid Member Dashboard</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="user-information-section">
+            <div class="user-information-block">
+                <label class="information-title">User ID</label>
+                <div class="information-value"><%=user.getUserId()%></div>
+            </div>
+            <div class="user-information-block">
+                <label class="information-title">Name</label>
+                <div class="information-value"><%=user.getMember().getName()%></div>
+            </div>
+            <div class="user-information-block">
+                <label class="information-title">Address</label>
+                <div class="information-value"><%=user.getMember().getAddress()%></div>
+            </div>
+            <div class="user-information-block">
+                <label class="information-title">Date of Birth</label>
+                <div class="information-value"><%=user.getMember().getDateOfBirth()%></div>
+            </div>
+            <div class="user-information-block">
+                <label class="information-title">Date of Registration</label>
+                <div class="information-value"><%=user.getMember().getDateOfRegistration()%></div>
+            </div>
+            <div class="user-information-block">
+                <label class="information-title">Status</label>
+                <div class="information-value"><%=user.getMember().getStatus()%></div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- page content end -->
 
 <!-- include footer start (leave alone) -->

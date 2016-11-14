@@ -4,20 +4,6 @@
 <jsp:include page='../header.jsp'/>
 <!-- include header end -->
 
-<!-- page style -->
-<style>
-    .info-heading {
-        color: green;
-    }
-    .user-information-section .user-information-block {
-        display: block;
-    }
-    .information-value {
-        margin-top: -5px;
-        margin-bottom: 10px;
-    }
-</style>
-
 <%
     // grab the user we are managing for use in the form / page
     User manageUser = (User) request.getAttribute("manageUser");

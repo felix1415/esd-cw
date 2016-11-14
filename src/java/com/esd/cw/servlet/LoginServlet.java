@@ -66,6 +66,10 @@ public class LoginServlet extends HttpServlet
             {
                 path = "pmember";
             }
+            else if(user.isIsAdmin())
+            {
+                path = "admin/dashboard";
+            }
             else
             {
                 path = "upmember";

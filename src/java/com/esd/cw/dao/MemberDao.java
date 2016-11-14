@@ -5,7 +5,7 @@
  */
 package com.esd.cw.dao;
 
-import com.esd.cw.Queries;
+import com.esd.cw.enums.Queries;
 import com.esd.cw.model.Member;
 import com.esd.cw.util.Util;
 import java.sql.SQLException;
