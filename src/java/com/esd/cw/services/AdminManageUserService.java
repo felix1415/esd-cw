@@ -18,6 +18,10 @@ public class AdminManageUserService {
     UserDao userDao;
     User user;
     
+    public AdminManageUserService() {
+        
+    }
+    
     public AdminManageUserService(String userId) {
         this.userId = userId;
         this.userDao = new UserDao();
@@ -26,5 +30,9 @@ public class AdminManageUserService {
     
     public User getUser() {
         return user;
+    }
+    
+    public void updateUserStatus(String userId, String status) {
+        
     }
 }
