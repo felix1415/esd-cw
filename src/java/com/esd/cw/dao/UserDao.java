@@ -19,7 +19,11 @@ import java.util.List;
  * @author shaun
  */
 public class UserDao {
-    
+
+    MemberDao memberDao = new MemberDao();
+    PaymentDao paymentDao = new PaymentDao();
+    ClaimDao claimDao = new ClaimDao();
+
     public UserDao() {
 
     }
@@ -47,7 +51,9 @@ public class UserDao {
                             r.get("id").toString(),
                             r.get("password").toString(),
                             r.get("status").toString(),
-                            Boolean.valueOf(r.get("is_admin").toString())
+                            Boolean.valueOf(r.get("is_admin").toString()),
+                            memberDao.findById(r.get("id").toString()),
+                            paymentDao.findPaymentsForUser(r.get("id").toString())
                     )
             );
         }
@@ -55,7 +61,7 @@ public class UserDao {
         // return all the users
         return allUsers;
     }
-    
+
     public List<User> findAllMembers() {
 
         // define a list of users
@@ -79,7 +85,9 @@ public class UserDao {
                             r.get("id").toString(),
                             r.get("password").toString(),
                             r.get("status").toString(),
-                            Boolean.valueOf(r.get("is_admin").toString())
+                            Boolean.valueOf(r.get("is_admin").toString()),
+                            memberDao.findById(r.get("id").toString()),
+                            paymentDao.findPaymentsForUser(r.get("id").toString())
                     )
             );
         }
@@ -104,7 +112,9 @@ public class UserDao {
                     result.get(0).get("id").toString(),
                     result.get(0).get("password").toString(),
                     result.get(0).get("status").toString(),
-                    Boolean.valueOf(result.get(0).get("is_admin").toString())
+                    Boolean.valueOf(result.get(0).get("is_admin").toString()),
+                    memberDao.findById(result.get(0).get("id").toString()),
+                    paymentDao.findPaymentsForUser(result.get(0).get("id").toString())
             );
         } else {
             return new User();
