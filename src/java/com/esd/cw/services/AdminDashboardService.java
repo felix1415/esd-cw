@@ -19,7 +19,7 @@ public class AdminDashboardService {
     List<User> users;
     
     public AdminDashboardService() { 
-        users = userDao.findAllMembers();
+        users = userDao.findAllNonAdminUsers();
     }
 
     public List<User> getUsers() {

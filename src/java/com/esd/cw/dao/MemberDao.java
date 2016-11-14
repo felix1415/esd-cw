@@ -92,7 +92,7 @@ public class MemberDao {
 
     public boolean updateMemberStatus(Member member) throws SQLException {
 
-        DbBean.getInstance().runQuery(String.format(Queries.UPDATE_MEMBER_STATUS.getStatement(), member.getStatus(), member.getMemberId()));
+        DbBean.getInstance().runQuery(String.format(Queries.UPDATE_MEMBER_STATUS.getSql(), member.getStatus(), member.getMemberId()));
 
         return true;
     }
