@@ -21,7 +21,7 @@
     <form role="form" method="get" action="manageuser">
         <tr>
             <td><input hidden name="userId" value="<%=u.getUserId()%>"><%=u.getUserId()%></td>
-            <td><%=u.getUserStatus()%></td>
+            <td><%=u.getMember().getStatus()%></td>
             <td><button class="btn btn-success">Manage</button></td>
         </tr>
     </form>
