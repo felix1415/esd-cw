@@ -19,7 +19,11 @@ import java.util.List;
  * @author shaun
  */
 public class UserDao {
-    
+
+    MemberDao memberDao = new MemberDao();
+    PaymentDao paymentDao = new PaymentDao();
+    ClaimDao claimDao = new ClaimDao();
+
     public UserDao() {
 
     }
@@ -47,7 +51,10 @@ public class UserDao {
                             r.get("id").toString(),
                             r.get("password").toString(),
                             r.get("status").toString(),
-                            Boolean.valueOf(r.get("is_admin").toString())
+                            Boolean.valueOf(r.get("is_admin").toString()),
+                            memberDao.findById(r.get("id").toString()),
+                            paymentDao.findPaymentsForUser(r.get("id").toString()),
+                            claimDao.findClaimsForMember(r.get("id").toString())
                     )
             );
         }
@@ -55,8 +62,8 @@ public class UserDao {
         // return all the users
         return allUsers;
     }
-    
-    public List<User> findAllMembers() {
+
+    public List<User> findAllNonAdminUsers() {
 
         // define a list of users
         List<User> allUsers = new ArrayList<User>();
@@ -79,7 +86,10 @@ public class UserDao {
                             r.get("id").toString(),
                             r.get("password").toString(),
                             r.get("status").toString(),
-                            Boolean.valueOf(r.get("is_admin").toString())
+                            Boolean.valueOf(r.get("is_admin").toString()),
+                            memberDao.findById(r.get("id").toString()),
+                            paymentDao.findPaymentsForUser(r.get("id").toString()),
+                            claimDao.findClaimsForMember(r.get("id").toString())
                     )
             );
         }
@@ -104,7 +114,11 @@ public class UserDao {
                     result.get(0).get("id").toString(),
                     result.get(0).get("password").toString(),
                     result.get(0).get("status").toString(),
-                    Boolean.valueOf(result.get(0).get("is_admin").toString())
+                    Boolean.valueOf(result.get(0).get("is_admin").toString()),
+                    memberDao.findById(result.get(0).get("id").toString()),
+                    paymentDao.findPaymentsForUser(result.get(0).get("id").toString()),
+                    claimDao.findClaimsForMember(result.get(0).get("id").toString())
+
             );
         } else {
             return new User();
@@ -128,8 +142,8 @@ public class UserDao {
         try {
             String dob = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(member.getDateOfBirth());
             String dor = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(member.getDateOfRegistration());
-            DbBean.getInstance().runQuery(String.format(Queries.INSERT_USER.getStatement(), user.getUserId(), user.getPassword(), user.getUserStatus(), user.isIsAdmin()));
-            DbBean.getInstance().runQuery(String.format(Queries.INSERT_MEMBER.getStatement(), member.getMemberId(), member.getName(), member.getAddress(), dob, dor, member.getStatus(), member.getBalance(), member.getClaimsRemaining()));
+            DbBean.getInstance().runQuery(String.format(Queries.INSERT_USER.getSql(), user.getUserId(), user.getPassword(), user.getUserStatus(), user.isIsAdmin()));
+            DbBean.getInstance().runQuery(String.format(Queries.INSERT_MEMBER.getSql(), member.getMemberId(), member.getName(), member.getAddress(), dob, dor, member.getStatus(), member.getBalance(), member.getClaimsRemaining()));
             return true;
         } catch (Exception e) {
             System.out.println(e);
@@ -143,7 +157,7 @@ public class UserDao {
 
     public boolean updateUserStatus(User user) throws SQLException {
 
-        DbBean.getInstance().runQuery(String.format(Queries.UPDATE_USER_STATUS.getStatement(), user.getStatus(), user.getUserId()));
+        DbBean.getInstance().runQuery(String.format(Queries.UPDATE_USER_STATUS.getSql(), user.getStatus(), user.getUserId()));
         return true;
     }
 

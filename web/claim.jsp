@@ -14,10 +14,12 @@
         <label for="rationale">Rationale</label>
         <input type="text" name="rationale" class="form-control" id="rationale" placeholder="">
     </div>
-<br>
-Don't edit this page. Use it as a template to base other pages from.
-<!-- page content end -->
 
-<!-- include footer start (leave me alone) -->
-<jsp:include page='footer.jsp'/>
-<!-- include header end -->
+    <input type="submit" value="submit">
+    <br>
+    Don't edit this page. Use it as a template to base other pages from.
+    <!-- page content end -->
+
+    <!-- include footer start (leave me alone) -->
+    <jsp:include page='footer.jsp'/>
+    <!-- include header end -->

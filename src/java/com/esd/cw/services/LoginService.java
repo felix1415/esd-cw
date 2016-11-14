@@ -7,8 +7,6 @@ package com.esd.cw.services;
 
 import com.esd.cw.dao.UserDao;
 import com.esd.cw.model.User;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  *

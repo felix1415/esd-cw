@@ -3,8 +3,10 @@
 <!-- include header end -->
 
 <!-- page content start (customise) -->
-<h1>Home Landing Page</h1>
-<p>Page content here.</p>
+<h1>XYZ Drivers Association</h1>
+<p>
+    Make your claims here.
+</p>
 <!-- page content end -->
 
 <!-- include footer start (leave alone) -->

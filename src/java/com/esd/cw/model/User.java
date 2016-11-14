@@ -5,8 +5,6 @@
  */
 package com.esd.cw.model;
 
-import com.esd.cw.dao.MemberDao;
-import com.esd.cw.dao.PaymentDao;
 import java.util.List;
 
 /**
@@ -21,6 +19,7 @@ public class User {
     private boolean isAdmin;
     Member member;
     List<Payment> payments;
+    List<Claim> claims;
 
     public User() {
 
@@ -31,10 +30,16 @@ public class User {
         this.password = password;
         this.userStatus = userStatus;
         this.isAdmin = isAdmin;
-        
-        // if they are not an admin. set their member record
-        setMember();
-        setPayments();
+    }
+    
+    public User(String userId, String password, String userStatus, boolean isAdmin, Member member, List<Payment> payments ,List<Claim> claims) {
+        this.userId = userId;
+        this.password = password;
+        this.userStatus = userStatus;
+        this.isAdmin = isAdmin;
+        this.member = member;
+        this.payments = payments;
+        this.claims = claims;
     }
 
     public boolean isIsAdmin() {
@@ -61,17 +66,6 @@ public class User {
         return userId;
     }
     
-    // TODO correct way to do this?
-    private void setMember() {
-        MemberDao memberDao = new MemberDao();
-        this.member = memberDao.findById(this.userId);
-    }
-    
-    private void setPayments() {
-        PaymentDao paymentDao = new PaymentDao();
-        this.payments = paymentDao.findPaymentsForUser(this.userId);
-    }
-    
     public Member getMember() {
         return member;
     }
@@ -83,4 +77,21 @@ public class User {
     public String getStatus() {
         return userStatus;
     }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public List<Claim> getClaims() {
+        return claims;
+    }
+
+    public void setClaims(List<Claim> claims) {
+        this.claims = claims;
+    }
+    
 }
