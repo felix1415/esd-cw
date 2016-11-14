@@ -7,28 +7,22 @@ package com.esd.cw.model;
 
 import java.util.Date;
 
-/**
- *
- * @author alexgray
- */
 public class Claim
 {
     
-    private final int claimId;
     private final int memberId;
     private Date claimDate;
     private String rationale;
     private String status;
     private float amount;
 
-    public Claim(int claimId, int memberId)
+    public Claim(float amount, String rationale, int memberId)
     {
-        this.claimId = claimId;
         this.memberId = memberId;
         this.claimDate = new Date();
-        this.rationale = "";
-        this.status = "";
-        this.amount = (float)0.0;
+        this.rationale = rationale;
+        this.status = "unapproved";
+        this.amount = amount;
     }
 
     public float getAmount()
@@ -75,10 +69,4 @@ public class Claim
     {
         return memberId;
     }
-
-    public int getClaimId()
-    {
-        return claimId;
-    }
-
 }
