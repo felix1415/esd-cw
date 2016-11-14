@@ -1,0 +1,10 @@
+.info-heading {
+    color: green;
+}
+.user-information-section .user-information-block {
+    display: block;
+}
+.information-value {
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
