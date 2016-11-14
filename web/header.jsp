@@ -22,13 +22,25 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-        <!-- Style -->
-        <link rel="stylesheet" href="assets/css/style.css">
-        
-        
+        <style>
+            body{
+                text-transform: uppercase;
+            }
+            .info-heading {
+                color: green;
+            }
+            .user-information-section .user-information-block {
+                display: block;
+            }
+            .information-value {
+                margin-top: -5px;
+                margin-bottom: 10px;
+            }
+        </style>
+
         <!-- Viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ESD</title>
+        <title>XYZ Drivers</title>
     </head>
     <body>
 
@@ -42,7 +54,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">ESD</a>
+                    <a class="navbar-brand" href="/">XYZ Drivers</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
