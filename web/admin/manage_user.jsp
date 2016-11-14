@@ -42,6 +42,19 @@
         </div>
     </div>
 </div>
+<h3 class="info-heading">User Actions</h3>
+<div class="user-actions-block">
+<form method="post">
+    <select name="newStatus">
+        <option value="PENDING">Pending</option>
+        <option value="UNPAID">Unpaid</option>
+        <option value="PAID">Paid</option>
+    </select>
+    <input name="userId" type="text" value="<%= manageUser.getUserId() %>" hidden/>
+  <button type="submit" class="btn btn-default">Update</button>
+</form>
+</div>
+
 <h3 class="info-heading">Financial & Account Information</h3>
 <div class="row">
     <div class="col-md-12">

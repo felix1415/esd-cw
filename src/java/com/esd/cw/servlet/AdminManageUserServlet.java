@@ -89,8 +89,24 @@ public class AdminManageUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        PrintWriter out = response.getWriter();
-        out.println("POST");
+        // get the logged in user for authentication (the admin)
+        User user = (User) request.getSession().getAttribute("user");
+        
+        //create new manage user service with the user' to manage id
+        manageUserService = new AdminManageUserService(request.getParameter("userId"));
+        
+        //get the new stauts
+        String newStatus = request.getParameter("newStatus");
+        
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        } else {
+            if (user.isIsAdmin()) {
+                manageUserService.updateUserStatus(newStatus);
+            } else {
+                request.getRequestDispatcher("authentication_error.jsp").forward(request, response);
+            }
+        }
     }
 
     /**
