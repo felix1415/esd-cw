@@ -7,66 +7,55 @@ package com.esd.cw.model;
 
 import java.util.Date;
 
-public class Claim
-{
-    
-    private final int memberId;
+public class Claim {
+
+    private final String memberId;
     private Date claimDate;
     private String rationale;
     private String status;
     private float amount;
 
-    public Claim(float amount, String rationale, int memberId)
-    {
+    public Claim(float amount, String rationale, String memberId, Date claimDate, String status) {
         this.memberId = memberId;
-        this.claimDate = new Date();
+        this.claimDate = claimDate;
         this.rationale = rationale;
-        this.status = "unapproved";
+        this.status = status;
         this.amount = amount;
     }
 
-    public float getAmount()
-    {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount)
-    {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getRationale()
-    {
+    public String getRationale() {
         return rationale;
     }
 
-    public void setRationale(String rationale)
-    {
+    public void setRationale(String rationale) {
         this.rationale = rationale;
     }
 
-    public Date getClaimDate()
-    {
+    public Date getClaimDate() {
         return claimDate;
     }
 
-    public void setClaimDate(Date claimDate)
-    {
+    public void setClaimDate(Date claimDate) {
         this.claimDate = claimDate;
     }
 
-    public int getMemberId()
-    {
+    public String getMemberId() {
         return memberId;
     }
 }

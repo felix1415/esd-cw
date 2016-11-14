@@ -8,6 +8,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  * @author shaun
  */
 public class DbBean {
-    
+
     private static DbBean instance;
     private static Connection con;
     private static MysqlDataSource dataSource;
@@ -30,20 +31,20 @@ public class DbBean {
     private static String databaseName;
 
     /**
-     * A private Constructor prevents any other class from
-     * instantiating.
+     * A private Constructor prevents any other class from instantiating.
      */
     private DbBean() {
-        
+
     }
-    
+
     /**
      * Method to set database parameters before singleton is instantiated.
      * Called by context initialised in listener class.
+     *
      * @param url
      * @param username
      * @param password
-     * @param databaseName 
+     * @param databaseName
      */
     public static void setParameters(String url, String username, String password, String databaseName) {
         try {
@@ -69,9 +70,11 @@ public class DbBean {
         instance = new DbBean();
     }
 
-    /** Static instance method 
-        @return : the only instance we have is returned
-      */
+    /**
+     * Static instance method
+     *
+     * @return : the only instance we have is returned
+     */
     public static DbBean getInstance() {
         return instance;
     }
@@ -79,7 +82,7 @@ public class DbBean {
     public ArrayList select(String query) throws SQLException {
 
         state = instance.getConnection().createStatement();
-        
+
         rs = state.executeQuery(query);
 
         ResultSetMetaData md = rs.getMetaData();
@@ -129,12 +132,23 @@ public class DbBean {
         rs = state.executeQuery(query);
         while (rs.next()) {
             for (int i = 0; i < columns; i++) {
-                sb.append(rs.getString(i) + ",");
+
+                sb.append(rs.getString("date") + ",");
             }
         }
         rs.close();
         state.close();
         return sb.toString();
+    }
+
+    public Date doQueryReturningXDate(String query) throws SQLException {
+        StringBuilder sb = new StringBuilder();
+        state = instance.getConnection().createStatement();
+        rs = state.executeQuery(query);
+        Date date = rs.getDate("date");
+        rs.close();
+        state.close();
+        return date;
     }
 
     public Statement getStatement() {
@@ -153,8 +167,8 @@ public class DbBean {
         state.execute(query);
         state.close();
     }
-    
-    private Connection getConnection(){
+
+    private Connection getConnection() {
         return instance.con;
     }
 
@@ -165,7 +179,5 @@ public class DbBean {
             System.out.println("Failed to close the database connection");
         }
     }
-    
-  
 
 }

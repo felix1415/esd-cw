@@ -27,12 +27,9 @@ public class MemberService {
 
         Member member = this.memberDao.findById(memId);
 
-        if ((claimAmount / 100 * Integer.parseInt(PropertiesUtil.getPropertyAsString("claim-percentage"))) < member.getBalance()) {
+        double excess = claimAmount / 100 * Double.valueOf(PropertiesUtil.getPropertyAsString("claim-percentage"));
 
-            return true;
-        } else {
-            return false;
-        }
+        return (excess < member.getBalance());
 
     }
 }

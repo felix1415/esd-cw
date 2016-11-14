@@ -4,8 +4,17 @@
  */
 package com.esd.cw.servlet;
 
+import com.esd.cw.enums.Queries;
+import com.esd.cw.services.ClaimService;
+import com.esd.cw.services.MemberService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -74,14 +83,34 @@ public class ClaimServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        MemberService memberService = new MemberService();
 
         HttpSession session = request.getSession();
         String test = (String) request.getParameter("amount");
         float claimAmount = Float.valueOf(test);
         String claimRationale = (String) request.getParameter("rationale");
         com.esd.cw.model.User user = (com.esd.cw.model.User) session.getAttribute("user");
+        String memId = user.getUserId();
+        ClaimService claimService = new ClaimService();
+        Map claimResponse = new HashMap();
 
-        processRequest(request, response);
+        try {
+            claimResponse = claimService.validateClaim(user, claimAmount);
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(ClaimServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (Boolean.valueOf((String) claimResponse.get("success"))) {
+
+            try {
+                claimService.makeClaim(claimAmount, claimRationale, memId);
+            } catch (SQLException ex) {
+                Logger.getLogger(ClaimServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        request.setAttribute("claimResponse", claimResponse);
+
     }
 
     /**

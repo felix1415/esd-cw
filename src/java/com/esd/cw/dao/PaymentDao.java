@@ -25,7 +25,7 @@ public class PaymentDao {
 
     }
 
-    public void makePayment(float amount, String typeOfPayment, String memId, Date date) {
+    public void makePayment(float amount, String typeOfPayment, String memId, Date date) {  
 
         try {
             String dateString = new SimpleDateFormat("YYYY-MM-dd hh-mm-ss").format(date);
