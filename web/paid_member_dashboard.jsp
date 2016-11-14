@@ -6,7 +6,7 @@
 <%
 User user = (User) session.getAttribute("user");
 %>
-<h1>Unpaid Member Dashboard</h1>
+<h1>Paid Member Dashboard</h1>
 <div class="row">
     <div class="col-md-12">
         <div class="user-information-section">
