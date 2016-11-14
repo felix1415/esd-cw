@@ -7,32 +7,33 @@ package com.esd.cw.services;
 
 import com.esd.cw.dao.UserDao;
 import com.esd.cw.model.User;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author aidanayala-angear
  */
 public class AdminManageUserService {
-    
-    String userId;
-    UserDao userDao;
-    User user;
+   
+    private final UserDao userDao = new UserDao();
     
     public AdminManageUserService() {
         
     }
     
-    public AdminManageUserService(String userId) {
-        this.userId = userId;
-        this.userDao = new UserDao();
-        this.user = this.userDao.findById(this.userId);
-    }
-    
-    public User getUser() {
-        return user;
+    public User getUser(String userId) {
+        return userDao.findById(userId);
     }
     
     public void updateUserStatus(String userId, String status) {
-        
+        User user = userDao.findById(userId);
+        user.setUserStatus(status);
+        try {
+            userDao.updateUserStatus(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminManageUserService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
