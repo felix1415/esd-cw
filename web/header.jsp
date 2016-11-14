@@ -51,7 +51,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">XYZ Drivers</a>
+                    <a class="navbar-brand" href="<%=request.getContextPath()%>">XYZ Drivers</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -60,14 +60,19 @@
                             if (user != null) {
                                 if (user.isIsAdmin()) {
                         %>
-                        <li><a href="admin/dashboard">Admin Dashboard</a></li>
+                                <li><a href="admin/dashboard">Admin Dashboard</a></li>
                             <%
-                            } else {
-                            %>
-                        <li><a href="dashboard">Dashboard</a></li>                                
-                            <%
-                                    }
+                                } else {
+                                    if (user.getMember().getStatus().equals("PAID"))
+                                    {%>
+                                        <li><a href="pmember">Dashboard</a></li>  
+                                    <%}
+                                    else
+                                    {%>
+                                        <li><a href="upmember">Dashboard</a></li>  
+                                    <%}
                                 }
+                            }
                             %>
 
                     </ul>
@@ -75,7 +80,7 @@
                         <%
                             if (user != null) {
                         %>
-                        <li><a href="logout">Logout</a></li>
+                        <li><a href="<%=request.getContextPath()%>/logout">Logout</a></li>
                             <%
                             } else {
                             %>
