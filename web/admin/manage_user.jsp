@@ -42,6 +42,22 @@
         </div>
     </div>
 </div>
+<h3 class="info-heading">Admin Actions</h3>
+<div class="user-actions-block">
+    <form method="post">
+        <div class="form-group">
+            <label class="information-title">Member Status</label>
+            <select class="form-control" name="newStatus">
+                <option ${manageUser.getMember().getStatus().equals("PENDING") ? 'selected' : ''} value="PENDING">Pending</option>
+                <option ${manageUser.getMember().getStatus().equals("UNPAID") ? 'selected' : ''} value="UNPAID">Unpaid</option>
+                <option ${manageUser.getMember().getStatus().equals("PAID") ? 'selected' : ''} value="PAID">Paid</option>
+            </select>
+        </div>
+        <input name="userId" type="text" value="<%= manageUser.getUserId()%>" hidden/>
+        <button type="submit" class="btn btn-success">Update</button>
+    </form>
+</div>
+
 <h3 class="info-heading">Financial & Account Information</h3>
 <div class="row">
     <div class="col-md-12">

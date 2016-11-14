@@ -16,13 +16,11 @@ import java.util.List;
 public class AdminDashboardService {
     
     UserDao userDao = new UserDao();
-    List<User> users;
     
     public AdminDashboardService() { 
-        users = userDao.findAllMembers();
     }
 
     public List<User> getUsers() {
-        return users;
+        return userDao.findAllNonAdminUsers();
     }
 }

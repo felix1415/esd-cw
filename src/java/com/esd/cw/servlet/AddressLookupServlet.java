@@ -5,8 +5,7 @@
  */
 package com.esd.cw.servlet;
 
-import com.esd.cw.model.User;
-import com.esd.cw.services.AdminManageUserService;
+import com.esd.cw.services.AddressLookupService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,11 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author aidanayala-angear
+ * @author shaun
  */
-public class AdminManageUserServlet extends HttpServlet {
+public class AddressLookupServlet extends HttpServlet {
+    
+    AddressLookupService addressLookupService = new AddressLookupService();
 
-    AdminManageUserService manageUserService = new AdminManageUserService();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,10 +38,10 @@ public class AdminManageUserServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminManageUserServlet</title>");            
+            out.println("<title>Servlet AddressLookup</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminManageUserServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddressLookup at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,20 +59,7 @@ public class AdminManageUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // get the logged in user for authentication
-        User user = (User) request.getSession().getAttribute("user");
-        
-        if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-        } else {
-            if (user.isIsAdmin()) {
-                request.setAttribute("manageUser", manageUserService.getUser(request.getParameter("userId")));
-                request.getRequestDispatcher("manage_user.jsp").forward(request, response);
-            } else {
-                request.getRequestDispatcher("authentication_error.jsp").forward(request, response);
-            }
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -86,20 +73,11 @@ public class AdminManageUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String postcode  = request.getParameter("postcode");
         
-        // get the logged in user for authentication (the admin)
-        User user = (User) request.getSession().getAttribute("user");
-        
-        if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-        } else {
-            if (user.isIsAdmin()) {
-                manageUserService.updateUserStatus(request.getParameter("userId"), request.getParameter("newStatus"));
-                response.sendRedirect(request.getContextPath() + "/admin/manageuser?userId=" + request.getParameter("userId"));
-            } else {
-                request.getRequestDispatcher("authentication_error.jsp").forward(request, response);
-            }
-        }
+        String responseJson = addressLookupService.doLookup(postcode);
+        response.setContentType("application/json");
+        response.getWriter().println(responseJson);
     }
 
     /**

@@ -19,6 +19,7 @@ public class User {
     private boolean isAdmin;
     Member member;
     List<Payment> payments;
+    List<Claim> claims;
 
     public User() {
 
@@ -31,13 +32,14 @@ public class User {
         this.isAdmin = isAdmin;
     }
     
-    public User(String userId, String password, String userStatus, boolean isAdmin, Member member, List<Payment> payments) {
+    public User(String userId, String password, String userStatus, boolean isAdmin, Member member, List<Payment> payments ,List<Claim> claims) {
         this.userId = userId;
         this.password = password;
         this.userStatus = userStatus;
         this.isAdmin = isAdmin;
         this.member = member;
         this.payments = payments;
+        this.claims = claims;
     }
 
     public boolean isIsAdmin() {
@@ -83,4 +85,13 @@ public class User {
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
     }
+
+    public List<Claim> getClaims() {
+        return claims;
+    }
+
+    public void setClaims(List<Claim> claims) {
+        this.claims = claims;
+    }
+    
 }
