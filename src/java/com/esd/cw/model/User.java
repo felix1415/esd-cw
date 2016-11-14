@@ -33,10 +33,8 @@ public class User {
         this.isAdmin = isAdmin;
         
         // if they are not an admin. set their member record
-        if (!this.isAdmin) {
-            setMember();
-            setPayments();
-        }
+        setMember();
+        setPayments();
     }
 
     public boolean isIsAdmin() {
