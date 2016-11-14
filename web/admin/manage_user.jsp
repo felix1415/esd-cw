@@ -46,6 +46,7 @@
 <div class="user-actions-block">
     <form method="post">
         <div class="form-group">
+            <label class="information-title">Member Status</label>
             <select class="form-control" name="newStatus">
                 <option ${manageUser.getMember().getStatus().equals("PENDING") ? 'selected' : ''} value="PENDING">Pending</option>
                 <option ${manageUser.getMember().getStatus().equals("UNPAID") ? 'selected' : ''} value="UNPAID">Unpaid</option>
