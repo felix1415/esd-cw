@@ -54,7 +54,7 @@ public class AddressLookupService {
             
           
         
-        return stringBuilder.toString().replace(" , , , , ", "");
+        return stringBuilder.toString().replace(" , , , ,", "");
     }
     
 }
