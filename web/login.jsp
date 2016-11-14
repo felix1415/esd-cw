@@ -19,8 +19,11 @@
 <br>
 <span id="loginErrorMessage" class="app-error-box">
     
-    <%=
-        (String)request.getAttribute("loginMessage")
+    <%
+        if( request.getAttribute("loginMessage") != null )
+        {
+            out.print(request.getAttribute("loginMessage"));
+        }
     %>
 </span>
 <!-- page content end -->

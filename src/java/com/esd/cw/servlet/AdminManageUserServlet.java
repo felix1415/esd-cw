@@ -95,7 +95,7 @@ public class AdminManageUserServlet extends HttpServlet {
         } else {
             if (user.isIsAdmin()) {
                 manageUserService.updateUserStatus(request.getParameter("userId"), request.getParameter("newStatus"));
-                response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+                response.sendRedirect(request.getContextPath() + "/admin/manageuser?userId=" + request.getParameter("userId"));
             } else {
                 request.getRequestDispatcher("authentication_error.jsp").forward(request, response);
             }
