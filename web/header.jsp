@@ -40,7 +40,7 @@
 
         <!-- Viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ESD</title>
+        <title>XYZ Drivers</title>
     </head>
     <body>
 
@@ -54,7 +54,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">ESD</a>
+                    <a class="navbar-brand" href="/">XYZ Drivers</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
