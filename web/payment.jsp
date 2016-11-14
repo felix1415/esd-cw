@@ -4,35 +4,25 @@
 <!-- include header end -->
 
 <!-- page content start (customise) -->
-
-<br>
 <h1>Payment form</h1>
 <a href="payment.jsp"></a>
 <form action="payment" method="post">
-
-    <div>Amount <input type="text" name="paymentAmount"></div>
-
-    <div>Payment type 
-
-        <select name="paymentType">
-            <option></option>
+    <div class="form-group">
+        <label for="paymentAmount">Payment Amount</label>
+        <input class="form-control" type="text" name="paymentAmount" name="paymentAmount">
+    </div>
+    <div class="form-group">
+        <label for="paymentType">Payment Type</label>
+        <select class="form-control" name="paymentType" id="paymentType">
             <option>Membership</option>
-            <option selected="selected">Claim????</option>
-
+            <option selected="selected">Claim</option>
         </select>
-
     </div>
-
-
-    <input type="submit" value="submit">
-    
-    <div>
-        <% out.print(request.getAttribute("paymentStatus"));%>
+    <input class="btn btn-success" type="submit" value="Make Payment">
+    <div style="color: red;">
+        <%=request.getAttribute("paymentStatus")%>
     </div>
-
-
 </form>
-Don't edit this page. Use it as a template to base other pages from.
 <!-- page content end -->
 
 <!-- include footer start (leave me alone) -->
