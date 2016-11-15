@@ -9,8 +9,12 @@ import com.esd.cw.dao.MemberDao;
 import com.esd.cw.dao.PaymentDao;
 import com.esd.cw.dao.UserDao;
 import com.esd.cw.model.Member;
+import com.esd.cw.model.Payment;
 import com.esd.cw.model.User;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -26,38 +30,50 @@ public class PaymentService {
         paymentDao = new PaymentDao();
         memberDao = new MemberDao();
     }
-/**
- * 
- * @param value
- * @param typeOfPayment
- * @param user
- * @return 
- */
-    public boolean makeMembershipPayment(float value, String typeOfPayment, User user) {
-        try {
 
-            userDao = new UserDao();
-            memberDao = new MemberDao();
-            Date date = new Date();
-            String memId = user.getUserId();
-            Member member = memberDao.findById(memId);
+    /**
+     *
+     * @param value
+     * @param typeOfPayment
+     * @param user
+     * @return
+     */
+    public String makeMembershipPayment(float value, String typeOfPayment, User user) throws SQLException {
 
-            //Process the payment with given values plus curent date
-            paymentDao.makePayment(value, typeOfPayment, memId, date);
+        userDao = new UserDao();
+        memberDao = new MemberDao();
+        Date date = new Date();
+        String memId = user.getUserId();
+        Member member = memberDao.findById(memId);
+        String paymentStatus;
 
-            //Update member and user status....
-            member.setStatus("PENDING");
-            user.setUserStatus("PENDING");
+        if (user.getStatus().equals("PENDING")) {
 
-            //update the database to reflect the changes
-            userDao.updateUserStatus(user);
-            memberDao.updateMemberStatus(member);
+            paymentStatus = "Payment failed: Your membership is already being processed";
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            return paymentStatus;
+
+        } else if (user.getStatus().equals("PAID")) {
+
+            paymentStatus = "Payment failed: You're already a member";
+            return paymentStatus;
+
+        } else if (value < 500) {
+            
+            paymentStatus = "Payment failed: memberships costs are £500";
+            return paymentStatus;
         }
-        return true;
+
+        paymentStatus = "Your payment is pending approval";
+        Payment payment = new Payment(memId, typeOfPayment, value);
+
+        paymentDao.makePayment(payment);
+        member.setStatus("PENDING");
+        user.setUserStatus("PENDING");
+
+        userDao.updateUserStatus(user);
+        memberDao.updateMemberStatus(member);
+        return paymentStatus;
     }
 
 }

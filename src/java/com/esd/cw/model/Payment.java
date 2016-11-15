@@ -11,47 +11,35 @@ import java.util.Date;
  *
  * @author alexgray
  */
-public class Payment
-{
-    
-    private final int paymentId;
+public class Payment {
+
     private final String memberId;
     private final String typeOfPayment;
     private final Date dateOfPayment;
     private final float paymentAmount;
 
-    public Payment(int paymentId, String memberId, String typeOfPayment, float paymentAmount)
-    {
-        this.paymentId = paymentId;
+    public Payment(String memberId, String typeOfPayment, float paymentAmount) {
+
         this.memberId = memberId;
         this.typeOfPayment = typeOfPayment;
         this.dateOfPayment = new Date();
         this.paymentAmount = paymentAmount;
     }
 
-    public float getPaymentAmount()
-    {
+    public float getPaymentAmount() {
         return paymentAmount;
     }
 
-    public Date getDateOfPayment()
-    {
+    public Date getDateOfPayment() {
         return dateOfPayment;
     }
 
-    public String getTypeOfPayment()
-    {
+    public String getTypeOfPayment() {
         return typeOfPayment;
     }
 
-    public String getMemberId()
-    {
+    public String getMemberId() {
         return memberId;
-    }
-
-    public int getPaymentId()
-    {
-        return paymentId;
     }
 
 }

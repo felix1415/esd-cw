@@ -13,6 +13,8 @@ import com.esd.cw.services.PaymentService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -73,29 +75,15 @@ public class PaymentServlet extends HttpServlet {
         com.esd.cw.model.User user = (com.esd.cw.model.User) session.getAttribute("user");
 
         String paymentStatus;
-
-        if (paymentAmount != 500 && paymentType.equals("Membership")) {
-
-            paymentStatus = " payment failed: Membership payments cost 500";
-
-            request.setAttribute("paymentStatus", paymentStatus);
-
-        } else {
-
-            if (user.equals("UNPAID")) {
-
-            } else if (paymentService.makeMembershipPayment(paymentAmount, paymentType, user)) {
-
-                paymentStatus = "payment processed, Membership pending admin approval ";
-                request.setAttribute("paymentStatus", paymentStatus);
-            }
-
-            paymentStatus = "You're already a member payment process has been cancelled.";
-            request.setAttribute("paymentStatus", paymentStatus);
-
+        try {
+            String paymentResponse = paymentService.makeMembershipPayment(paymentAmount, paymentType, user);
+            request.setAttribute("paymentStatus", paymentResponse);
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("payment.jsp");
+
         dispatcher.forward(request, response);
     }
 

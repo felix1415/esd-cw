@@ -9,6 +9,9 @@ import com.esd.cw.model.User;
 import com.esd.cw.services.AdminDashboardService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class AdminDashboardServlet extends HttpServlet {
 
     AdminDashboardService ads = new AdminDashboardService();
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,7 +43,7 @@ public class AdminDashboardServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminDashboardServlet</title>");            
+            out.println("<title>Servlet AdminDashboardServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AdminDashboardServlet at " + request.getContextPath() + "</h1>");
@@ -61,17 +64,21 @@ public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         User user = (User) request.getSession().getAttribute("user");
-        
+
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             if (user.isIsAdmin()) {
-                
-                // get all users data
-                request.setAttribute("allUsers", ads.getUsers());
-                
+
+                try {
+                    // get all users data
+                    request.setAttribute("allUsers", ads.getUsers());
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdminDashboardServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 request.getRequestDispatcher("dashboard.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("authentication_error.jsp").forward(request, response);

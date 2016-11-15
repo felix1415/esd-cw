@@ -9,6 +9,9 @@ import com.esd.cw.model.User;
 import com.esd.cw.services.AdminManageUserService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminManageUserServlet extends HttpServlet {
 
     AdminManageUserService manageUserService = new AdminManageUserService();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,7 +42,7 @@ public class AdminManageUserServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminManageUserServlet</title>");            
+            out.println("<title>Servlet AdminManageUserServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AdminManageUserServlet at " + request.getContextPath() + "</h1>");
@@ -62,12 +66,16 @@ public class AdminManageUserServlet extends HttpServlet {
 
         // get the logged in user for authentication
         User user = (User) request.getSession().getAttribute("user");
-        
+
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             if (user.isIsAdmin()) {
-                request.setAttribute("manageUser", manageUserService.getUser(request.getParameter("userId")));
+                try {
+                    request.setAttribute("manageUser", manageUserService.getUser(request.getParameter("userId")));
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdminManageUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 request.getRequestDispatcher("manage_user.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("authentication_error.jsp").forward(request, response);
@@ -86,15 +94,19 @@ public class AdminManageUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // get the logged in user for authentication (the admin)
         User user = (User) request.getSession().getAttribute("user");
-        
+
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
             if (user.isIsAdmin()) {
-                manageUserService.updateUserStatus(request.getParameter("userId"), request.getParameter("newStatus"));
+                try {
+                    manageUserService.updateUserStatus(request.getParameter("userId"), request.getParameter("newStatus"));
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdminManageUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 response.sendRedirect(request.getContextPath() + "/admin/manageuser?userId=" + request.getParameter("userId"));
             } else {
                 request.getRequestDispatcher("authentication_error.jsp").forward(request, response);

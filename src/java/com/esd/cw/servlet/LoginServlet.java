@@ -8,6 +8,9 @@ package com.esd.cw.servlet;
 import com.esd.cw.model.User;
 import com.esd.cw.services.LoginService;
 import java.io.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -54,7 +57,12 @@ public class LoginServlet extends HttpServlet
     
         //get user from login service, add user to session
         LoginService loginService = new LoginService();
-        User user = loginService.login(username, password);
+        User user = null;
+        try {
+            user = loginService.login(username, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         

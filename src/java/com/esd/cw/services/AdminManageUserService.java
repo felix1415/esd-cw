@@ -26,11 +26,11 @@ public class AdminManageUserService {
         
     }
     
-    public User getUser(String userId) {
+    public User getUser(String userId) throws SQLException {
         return userDao.findById(userId);
     }
     
-    public void updateUserStatus(String userId, String status) {
+    public void updateUserStatus(String userId, String status) throws SQLException {
         User user = userDao.findById(userId);
         user.setUserStatus(status);
         Member member = memberDao.findById(userId);

@@ -7,6 +7,7 @@ package com.esd.cw.services;
 
 import com.esd.cw.dao.UserDao;
 import com.esd.cw.model.User;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class AdminDashboardService {
     public AdminDashboardService() { 
     }
 
-    public List<User> getUsers() {
+    public List<User> getUsers() throws SQLException {
         return userDao.findAllNonAdminUsers();
     }
 }
