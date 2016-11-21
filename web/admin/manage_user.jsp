@@ -85,7 +85,6 @@
         <table class="table">
             <thead>
                 <tr>
-                    <td>ID</td>
                     <td>Type</td>
                     <td>Amount</td>
                     <td>Date</td>
@@ -96,7 +95,6 @@
                     for (Payment payment : manageUser.getPayments()) {
                 %>
                 <tr>
-                    <td><%=payment.getPaymentId()%></td>
                     <td><%=payment.getTypeOfPayment()%></td>
                     <td><%=payment.getPaymentAmount()%></td>
                     <td><%=payment.getDateOfPayment()%></td>

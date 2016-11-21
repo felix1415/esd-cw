@@ -55,7 +55,6 @@ public class MemberDao {
             );
         }
 
-        // return all the members
         return allMembers;
     }
 
@@ -86,10 +85,6 @@ public class MemberDao {
         }
     }
 
-    boolean insertMember(Member member) {
-        return true;
-    }
-
     public boolean updateMemberStatus(Member member) throws SQLException {
 
         DbBean.getInstance().runQuery(String.format(Queries.UPDATE_MEMBER_STATUS.getSql(), member.getStatus(), member.getMemberId()));
@@ -97,7 +92,7 @@ public class MemberDao {
         return true;
     }
 
-    boolean deleteMember(Member member) {
-        return true;
+    public void deductAmountFromAllUsers(double toDeductFromEachUser) throws SQLException {
+        DbBean.getInstance().runQuery(String.format(Queries.DEDUCT_AMOUNT_FROM_ALL_MEMBERS_BALANCE.getSql(),String.valueOf(toDeductFromEachUser)));
     }
 }

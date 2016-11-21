@@ -52,6 +52,10 @@
         <servlet-name>AddressLookup</servlet-name>
         <servlet-class>com.esd.cw.servlet.AddressLookupServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChargeAllUsers</servlet-name>
+        <servlet-class>com.esd.cw.servlet.ChargeAllUsersServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ApplicationServlet</servlet-name>
         <url-pattern>/ApplicationServlet</url-pattern>
@@ -112,6 +116,10 @@
     <servlet-mapping>
         <servlet-name>AddressLookup</servlet-name>
         <url-pattern>/address-lookup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChargeAllUsers</servlet-name>
+        <url-pattern>/admin/ChargeAllUsers</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

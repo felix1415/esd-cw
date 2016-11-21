@@ -80,5 +80,9 @@ public class ClaimDao {
         // return all the users
         return allClaims;
     }
+    
+    public String getTotalOfAllClaims() throws SQLException{
+        return DbBean.getInstance().doQueryReturningXColumns(Queries.TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE.getSql(), 1);
+    }
 
 }

@@ -18,6 +18,8 @@ public enum Queries {
     SELECT_USER_LAST_PAYMENT("SELECT date FROM payments WHERE mem_id ='%s' ORDER BY date DESC LIMIT 1"),
     INSERT_CLAIM("INSERT INTO Claims (mem_id, date, rationale, status,amount) VALUES ('%s','%s','%s' ,'%s', %s)"),
     GET_CLAIMS_MADE_BY_A_MEMBER("SELECT * from Claims WHERE mem_id = '%s'"),
+    TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE("SELECT SUM(amount) FROM Claims"),
+    DEDUCT_AMOUNT_FROM_ALL_MEMBERS_BALANCE("UPDATE Members set balance = balance - %s"),
     UPDATE_USER_STATUS("UPDATE users SET status = '%s' WHERE id= '%s'");
 
     Queries(String sql) {

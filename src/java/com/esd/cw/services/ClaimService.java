@@ -74,4 +74,18 @@ public class ClaimService {
 
     }
 
+    public boolean chargeAllUsersForClaims() {
+        boolean success = false;
+        try{
+            int totalUsers = memberDao.findAll().size();
+            double amountToDeduct = Double.valueOf(claimDao.getTotalOfAllClaims()) / (double) totalUsers;
+            memberDao.deductAmountFromAllUsers(amountToDeduct);
+            success = true;
+        }catch(Exception e){
+            System.out.println("Failed to charge all users based on total claims");
+            e.printStackTrace();
+        }
+        return success;
+    }
+
 }
