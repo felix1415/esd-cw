@@ -5,16 +5,12 @@
  */
 package com.esd.cw.servlet;
 
-import com.esd.cw.*;
-import com.esd.cw.dao.MemberDao;
 import com.esd.cw.model.Member;
-import com.esd.cw.model.User;
+import com.esd.cw.services.MemberService;
 import com.esd.cw.services.PaymentService;
+import com.esd.cw.services.UserService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -29,12 +25,14 @@ import javax.servlet.http.HttpSession;
  * @author shaun
  */
 public class PaymentServlet extends HttpServlet {
-
+    UserService userService;
+    MemberService memberService;
     PaymentService paymentService;
-    MemberDao memberDao = new MemberDao();
 
     public PaymentServlet() {
         this.paymentService = new PaymentService();
+        this.memberService = new MemberService();
+        this.userService = new UserService();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,6 +75,13 @@ public class PaymentServlet extends HttpServlet {
         String paymentStatus;
         try {
             String paymentResponse = paymentService.makeMembershipPayment(paymentAmount, paymentType, user);
+            
+            //update session user and member
+            user = userService.getUser(user.getUserId());
+            session.setAttribute("user", user);
+            Member member = memberService.getMember(user.getUserId());
+            session.setAttribute("member", member);
+            
             request.setAttribute("paymentStatus", paymentResponse);
         } catch (SQLException ex) {
             Logger.getLogger(PaymentServlet.class.getName()).log(Level.SEVERE, null, ex);

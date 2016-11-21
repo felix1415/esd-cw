@@ -98,7 +98,7 @@ public class UserDao {
         return allUsers;
     }
 
-    public User findById(String userId) throws SQLException {
+    public User findById(String userId) {
 
         // define a hash map to store the result in
         ArrayList<HashMap> result = new ArrayList();
@@ -110,16 +110,20 @@ public class UserDao {
         }
 
         if (result.size() > 0) {
-            return new User(
-                    result.get(0).get("id").toString(),
-                    result.get(0).get("password").toString(),
-                    result.get(0).get("status").toString(),
-                    Boolean.valueOf(result.get(0).get("is_admin").toString()),
-                    memberDao.findById(result.get(0).get("id").toString()),
-                    paymentDao.findPaymentsForUser(result.get(0).get("id").toString()),
-                    claimDao.findClaimsForMember(result.get(0).get("id").toString())
+            try {
+                return new User(
+                        result.get(0).get("id").toString(),
+                        result.get(0).get("password").toString(),
+                        result.get(0).get("status").toString(),
+                        Boolean.valueOf(result.get(0).get("is_admin").toString()),
+                        memberDao.findById(result.get(0).get("id").toString()),
+                        paymentDao.findPaymentsForUser(result.get(0).get("id").toString()),
+                        claimDao.findClaimsForMember(result.get(0).get("id").toString())
 
-            );
+                );
+            } catch (SQLException e) {
+                return new User();
+            }
         } else {
             return new User();
         }

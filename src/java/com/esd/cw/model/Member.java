@@ -56,18 +56,6 @@ public class Member
         this.balance = balance;
         this.claimsRemaining = claimsRemaining;
     }
-
-    public Member(String memberId, String name, Date dateOfBirth)
-    {
-        this.memberId = memberId;
-        this.name = name;
-        this.address = "";
-        this.dateOfBirth = dateOfBirth;
-        this.dateOfRegistration = new Date();
-        this.status = "Unpaid";
-        this.balance = (float)0.0;
-        this.claimsRemaining = 0;
-    }
     
     public float getBalance()
     {

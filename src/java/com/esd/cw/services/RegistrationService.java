@@ -69,8 +69,8 @@ public class RegistrationService {
                     try {
                         dateOfBirth = dateFormatter.parse(dob);
                         userDao.registerUser(
-                                new User(username, password, "PENDING", false),
-                                new Member(username, firstName + " " + lastName, address, dateOfBirth, new Date(), "PENDING", 0, 2)
+                                new User(username, password, "UNPAID", false),
+                                new Member(username, firstName + " " + lastName, address, dateOfBirth, new Date(), "UNPAID", 0, 2)
                         );
                         registerResponse.put("success", "true");
                         registerResponse.put("message", "Success!");
