@@ -37,9 +37,15 @@ public class ClaimService {
         Calendar cal = Calendar.getInstance();
         cal.add(cal.MONTH, -6);
         long sixMonthsAgo = cal.getTime().getTime();
-        long membersLastPayment = claimDao.getMembershipDate(user.getUserId());
-        Member member = new Member();
-        member = memberDao.findById(user.getUserId());
+        long membersLastPayment = claimDao.getRegistrationDate(user.getUserId());
+        Member member = memberDao.findById(user.getUserId());
+        
+        if (!"PAID".equals(user.getStatus())) {
+            claimResponse.put("success", "false");
+            claimResponse.put("message", "You're not a paid member");
+
+            return claimResponse;
+        }
 
         if (!memberService.claimBalanceCheck(user.getUserId(), claimAmount)) {
             claimResponse.put("success", "false");

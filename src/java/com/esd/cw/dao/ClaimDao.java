@@ -31,15 +31,15 @@ public class ClaimDao {
 
     }
 
-    public long getMembershipDate(String memId) throws SQLException, ParseException {
+    public long getRegistrationDate(String memId) throws SQLException, ParseException {
 
         // define a hash map to store the result in
         ArrayList<HashMap> result = new ArrayList();
         long dateInMs = 0;
-        result = DbBean.getInstance().select(String.format(Queries.SELECT_USER_LAST_PAYMENT.getSql(), memId));
+        result = DbBean.getInstance().select(String.format(Queries.SELECT_MEMBER_REG_DATE.getSql(), memId));
 
         if (result.size() > 0) {
-            Date date = Util.getDateFromString(result.get(0).get("date").toString());
+            Date date = Util.getDateFromString(result.get(0).get("dor").toString());
 
             dateInMs = date.getTime();
         }
