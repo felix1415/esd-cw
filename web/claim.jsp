@@ -17,7 +17,16 @@
 
     <input type="submit" value="submit">
     <br>
-    Don't edit this page. Use it as a template to base other pages from.
+    
+    <span id="claimResponse" class="app-error-box">
+    
+    <%
+        if( request.getAttribute("claimResponse") != null )
+        {
+            out.print(request.getAttribute("claimResponse"));
+        }
+    %>
+    </span>
     <!-- page content end -->
 
     <!-- include footer start (leave me alone) -->

@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "claimServlet", urlPatterns = {"/claimServlet"})
 public class ClaimServlet extends HttpServlet {
+    ClaimService claimService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -83,19 +84,24 @@ public class ClaimServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MemberService memberService = new MemberService();
-
+        claimService = new ClaimService();
         HttpSession session = request.getSession();
+        
+        //get inputs from form
         String test = (String) request.getParameter("amount");
         float claimAmount = Float.valueOf(test);
         String claimRationale = (String) request.getParameter("rationale");
+        //get user from session
         com.esd.cw.model.User user = (com.esd.cw.model.User) session.getAttribute("user");
+        
         String memId = user.getUserId();
-        ClaimService claimService = new ClaimService();
+        
         Map claimResponse = new HashMap();
 
+        String claimResponseString = "Failed to make claim";
         try {
             claimResponse = claimService.validateClaim(user, claimAmount);
+            claimResponseString = claimResponse.get("message").toString();
         } catch (SQLException | ParseException ex) {
             Logger.getLogger(ClaimServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,7 +115,9 @@ public class ClaimServlet extends HttpServlet {
             }
 
         }
-        request.setAttribute("claimResponse", claimResponse);
+        //set message and redirect back to page
+        request.setAttribute("claimResponse", claimResponseString);
+        request.getRequestDispatcher("claim.jsp").forward(request, response);
 
     }
 
