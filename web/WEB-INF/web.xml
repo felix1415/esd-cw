@@ -128,6 +128,8 @@
     <servlet-mapping>
         <servlet-name>ErrorServlet</servlet-name>
         <url-pattern>/ErrorServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ChargeAllUsers</servlet-name>
         <url-pattern>/admin/ChargeAllUsers</url-pattern>
     </servlet-mapping>
