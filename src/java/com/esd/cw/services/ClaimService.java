@@ -93,18 +93,18 @@ public class ClaimService {
    Calendar cal = Calendar.getInstance();
    cal.add(cal.MONTH, -6);
    long sixMonthsAgo = cal.getTime().getTime();
-   long membersLastPayment = claimDao.getMembershipDate(user.getUserId());
+   long membersLastPayment = claimDao.getRegistrationDate(user.getUserId());
    Member member = new Member();
    member = memberDao.findById(user.getUserId());
    
    
    if (membersLastPayment < sixMonthsAgo && member.getClaimsRemaining() > 0) {
    
-   return "Ineligible to claim";
+   return "Eligible to claim";
        
     } else {
      
-  return "Eligble to claim";
+  return "Ineligible to claim";
        
     }
 }
