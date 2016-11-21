@@ -1,3 +1,4 @@
+<%@page import="com.esd.cw.services.ClaimService"%>
 <%@page import="com.esd.cw.model.User"%>
 <!-- include header start (leave alone) -->
 <jsp:include page='header.jsp'/>
@@ -5,6 +6,7 @@
 <!-- page content start (customise) -->
 <%
 User user = (User) session.getAttribute("user");
+ClaimService cService = new ClaimService ();
 %>
 <h1>Paid Member Dashboard</h1>
 <div class="row">
@@ -33,6 +35,9 @@ User user = (User) session.getAttribute("user");
             <div class="user-information-block">
                 <label class="information-title">Status</label>
                 <div class="information-value"><%=user.getMember().getStatus()%></div>
+                <div class="user-information-block">
+                <label class="information-title">Claim Status</label>
+                <div class="information-value"><%=cService.claimStatus(user)%></div>
             </div>
         </div>
     </div>

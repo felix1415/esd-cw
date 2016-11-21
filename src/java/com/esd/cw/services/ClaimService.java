@@ -24,10 +24,15 @@ public class ClaimService {
 
     MemberDao memberDao;
     ClaimDao claimDao;
+    MemberService memberService;
+    long sixMonthsAgo;
+    long membersLastPayment;
 
     public ClaimService() {
         this.memberDao = new MemberDao();
         this.claimDao = new ClaimDao();
+        this.memberService = new MemberService();
+      
     }
 
     public Map<String, String> validateClaim(User user, double claimAmount) throws SQLException, ParseException {
@@ -67,11 +72,34 @@ public class ClaimService {
 
     }
 
-    public void makeClaim(double claimAmount, String rationale, String memId) throws SQLException {
+  public void makeClaim(double claimAmount, String rationale, String memId) throws SQLException {
         Claim claim = new Claim((float) claimAmount, rationale, memId, new Date(), "PENDING");
 
         claimDao.makeClaim(claim);
 
     }
 
+  
+   public String claimStatus (User user) throws SQLException, ParseException {
+   
+   MemberService memberService = new MemberService();
+   Map<String, String> claimResponse = new HashMap();
+   Calendar cal = Calendar.getInstance();
+   cal.add(cal.MONTH, -6);
+   long sixMonthsAgo = cal.getTime().getTime();
+   long membersLastPayment = claimDao.getMembershipDate(user.getUserId());
+   Member member = new Member();
+   member = memberDao.findById(user.getUserId());
+   
+   
+   if (membersLastPayment < sixMonthsAgo && member.getClaimsRemaining() > 0) {
+   
+   return "Ineligible to claim";
+       
+    } else {
+     
+  return "Eligble to claim";
+       
+    }
+}
 }
