@@ -53,8 +53,8 @@
         <servlet-class>com.esd.cw.servlet.AddressLookupServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ChargeAllUsers</servlet-name>
-        <servlet-class>com.esd.cw.servlet.ChargeAllUsersServlet</servlet-class>
+        <servlet-name>ErrorServlet</servlet-name>
+        <servlet-class>com.esd.cw.servlet.ErrorServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApplicationServlet</servlet-name>
@@ -100,6 +100,14 @@
         <servlet-name>PaidMemberServlet</servlet-name>
         <url-pattern>/pmember</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.esd.cw.filters.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
     <listener>
         <listener-class>
             com.esd.cw.MyServletContextListener
@@ -118,6 +126,8 @@
         <url-pattern>/address-lookup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ErrorServlet</servlet-name>
+        <url-pattern>/ErrorServlet</url-pattern>
         <servlet-name>ChargeAllUsers</servlet-name>
         <url-pattern>/admin/ChargeAllUsers</url-pattern>
     </servlet-mapping>

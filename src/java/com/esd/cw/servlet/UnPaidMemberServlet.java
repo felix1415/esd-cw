@@ -9,7 +9,7 @@ import com.esd.cw.dao.MemberDao;
 import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
 import com.esd.cw.services.DashboardService;
-import com.esd.cw.services.LoginService;
+import com.esd.cw.services.UserService;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;

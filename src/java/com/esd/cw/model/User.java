@@ -31,8 +31,8 @@ public class User {
         this.userStatus = userStatus;
         this.isAdmin = isAdmin;
     }
-    
-    public User(String userId, String password, String userStatus, boolean isAdmin, Member member, List<Payment> payments ,List<Claim> claims) {
+
+    public User(String userId, String password, String userStatus, boolean isAdmin, Member member, List<Payment> payments, List<Claim> claims) {
         this.userId = userId;
         this.password = password;
         this.userStatus = userStatus;
@@ -65,11 +65,11 @@ public class User {
     public String getUserId() {
         return userId;
     }
-    
+
     public Member getMember() {
         return member;
     }
-    
+
     public List<Payment> getPayments() {
         return payments;
     }
@@ -93,5 +93,5 @@ public class User {
     public void setClaims(List<Claim> claims) {
         this.claims = claims;
     }
-    
+
 }

@@ -13,10 +13,10 @@ import java.sql.SQLException;
  *
  * @author shaun
  */
-public class LoginService {
+public class UserService {
     UserDao userDao;
 
-    public LoginService() {
+    public UserService() {
         this.userDao = new UserDao();
     }
     
@@ -33,5 +33,10 @@ public class LoginService {
             return null;
         }
 
+    }
+    
+    public User getUser(String userId)
+    {
+        return userDao.findById(userId);
     }
 }

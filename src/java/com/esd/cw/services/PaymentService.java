@@ -58,9 +58,9 @@ public class PaymentService {
             paymentStatus = "Payment failed: You're already a member";
             return paymentStatus;
 
-        } else if (value < 500) {
+        } else if (value < 10) {
             
-            paymentStatus = "Payment failed: memberships costs are £500";
+            paymentStatus = "Payment failed: annual memberships costs are £10";
             return paymentStatus;
         }
 

@@ -24,10 +24,15 @@ public class ClaimService {
 
     MemberDao memberDao;
     ClaimDao claimDao;
+    MemberService memberService;
+    long sixMonthsAgo;
+    long membersLastPayment;
 
     public ClaimService() {
         this.memberDao = new MemberDao();
         this.claimDao = new ClaimDao();
+        this.memberService = new MemberService();
+
     }
 
     public Map<String, String> validateClaim(User user, double claimAmount) throws SQLException, ParseException {
@@ -37,9 +42,15 @@ public class ClaimService {
         Calendar cal = Calendar.getInstance();
         cal.add(cal.MONTH, -6);
         long sixMonthsAgo = cal.getTime().getTime();
-        long membersLastPayment = claimDao.getMembershipDate(user.getUserId());
-        Member member = new Member();
-        member = memberDao.findById(user.getUserId());
+        long membersLastPayment = claimDao.getRegistrationDate(user.getUserId());
+        Member member = memberDao.findById(user.getUserId());
+
+        if (!"PAID".equals(user.getStatus())) {
+            claimResponse.put("success", "false");
+            claimResponse.put("message", "You're not a paid member");
+
+            return claimResponse;
+        }
 
         if (!memberService.claimBalanceCheck(user.getUserId(), claimAmount)) {
             claimResponse.put("success", "false");
@@ -76,16 +87,37 @@ public class ClaimService {
 
     public boolean chargeAllUsersForClaims() {
         boolean success = false;
-        try{
+        try {
             int totalUsers = memberDao.findAll().size();
             double amountToDeduct = Double.valueOf(claimDao.getTotalOfAllClaims()) / (double) totalUsers;
             memberDao.deductAmountFromAllUsers(amountToDeduct);
             success = true;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Failed to charge all users based on total claims");
             e.printStackTrace();
         }
         return success;
     }
 
+    public String claimStatus(User user) throws SQLException, ParseException {
+
+        MemberService memberService = new MemberService();
+        Map<String, String> claimResponse = new HashMap();
+        Calendar cal = Calendar.getInstance();
+        cal.add(cal.MONTH, -6);
+        long sixMonthsAgo = cal.getTime().getTime();
+        long membersLastPayment = claimDao.getRegistrationDate(user.getUserId());
+        Member member = new Member();
+        member = memberDao.findById(user.getUserId());
+
+        if (membersLastPayment < sixMonthsAgo && member.getClaimsRemaining() > 0) {
+
+            return "You are able to claim";
+
+        } else {
+
+            return "You are unable to claim";
+
+        }
+    }
 }

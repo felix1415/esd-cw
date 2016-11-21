@@ -29,7 +29,6 @@
         <label for="lastName">Last Name</label>
         <input type="text" name="lastName" class="form-control" id="lastName" placeholder="" value="${registerResponse.get("lastName")}">
     </div>
-    <!--
     <div class="form-group">
         <label for="postCode">Postcode</label>
         <input type="text" name="postCode" class="form-control" id="postCode" placeholder="">
@@ -37,10 +36,10 @@
     <div class="form-group">
         <button id="addressLookupBtn" class="btn btn-default">Lookup</button>
     </div>
-    -->
     <div class="form-group">
         <label for="address">Address</label>
-        <input type="text" name="address" class="form-control" id="address" placeholder="" value="${registerResponse.get("address")}">
+        <select class="form-control" id="address" name="address">
+        </select>
     </div>
     <div class="form-group">
         <label for="dob">Date of Birth (dd-MM-yyyy)</label>
@@ -65,12 +64,35 @@
 <!-- page script -->
 <script>
     $(document).ready(function () {
+
         $('#dob').datepicker({
             dateFormat: 'dd-mm-yy', // set the date format
             changeYear: true, // show the year select drop down
             changeMonth: true, // show the month select drop down
             yearRange: "-100:+0" // set year range to the past 100 years
         });
+
+        $('#addressLookupBtn').click(function (event) {
+            
+            event.preventDefault();
+            
+            $.ajax({
+                type: 'POST',
+                url: 'address-lookup',
+                data: {postcode: $('#postCode').val().replace(" ", "")},
+                dataType: 'json',
+                success: function (data) {
+                    var html = "";
+                    var addresses = data.Addresses;
+                    for (var i = 0; i < addresses.length; i++) {
+                        html += '<option value="' + addresses[i] + '">' + addresses[i] + '</option>';
+                    }
+                    
+                    $('#address').html(html);
+                }
+            });
+        });
+
     });
 </script>
 <!-- page script end -->

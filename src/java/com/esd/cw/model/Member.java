@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.esd.cw.model;
 
 import java.util.Date;
@@ -55,18 +50,6 @@ public class Member
         this.status = status;
         this.balance = balance;
         this.claimsRemaining = claimsRemaining;
-    }
-
-    public Member(String memberId, String name, Date dateOfBirth)
-    {
-        this.memberId = memberId;
-        this.name = name;
-        this.address = "";
-        this.dateOfBirth = dateOfBirth;
-        this.dateOfRegistration = new Date();
-        this.status = "Unpaid";
-        this.balance = (float)0.0;
-        this.claimsRemaining = 0;
     }
     
     public float getBalance()
@@ -123,5 +106,4 @@ public class Member
     {
         return memberId;
     }
-
 }
