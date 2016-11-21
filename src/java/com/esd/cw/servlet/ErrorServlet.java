@@ -4,32 +4,18 @@
  */
 package com.esd.cw.servlet;
 
-import com.esd.cw.enums.Queries;
-import com.esd.cw.services.ClaimService;
-import com.esd.cw.services.MemberService;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author sturner
  */
-@WebServlet(name = "claimServlet", urlPatterns = {"/claimServlet"})
-public class ClaimServlet extends HttpServlet {
-    ClaimService claimService;
+public class ErrorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,10 +34,10 @@ public class ClaimServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet claimServlet</title>");
+            out.println("<title>Servlet ErrorServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet claimServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ErrorServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,8 +55,7 @@ public class ClaimServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("claim.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/unauthorizedAccess.jsp").forward(request, response);
     }
 
     /**
@@ -84,40 +69,7 @@ public class ClaimServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        claimService = new ClaimService();
-        HttpSession session = request.getSession();
-        
-        //get inputs from form
-        String test = (String) request.getParameter("amount");
-        float claimAmount = Float.valueOf(test);
-        String claimRationale = (String) request.getParameter("rationale");
-        //get user from session
-        com.esd.cw.model.User user = (com.esd.cw.model.User) session.getAttribute("user");
-        
-        String memId = user.getUserId();
-        
-        Map claimResponse = new HashMap();
-
-        String claimResponseString = "Failed to make claim";
-        try {
-            claimResponse = claimService.validateClaim(user, claimAmount);
-            claimResponseString = claimResponse.get("message").toString();
-        } catch (SQLException | ParseException ex) {
-            Logger.getLogger(ClaimServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (Boolean.valueOf((String) claimResponse.get("success"))) {
-
-            try {
-                claimService.makeClaim(claimAmount, claimRationale, memId);
-            } catch (SQLException ex) {
-                Logger.getLogger(ClaimServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        //set message and redirect back to page
-        request.setAttribute("claimResponse", claimResponseString);
-        request.getRequestDispatcher("claim.jsp").forward(request, response);
+        processRequest(request, response);
 
     }
 

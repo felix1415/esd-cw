@@ -42,6 +42,8 @@ ClaimService cService = new ClaimService ();
         </div>
     </div>
 </div>
+<br>
+<a href='claim'>Make Claim</a>
 <!-- page content end -->
 
 <!-- include footer start (leave alone) -->
