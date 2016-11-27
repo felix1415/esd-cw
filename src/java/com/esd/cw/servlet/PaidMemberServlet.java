@@ -13,9 +13,12 @@ import com.esd.cw.model.Payment;
 import com.esd.cw.model.User;
 import com.esd.cw.services.DashboardService;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -45,13 +48,17 @@ public class PaidMemberServlet extends HttpServlet {
         HttpSession session = request.getSession();
         DashboardService dbService = new DashboardService();
         List<Payment> payments;
-        List<Claim> claims;
+        List<Claim> claims = null;
 
         //get user from session, check if logged in
         User user = (User) session.getAttribute("user");
         //Retrieve all payments and claims for users history...
         payments = paymentDao.findPaymentsForUser(user.getUserId());
-        claims = claimDao.findClaimsForMember(user.getUserId());
+        try {
+            claims = claimDao.getClaimsForMember(user.getUserId());
+        } catch (SQLException ex) {
+            Logger.getLogger(PaidMemberServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         // memberClaims = claimDao.
         // membersPayments = memberDao.
