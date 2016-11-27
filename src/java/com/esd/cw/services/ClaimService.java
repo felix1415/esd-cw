@@ -58,7 +58,7 @@ public class ClaimService {
         if (!(membersFirstPaymnet < sixMonthsAgo) && membersFirstPaymnet != 0) {
 
             claimResponse.put("success", "false");
-            claimResponse.put("message", "You've not waited the arbitrary time limit of 6 moths");
+            claimResponse.put("message", "You've not waited the arbitrary time limit of 6 months");
             return claimResponse;
 
         }
