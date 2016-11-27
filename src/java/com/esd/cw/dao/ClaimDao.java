@@ -7,19 +7,12 @@ package com.esd.cw.dao;
 
 import com.esd.cw.enums.Queries;
 import com.esd.cw.model.Claim;
-
-import com.esd.cw.util.Util;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.util.Date;  
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -31,20 +24,7 @@ public class ClaimDao {
 
     }
 
-    public long getRegistrationDate(String memId) throws SQLException, ParseException {
-
-        // define a hash map to store the result in
-        ArrayList<HashMap> result = new ArrayList();
-        long dateInMs = 0;
-        result = DbBean.getInstance().select(String.format(Queries.SELECT_MEMBER_REG_DATE.getSql(), memId));
-
-        if (result.size() > 0) {
-            Date date = Util.getDateFromString(result.get(0).get("dor").toString());
-
-            dateInMs = date.getTime();
-        }
-        return dateInMs;
-    }
+    
 
     public void makeClaim(Claim claim) throws SQLException {
         String claimDate = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(claim.getClaimDate());
@@ -80,8 +60,8 @@ public class ClaimDao {
         // return all the users
         return allClaims;
     }
-    
-    public String getTotalOfAllClaims() throws SQLException{
+
+    public String getTotalOfAllClaims() throws SQLException {
         return DbBean.getInstance().doQueryReturningXColumns(Queries.TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE.getSql(), 1);
     }
 

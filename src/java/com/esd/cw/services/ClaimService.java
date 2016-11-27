@@ -42,7 +42,7 @@ public class ClaimService {
         Calendar cal = Calendar.getInstance();
         cal.add(cal.MONTH, -6);
         long sixMonthsAgo = cal.getTime().getTime();
-        long membersLastPayment = claimDao.getRegistrationDate(user.getUserId());
+        long membersFirstPaymnet = memberDao.getFirstMembership(user.getUserId());
         Member member = memberDao.findById(user.getUserId());
 
         if (!"PAID".equals(user.getStatus())) {
@@ -58,7 +58,7 @@ public class ClaimService {
 
             return claimResponse;
 
-        } else if (!(membersLastPayment < sixMonthsAgo)) {
+        } else if (!(membersFirstPaymnet < sixMonthsAgo) && membersFirstPaymnet != 0) {
 
             claimResponse.put("success", "false");
             claimResponse.put("message", "You've not waited the arbitrary time limit of 6 moths");
@@ -106,11 +106,11 @@ public class ClaimService {
         Calendar cal = Calendar.getInstance();
         cal.add(cal.MONTH, -6);
         long sixMonthsAgo = cal.getTime().getTime();
-        long membersLastPayment = claimDao.getRegistrationDate(user.getUserId());
+        long membersFirstPayment = memberDao.getFirstMembership(user.getUserId());
         Member member = new Member();
         member = memberDao.findById(user.getUserId());
 
-        if (membersLastPayment < sixMonthsAgo && member.getClaimsRemaining() > 0) {
+        if (membersFirstPayment < sixMonthsAgo && member.getClaimsRemaining() > 0 && membersFirstPayment != 0) {
 
             return "You are able to claim";
 

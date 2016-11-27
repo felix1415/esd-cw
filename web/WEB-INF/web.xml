@@ -53,6 +53,10 @@
         <servlet-class>com.esd.cw.servlet.AddressLookupServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ChargeAllUsers</servlet-name>
+        <servlet-class>com.esd.cw.servlet.ChargeAllUsers</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.esd.cw.servlet.ErrorServlet</servlet-class>
     </servlet>

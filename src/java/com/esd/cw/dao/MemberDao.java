@@ -9,7 +9,9 @@ import com.esd.cw.enums.Queries;
 import com.esd.cw.model.Member;
 import com.esd.cw.util.Util;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javafx.scene.shape.QuadCurve;
@@ -22,6 +24,21 @@ public class MemberDao {
 
     public MemberDao() {
 
+    }
+
+    public long getFirstMembership(String memId) throws SQLException, ParseException {
+
+        // define a hash map to store the result in
+        ArrayList<HashMap> result;
+        long dateInMs = 0;
+        result = DbBean.getInstance().select(String.format(Queries.SELECT_USER_FIRST_PAYMENT.getSql(), memId));
+
+        if (result.size() > 0) {
+            Date date = Util.getDateFromString(result.get(0).get("date").toString());
+
+            dateInMs = date.getTime();
+        }
+        return dateInMs;
     }
 
     public List<Member> findAll() {
@@ -93,6 +110,6 @@ public class MemberDao {
     }
 
     public void deductAmountFromAllUsers(double toDeductFromEachUser) throws SQLException {
-        DbBean.getInstance().runQuery(String.format(Queries.DEDUCT_AMOUNT_FROM_ALL_MEMBERS_BALANCE.getSql(),String.valueOf(toDeductFromEachUser)));
+        DbBean.getInstance().runQuery(String.format(Queries.DEDUCT_AMOUNT_FROM_ALL_MEMBERS_BALANCE.getSql(), String.valueOf(toDeductFromEachUser)));
     }
 }
