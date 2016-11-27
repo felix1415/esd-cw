@@ -61,6 +61,7 @@
                                 if (user.isIsAdmin()) {
                         %>
                                 <li><a href="<%=request.getContextPath()%>/admin/dashboard">Admin Dashboard</a></li>
+                                <li><a href="<%=request.getContextPath()%>/admin/PendingClaims">View Pending Claims</a></li>
                             <%
                                 } else {
                                     if (user.getMember().getStatus().equals("PAID"))

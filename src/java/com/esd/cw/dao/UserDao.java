@@ -54,7 +54,7 @@ public class UserDao {
                             Boolean.valueOf(r.get("is_admin").toString()),
                             memberDao.findById(r.get("id").toString()),
                             paymentDao.findPaymentsForUser(r.get("id").toString()),
-                            claimDao.findClaimsForMember(r.get("id").toString())
+                            claimDao.getClaimsForMember(r.get("id").toString())
                     )
             );
         }
@@ -89,7 +89,7 @@ public class UserDao {
                             Boolean.valueOf(r.get("is_admin").toString()),
                             memberDao.findById(r.get("id").toString()),
                             paymentDao.findPaymentsForUser(r.get("id").toString()),
-                            claimDao.findClaimsForMember(r.get("id").toString())
+                            claimDao.getClaimsForMember(r.get("id").toString())
                     )
             );
         }
@@ -118,7 +118,7 @@ public class UserDao {
                         Boolean.valueOf(result.get(0).get("is_admin").toString()),
                         memberDao.findById(result.get(0).get("id").toString()),
                         paymentDao.findPaymentsForUser(result.get(0).get("id").toString()),
-                        claimDao.findClaimsForMember(result.get(0).get("id").toString())
+                        claimDao.getClaimsForMember(result.get(0).get("id").toString())
 
                 );
             } catch (SQLException e) {

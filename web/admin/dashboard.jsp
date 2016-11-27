@@ -1,3 +1,5 @@
+<%@page import="com.esd.cw.dao.ClaimDao"%>
+<%@page import="com.esd.cw.model.Claim"%>
 <%@page import="java.util.List"%>
 <%@page import="com.esd.cw.model.User"%>
 <%@page import="com.esd.cw.dao.UserDao"%>
@@ -47,7 +49,7 @@
     }   
     %>
 </div>
-<p>Page content here.</p>
+<br>
 <!-- page content end -->
 
 <!-- include footer start (leave alone) -->

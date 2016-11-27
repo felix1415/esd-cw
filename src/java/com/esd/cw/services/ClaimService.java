@@ -11,10 +11,14 @@ import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -77,12 +81,20 @@ public class ClaimService {
         return claimResponse;
 
     }
+    
+    public List<Claim> getAllPendingClaims(){
+        List<Claim> pendingClaims = new ArrayList<>();
+        try {
+            pendingClaims = claimDao.getAllPendingClaims();
+        } catch (SQLException ex) {
+            System.out.println("Failed to get all pending claims : " + ex);
+        }
+        return pendingClaims;
+    }
 
     public void makeClaim(double claimAmount, String rationale, String memId) throws SQLException {
         Claim claim = new Claim((float) claimAmount, rationale, memId, new Date(), "PENDING");
-
         claimDao.makeClaim(claim);
-
     }
 
     public boolean chargeAllUsersForClaims() {
@@ -119,5 +131,9 @@ public class ClaimService {
             return "You are unable to claim";
 
         }
+    }
+
+    public boolean acceptClaim(String claimId) {
+        return claimDao.acceptClaim(claimId);
     }
 }

@@ -53,8 +53,16 @@
         <servlet-class>com.esd.cw.servlet.AddressLookupServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ChargeAllUsers</servlet-name>
+        <servlet-class>com.esd.cw.servlet.ChargeAllUsersServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.esd.cw.servlet.ErrorServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PendingClaimsServlet</servlet-name>
+        <servlet-class>com.esd.cw.servlet.PendingClaimsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApplicationServlet</servlet-name>
@@ -132,6 +140,10 @@
     <servlet-mapping>
         <servlet-name>ChargeAllUsers</servlet-name>
         <url-pattern>/admin/ChargeAllUsers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PendingClaimsServlet</servlet-name>
+        <url-pattern>/admin/PendingClaims</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

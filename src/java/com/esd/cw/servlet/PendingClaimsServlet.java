@@ -13,17 +13,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author shaun
  */
-public class ChargeAllUsersServlet extends HttpServlet {
+public class PendingClaimsServlet extends HttpServlet {
     
     ClaimService claimService = new ClaimService();
 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -35,7 +34,12 @@ public class ChargeAllUsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String path = "pending_claims.jsp";
+        HttpSession session = request.getSession();
+//        session.removeAttribute("pendingClaims");
+        request.setAttribute("pendingClaims", claimService.getAllPendingClaims());
+        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -50,15 +54,10 @@ public class ChargeAllUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        boolean success = claimService.chargeAllUsersForClaims();
-        if(success){
-            request.setAttribute("status", "All users have successfully been charged.");
-        }else{
-            request.setAttribute("status", "Failed to charge all users.");
-        }
-        
-        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
-//        response.sendRedirect("dashboard.jsp");
+        System.out.println("Request Claim ID = " + (String) request.getParameter("claimId"));
+        String claimId = request.getParameter("claimId");
+        claimService.acceptClaim(claimId);
+        doGet(request, response);
     }
 
     /**
@@ -68,7 +67,7 @@ public class ChargeAllUsersServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet to accept(post) and get(get) all pending claims";
     }// </editor-fold>
 
 }
