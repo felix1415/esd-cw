@@ -1,3 +1,4 @@
+<%@page import="com.esd.cw.model.Claim"%>
 <%@page import="com.esd.cw.model.Payment"%>
 <%@page import="com.esd.cw.model.User"%>
 <!-- include header start (leave alone) -->
@@ -76,7 +77,30 @@
 <h3 class="info-heading">Claims</h3>
 <div class="row">
     <div class="col-md-12">
-        TODO
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Amount</td>
+                    <td>Rationale</td>
+                    <td>Status</td>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                for (Claim claim : manageUser.getClaims()) {
+                    %>
+                    <tr>
+                        <td><%=claim.getId()%></td>
+                        <td><%=claim.getAmount()%></td>
+                        <td><%=claim.getRationale()%></td>
+                        <td><%=claim.getStatus()%></td>
+                    </tr>
+                    <%
+                }
+                %>
+            </tbody>
+        </table>
     </div>
 </div>
 <h3 class="info-heading">Payment History</h3>

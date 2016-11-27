@@ -40,11 +40,10 @@
                 <input class="form-control" id="address" name="address" type="text">
                 </select>
             </div>
-                    
             <div class="form-group">
+                <label for="addressLookup">Or</label>
                 <button id="addressLookup" class="btn btn-info">Lookup Address</button>
             </div>
-            
             <div id="addressLookupSection" style="display: none;">
             <div class="form-group">
                 <label for="postCode">Enter Postcode</label>

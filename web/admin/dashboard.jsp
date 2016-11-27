@@ -9,50 +9,53 @@
 <!-- include header end -->
 
 <!-- page content start (customise) -->
-<h1>Admin Dashboard Page</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>User ID</th>
-            <th>Status</th>
-            <th>Update</th>
-        </tr>
-    </thead>
-    <tbody>
-        <%
-            for (User u : (List<User>) request.getAttribute("allUsers")) {
-        %>
-    <form role="form" method="get" action="manageuser">
-        <tr>
-            <td><input hidden name="userId" value="<%=u.getUserId()%>"><%=u.getUserId()%></td>
-            <td><%=u.getMember().getStatus()%></td>
-            <td><button class="btn btn-success">Manage</button></td>
-        </tr>
-    </form>
-    <%
-        }
-    %>
-</tbody>
-</table>
-<h1>Charge All Users</h1>
-<form method="post" action="ChargeAllUsers">
-    <button type="submit">Charge All Users</button>
-</form>
-<br>
-
-<div class="error-message">
-    <%
-        if (request.getAttribute("status") != null) {
-    %>
-    <%=request.getAttribute("status")%>
-    <%
-        }
-    %>
+<div class="row">
+    <div class="col-md-12">
+        <h1>Admin Dashboard Page</h1>
+    </div>
 </div>
-<br>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Status</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    for (User u : (List<User>) request.getAttribute("allUsers")) {
+                %>
+            <form role="form" method="get" action="manageuser">
+                <tr>
+                    <td><input hidden name="userId" value="<%=u.getUserId()%>"><%=u.getUserId()%></td>
+                    <td><%=u.getMember().getStatus()%></td>
+                    <td><button class="btn btn-success">Manage</button></td>
+                </tr>
+            </form>
+            <%
+                }
+            %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h1>Charge All Users</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" action="ChargeAllUsers">
+            <button class="btn btn-default" type="submit">Charge All Users</button>
+        </form>
+    </div>
+</div>
 <!-- page content end -->
 
 <!-- include footer start (leave alone) -->
 <jsp:include page='../footer.jsp'/>
 <!-- include header end -->
-
