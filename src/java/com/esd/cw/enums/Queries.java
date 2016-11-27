@@ -31,7 +31,8 @@ public enum Queries {
     GET_CLAIMS_MADE_BY_A_MEMBER("SELECT * from Claims WHERE mem_id = '%s'"),
     GET_ALL_PENDING_CLAIMS("SELECT * from Claims WHERE status = 'PENDING'"),
     ACCEPT_CLAIM("UPDATE Claims SET STATUS = 'APPROVED' WHERE id = '%s'"),
-    TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE("SELECT SUM(amount) FROM Claims where status = 'APPROVED'");
+    DECLINE_CLAIM("UPDATE Claims SET STATUS = 'DECLINED' WHERE id = '%s'"),
+    TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE("SELECT SUM(amount) FROM Claims");
 
     Queries(String sql) {
         this.sql = sql;

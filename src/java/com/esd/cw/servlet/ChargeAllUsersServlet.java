@@ -57,7 +57,7 @@ public class ChargeAllUsersServlet extends HttpServlet {
             request.setAttribute("status", "Failed to charge all users.");
         }
         
-        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("charge_users.jsp").forward(request, response);
 //        response.sendRedirect("dashboard.jsp");
     }
 

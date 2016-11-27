@@ -18,11 +18,11 @@ public class Payment {
     private final Date dateOfPayment;
     private final float paymentAmount;
 
-    public Payment(String memberId, String typeOfPayment, float paymentAmount) {
+    public Payment(String memberId, String typeOfPayment, float paymentAmount, Date date) {
 
         this.memberId = memberId;
         this.typeOfPayment = typeOfPayment;
-        this.dateOfPayment = new Date();
+        this.dateOfPayment = date;
         this.paymentAmount = paymentAmount;
     }
 

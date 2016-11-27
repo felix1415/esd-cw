@@ -14,6 +14,7 @@
             <th>Rationale</th>
             <th>Amount</th>
             <th>Action</th>
+            <th>-</th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +30,13 @@
             <td><%=claim.getClaimDate()%></td>
             <td><%=claim.getRationale()%></td>
             <td><%=claim.getAmount()%></td>
-            <td><button class="btn btn-success">Accept Claim</button></td>
+            <td>
+                <select name="action">
+                    <option value="accept">Accept</option>                    
+                    <option value="reject">Reject</option>
+                </select>
+            </td>
+            <td><button class="btn btn-success">Update</button></td>
         </tr>
     </form>
     <%

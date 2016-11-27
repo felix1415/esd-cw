@@ -59,13 +59,13 @@ public class PaymentService {
             return paymentStatus;
 
         } else if (value < 10) {
-            
+
             paymentStatus = "Payment failed: annual memberships costs are £10";
             return paymentStatus;
         }
 
         paymentStatus = "Your payment is pending approval";
-        Payment payment = new Payment(memId, typeOfPayment, value);
+        Payment payment = new Payment(memId, typeOfPayment, value, new Date());
 
         paymentDao.makePayment(payment);
         member.setStatus("PENDING");

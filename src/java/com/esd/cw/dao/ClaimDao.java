@@ -89,10 +89,14 @@ public class ClaimDao {
         return DbBean.getInstance().doQueryReturningXColumns(Queries.TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE.getSql(), 1);
     }
 
-    public boolean acceptClaim(String claimId) {
+    public boolean updateClaim(boolean accept,String claimId) {
         boolean result = false;
         try{
-            DbBean.getInstance().runQuery(String.format(Queries.ACCEPT_CLAIM.getSql(), claimId));
+            if(accept){
+                DbBean.getInstance().runQuery(String.format(Queries.ACCEPT_CLAIM.getSql(), claimId));            
+            }else{
+                DbBean.getInstance().runQuery(String.format(Queries.DECLINE_CLAIM.getSql(), claimId));            
+            }
             result = true;
         }catch(Exception e){
             System.out.println("Failed to accpet claim with id = " + claimId);
