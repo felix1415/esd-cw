@@ -5,23 +5,26 @@
  */
 package com.esd.cw.servlet;
 
-import com.esd.cw.services.AddressLookupService;
+import com.esd.cw.model.Claim;
+import com.esd.cw.services.ClaimService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author shaun
  */
-public class AddressLookupServlet extends HttpServlet {
+public class PendingClaimsServlet extends HttpServlet {
     
-    AddressLookupService addressLookupService = new AddressLookupService();
+    ClaimService claimService = new ClaimService();
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -33,7 +36,12 @@ public class AddressLookupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        String path = "pending_claims.jsp";
+        HttpSession session = request.getSession();
+//        session.removeAttribute("pendingClaims");
+        request.setAttribute("pendingClaims", claimService.getAllPendingClaims());
+        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -47,17 +55,11 @@ public class AddressLookupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String postcode  = request.getParameter("postcode");
-        response.setContentType("application/json");
-        String failureJsonString = "{\"status\":\"failure\"}";
-        try{
-        String responseJson = addressLookupService.doLookup(postcode);
-        response.getWriter().println(responseJson);
-        }catch(Exception ex){
-            response.getWriter().println(failureJsonString);
-            System.out.println("Failed to get address lookup for postcode " + postcode);
-            ex.printStackTrace();
-        }
+        
+        System.out.println("Request Claim ID = " + (String) request.getParameter("claimId"));
+        String claimId = request.getParameter("claimId");
+        claimService.acceptClaim(claimId);
+        doGet(request, response);
     }
 
     /**
@@ -67,7 +69,7 @@ public class AddressLookupServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet to accept(post) and get(get) all pending claims";
     }// </editor-fold>
 
 }

@@ -50,7 +50,7 @@ public class ChargeAllUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-                boolean success = claimService.chargeAllUsersForClaims();
+        boolean success = claimService.chargeAllUsersForClaims();
         if(success){
             request.setAttribute("status", "All users have successfully been charged.");
         }else{
@@ -58,7 +58,7 @@ public class ChargeAllUsersServlet extends HttpServlet {
         }
         
         request.getRequestDispatcher("dashboard.jsp").forward(request, response);
-        response.sendRedirect("dashboard.jsp");
+//        response.sendRedirect("dashboard.jsp");
     }
 
     /**

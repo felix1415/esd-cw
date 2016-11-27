@@ -13,9 +13,12 @@ import com.esd.cw.model.Payment;
 import com.esd.cw.model.User;
 import com.esd.cw.services.DashboardService;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -41,34 +44,38 @@ public class PaidMemberServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String path;
-        HttpSession session = request.getSession();
-        DashboardService dbService = new DashboardService();
-        List<Payment> payments;
-        List<Claim> claims;
-
-        //get user from session, check if logged in
-        User user = (User) session.getAttribute("user");
-        //Retrieve all payments and claims for users history...
-        payments = paymentDao.findPaymentsForUser(user.getUserId());
-        claims = claimDao.findClaimsForMember(user.getUserId());
-
-        // memberClaims = claimDao.
-        // membersPayments = memberDao.
-        if (user != null) {
-
-            //go to the paid member dashboard if member has paid
-            if (user.getMember().getStatus().equals("PAID")) {
-                path = "paid_member_dashboard.jsp";
+        try {
+            String path;
+            HttpSession session = request.getSession();
+            DashboardService dbService = new DashboardService();
+            List<Payment> payments;
+            List<Claim> claims;
+            
+            //get user from session, check if logged in
+            User user = (User) session.getAttribute("user");
+            //Retrieve all payments and claims for users history...
+            payments = paymentDao.findPaymentsForUser(user.getUserId());
+            claims = claimDao.getClaimsForMember(user.getUserId());
+            
+            // memberClaims = claimDao.
+            // membersPayments = memberDao.
+            if (user != null) {
+                
+                //go to the paid member dashboard if member has paid
+                if (user.getMember().getStatus().equals("PAID")) {
+                    path = "paid_member_dashboard.jsp";
+                } else {
+                    path = "unpaid_member_dashboard.jsp";
+                }
             } else {
-                path = "unpaid_member_dashboard.jsp";
+                path = "/";
             }
-        } else {
-            path = "/";
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+            dispatcher.forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(PaidMemberServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-        dispatcher.forward(request, response);
 
     }
 
