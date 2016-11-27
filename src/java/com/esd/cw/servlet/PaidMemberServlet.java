@@ -66,6 +66,8 @@ public class PaidMemberServlet extends HttpServlet {
         } else {
             path = "/";
         }
+        request.setAttribute("payments", payments);
+        request.setAttribute("claims", claims);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
         dispatcher.forward(request, response);
