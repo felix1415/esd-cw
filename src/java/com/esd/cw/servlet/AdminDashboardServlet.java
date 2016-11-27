@@ -70,19 +70,13 @@ public class AdminDashboardServlet extends HttpServlet {
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else {
-            if (user.isIsAdmin()) {
-
-                try {
-                    // get all users data
-                    request.setAttribute("allUsers", ads.getUsers());
-                } catch (SQLException ex) {
-                    Logger.getLogger(AdminDashboardServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                request.getRequestDispatcher("dashboard.jsp").forward(request, response);
-            } else {
-                request.getRequestDispatcher("authentication_error.jsp").forward(request, response);
+            try {
+                // get all users data
+                request.setAttribute("allUsers", ads.getUsers());
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminDashboardServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            request.getRequestDispatcher("dashboard.jsp").forward(request, response);
         }
     }
 
