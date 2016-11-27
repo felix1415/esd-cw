@@ -56,9 +56,12 @@ public class PendingClaimsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        System.out.println("Request Claim ID = " + (String) request.getParameter("claimId"));
         String claimId = request.getParameter("claimId");
-        claimService.acceptClaim(claimId);
+        boolean accept = false;
+        if (request.getParameter("action").equals("accept")) {
+         accept = true;
+        }
+        claimService.updateClaim(accept,claimId);   
         doGet(request, response);
     }
 

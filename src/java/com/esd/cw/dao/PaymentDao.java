@@ -8,6 +8,7 @@ package com.esd.cw.dao;
 import com.esd.cw.enums.Queries;
 import com.esd.cw.model.Payment;
 import com.esd.cw.model.User;
+import com.esd.cw.util.Util;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,7 +58,9 @@ public class PaymentDao {
                     new Payment(                    
                             (String) r.get("mem_id"),
                             (String) r.get("type_of_payment"),
-                            (float) r.get("amount")
+                            (float) r.get("amount"),
+                            Util.getDateFromString(r.get("date").toString())
+                            
                     )
             );
         }

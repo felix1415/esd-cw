@@ -55,20 +55,13 @@ public class ClaimService {
 
             return claimResponse;
         }
-
-        if (!memberService.claimBalanceCheck(user.getUserId(), claimAmount)) {
-            claimResponse.put("success", "false");
-            claimResponse.put("message", "You're balance is insufficuent to cover the excess on this claim");
-
-            return claimResponse;
-
-        } else if (!(membersFirstPaymnet < sixMonthsAgo) && membersFirstPaymnet != 0) {
+        if (!(membersFirstPaymnet < sixMonthsAgo) && membersFirstPaymnet != 0) {
 
             claimResponse.put("success", "false");
             claimResponse.put("message", "You've not waited the arbitrary time limit of 6 moths");
             return claimResponse;
 
-        } 
+        }
 
         claimResponse.put("success", "true");
         claimResponse.put("message", "You're claim is pending approval");
@@ -76,8 +69,8 @@ public class ClaimService {
         return claimResponse;
 
     }
-    
-    public List<Claim> getAllPendingClaims(){
+
+    public List<Claim> getAllPendingClaims() {
         List<Claim> pendingClaims = new ArrayList<>();
         try {
             pendingClaims = claimDao.getAllPendingClaims();
@@ -117,7 +110,7 @@ public class ClaimService {
         Member member = new Member();
         member = memberDao.findById(user.getUserId());
 
-        if (membersFirstPayment < sixMonthsAgo && member.getClaimsRemaining() > 0 && membersFirstPayment != 0) {
+        if (membersFirstPayment < sixMonthsAgo && membersFirstPayment != 0) {
 
             return "You are able to claim";
 
@@ -128,7 +121,7 @@ public class ClaimService {
         }
     }
 
-    public boolean acceptClaim(String claimId) {
-        return claimDao.acceptClaim(claimId);
+    public boolean updateClaim(boolean accept, String claimId) {
+        return claimDao.updateClaim(accept,claimId);
     }
 }
