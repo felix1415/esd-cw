@@ -8,7 +8,7 @@ package com.esd.cw.dao;
 import com.esd.cw.enums.Queries;
 import com.esd.cw.model.Claim;
 import java.text.SimpleDateFormat;
-import java.util.Date;  
+import java.util.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,8 +24,6 @@ public class ClaimDao {
 
     }
 
-    
-
     public void makeClaim(Claim claim) throws SQLException {
         String claimDate = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(claim.getClaimDate());
 
@@ -35,16 +33,19 @@ public class ClaimDao {
 
     }
 
-    public List<Claim> findClaimsForMember(String memberId) throws SQLException, SQLException, SQLException {
+    public List<Claim> findClaimsForMember(String memberId) {
 
         // define a list of users
         List<Claim> allClaims = new ArrayList<>();
 
         // define a hash map to store the result in
         ArrayList<HashMap> result = new ArrayList();
-
-        result = DbBean.getInstance().select(String.format(Queries.GET_CLAIMS_MADE_BY_A_MEMBER.getSql(), memberId));
-
+        try {
+            result = DbBean.getInstance().select(String.format(Queries.GET_CLAIMS_MADE_BY_A_MEMBER.getSql(), memberId));
+        } catch (SQLException e) {
+            // error
+            System.out.println("ERROR: ClaimDa0().findClaimsForUser() - " + e.toString());
+        }
         for (HashMap r : result) {
             allClaims.add(
                     new Claim(
