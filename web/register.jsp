@@ -82,13 +82,16 @@
                 data: {postcode: $('#postCode').val().replace(" ", "")},
                 dataType: 'json',
                 success: function (data) {
-                    var html = "";
-                    var addresses = data.Addresses;
-                    for (var i = 0; i < addresses.length; i++) {
-                        html += '<option value="' + addresses[i] + '">' + addresses[i] + '</option>';
+                    if (data.status !== "failure") {
+                        var html = "";
+                        var addresses = data.Addresses;
+                        for (var i = 0; i < addresses.length; i++) {
+                            html += '<option value="' + addresses[i] + '">' + addresses[i] + '</option>';
+                        }
+                        $('#address').html(html);
+                    } else {
+                        alert("Please enter a valid postcode");
                     }
-                    
-                    $('#address').html(html);
                 }
             });
         });
