@@ -22,6 +22,7 @@ public enum Queries {
     //Members
     INSERT_MEMBER("INSERT INTO Members (id, name, address, dob, dor, status, balance, claims_remaining) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"),
     UPDATE_MEMBER_STATUS("UPDATE Members SET status = '%s' WHERE id = '%s'"),
+    SELECT_USER_FIRST_PAYMENT("SELECT date FROM payments WHERE mem_id ='%s' ORDER BY date ASC LIMIT 1"),
     SELECT_MEMBER_REG_DATE("SELECT dor FROM Members WHERE id ='%s'"),
     DEDUCT_AMOUNT_FROM_ALL_MEMBERS_BALANCE("UPDATE Members set balance = balance - %s"),
     
