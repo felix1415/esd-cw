@@ -68,12 +68,7 @@ public class ClaimService {
             claimResponse.put("message", "You've not waited the arbitrary time limit of 6 moths");
             return claimResponse;
 
-        } else if (member.getClaimsRemaining() < 1) {
-            claimResponse.put("success", "false");
-            claimResponse.put("message", "You've used all your claims for this year");
-            return claimResponse;
-
-        }
+        } 
 
         claimResponse.put("success", "true");
         claimResponse.put("message", "You're claim is pending approval");
