@@ -141,7 +141,7 @@ public class ClaimService {
         Member member = new Member();
         member = memberDao.findById(user.getUserId());
 
-        if (membersFirstPayment < sixMonthsAgo && membersFirstPayment != 0) {
+        if (membersFirstPayment < sixMonthsAgo && membersFirstPayment != 0 && member.getClaimsRemaining() != 0) {
             return "You are able to claim";
         } else {
             return "You are unable to claim";
