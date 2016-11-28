@@ -51,7 +51,7 @@ public class MemberDao {
 
         try {
             // run the query and get a hash map of all rows
-            result = DbBean.getInstance().select("SELECT * FROM Members");
+            result = DbBean.getInstance().select(Queries.SELECT_ALL_MEMBERS.getSql());
         } catch (SQLException e) {
 
         }
@@ -81,9 +81,9 @@ public class MemberDao {
         ArrayList<HashMap> result = new ArrayList();
 
         try {
-            result = DbBean.getInstance().select("SELECT * FROM Members WHERE id='" + memberId + "'");
+            result = DbBean.getInstance().select(String.format(Queries.SELECT_MEMBER_BY_ID.getSql(), memberId));
         } catch (SQLException e) {
-
+            //
         }
 
         if (result.size() > 0) {

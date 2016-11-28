@@ -21,8 +21,11 @@ import javax.servlet.http.*;
 public class LoginServlet extends HttpServlet
 {
   /** Handles the HTTP <code>GET</code> method.
-   * @param request servlet request
-   * @param response servlet response
+     * 
+     * Checks if a user is logged in, dispatches to dashboard if already logged in
+     * 
+     * @param request servlet request
+     * @param response servlet response
      * @throws javax.servlet.ServletException
      * @throws java.io.IOException
    */
@@ -41,8 +44,12 @@ public class LoginServlet extends HttpServlet
     }
   
   /** Handles the HTTP <code>POST</code> method.
-   * @param request servlet request
-   * @param response servlet response
+     * 
+     * Uses UserService to log a user in with a username and password, puts user 
+     * in the session and redirects to the correct dashboard
+     * 
+     * @param request servlet request
+     * @param response servlet response
      * @throws javax.servlet.ServletException
      * @throws java.io.IOException
    */
@@ -90,7 +97,5 @@ public class LoginServlet extends HttpServlet
             request.setAttribute("loginMessage", loginMessage);
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-    
-        
     }    
 }

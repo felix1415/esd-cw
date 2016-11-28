@@ -13,7 +13,7 @@
 
 <!-- page content start (customise) -->
 <h1>Pending Claims</h1>
-    <table class="table">
+<table class="table">
     <thead>
         <tr>
             <th width='15%'>Member ID</th>
@@ -57,13 +57,13 @@
         </tr>
     </form>
     <%
-            }
-        }else{
+        }
+    } else {
     %>
     <h3>There are no pending claims</h3>
     <%
         }
-        %>
+    %>
 </tbody>
 </table>
 <!-- page content end -->

@@ -38,7 +38,7 @@ public class UserDao {
 
         try {
             // run the query and get a hash map of all rows
-            result = DbBean.getInstance().select("SELECT * FROM users");
+            result = DbBean.getInstance().select(Queries.SELECT_ALL_USERS.getSql());
         } catch (SQLException e) {
             // error
             System.out.println("ERROR: UserDao().findAll() - " + e.toString());
@@ -73,7 +73,7 @@ public class UserDao {
 
         try {
             // run the query and get a hash map of all rows
-            result = DbBean.getInstance().select("SELECT * FROM users WHERE is_admin=0");
+            result = DbBean.getInstance().select(Queries.SELECT_ALL_NON_ADMIN_USERS.getSql());
         } catch (SQLException e) {
             // error
             System.out.println("ERROR: UserDao().findAll() - " + e.toString());
@@ -104,7 +104,7 @@ public class UserDao {
         ArrayList<HashMap> result = new ArrayList();
 
         try {
-            result = DbBean.getInstance().select("SELECT * FROM users WHERE id='" + userId + "'");
+            result = DbBean.getInstance().select(String.format(Queries.SELECT_USER_BY_ID.getSql(), userId));
         } catch (SQLException e) {
 
         }
@@ -134,7 +134,7 @@ public class UserDao {
         ArrayList<HashMap> result = new ArrayList();
 
         try {
-            result = DbBean.getInstance().select("SELECT * FROM users WHERE id='" + userId + "'");
+            result = DbBean.getInstance().select(String.format(Queries.SELECT_USER_BY_ID.getSql(), userId));
         } catch (SQLException e) {
 
         }
