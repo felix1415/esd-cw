@@ -70,7 +70,7 @@ public class UserDao {
         } catch (SQLException e) {
             System.out.println("ERROR: UserDao().findAll() - " + e.toString());
         }
-        
+
         for (HashMap r : result) {
             allUsers.add(
                     new User(
@@ -159,7 +159,7 @@ public class UserDao {
     }
 
     public List<User> getAllUsersWithIdConatining(String toMatch) throws SQLException {
-         // define a list of users
+        // define a list of users
         List<User> allUsers = new ArrayList<>();
 
         // define a hash map to store the result in
@@ -167,7 +167,7 @@ public class UserDao {
 
         try {
             // run the query and get a hash map of all rows
-            result = DbBean.getInstance().select(String.format(Queries.SELECT_USER_WITH_ID_LIKE.getSql(),toMatch));
+            result = DbBean.getInstance().select(String.format(Queries.SELECT_USER_WITH_ID_LIKE.getSql(), toMatch));
         } catch (SQLException e) {
             // error
             System.out.println("ERROR: UserDao().findAll() - " + e.toString());
@@ -187,7 +187,7 @@ public class UserDao {
                     )
             );
         }
-        
+
         return allUsers;
     }
 }

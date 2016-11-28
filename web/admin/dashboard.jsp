@@ -14,6 +14,20 @@
         <h1>Admin Dashboard Page</h1>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h4>Filters</h4>
+        <form role="form" method="get" class="form-inline">
+            <div class="form-group">
+                <label for="usernameFilter">Username </label>
+                <input type="text" name="search" class="form-control" id="usernameFilter">
+            </div>
+            <button type="submit" class="btn btn-warning">Filter</button>
+        </form>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <table class="table">

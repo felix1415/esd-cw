@@ -18,12 +18,10 @@ public enum Queries {
     SELECT_ALL_USERS("SELECT * FROM users"),
     SELECT_ALL_NON_ADMIN_USERS("SELECT * FROM users WHERE is_admin=0"),
     SELECT_USER_BY_ID("SELECT * FROM users WHERE id='%s'"),
-    SELECT_USER_WITH_ID_LIKE("select * from users where id like('%%s%')"),
-    
+    SELECT_USER_WITH_ID_LIKE("SELECT * FROM users WHERE id LIKE '%%%s%%'"),
     //Payments
     INSERT_PAYMENT("INSERT INTO payments (mem_id, type_of_payment, amount, date) VALUES ('%s','%s',%s ,'%s')"),
     SELECT_PAYMENTS_FOR_USER("SELECT * FROM payments WHERE mem_id='%s'"),
-    
     //Members
     INSERT_MEMBER("INSERT INTO Members (id, name, address, dob, dor, status, balance, claims_remaining) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"),
     UPDATE_MEMBER_STATUS("UPDATE Members SET status = '%s' WHERE id = '%s'"),
@@ -32,7 +30,6 @@ public enum Queries {
     DEDUCT_AMOUNT_FROM_ALL_MEMBERS_BALANCE("UPDATE Members set balance = balance - %s"),
     SELECT_ALL_MEMBERS("SELECT * FROM Members"),
     SELECT_MEMBER_BY_ID("SELECT * FROM Members WHERE id='%s'"),
-    
     //Claims
     INSERT_CLAIM("INSERT INTO Claims (mem_id, date, rationale, status,amount) VALUES ('%s','%s','%s' ,'%s', %s)"),
     GET_CLAIMS_MADE_BY_A_MEMBER("SELECT * from Claims WHERE mem_id = '%s'"),
