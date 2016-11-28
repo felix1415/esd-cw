@@ -32,7 +32,7 @@ public enum Queries {
     GET_ALL_PENDING_CLAIMS("SELECT * from Claims WHERE status = 'PENDING'"),
     ACCEPT_CLAIM("UPDATE Claims SET STATUS = 'APPROVED' WHERE id = '%s'"),
     DECLINE_CLAIM("UPDATE Claims SET STATUS = 'DECLINED' WHERE id = '%s'"),
-    TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE("SELECT SUM(amount) FROM Claims");
+    TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE("SELECT SUM(amount) FROM Claims WHERE status = 'APPROVED'");
 
     Queries(String sql) {
         this.sql = sql;

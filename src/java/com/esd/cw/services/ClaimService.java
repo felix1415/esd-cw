@@ -17,8 +17,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -38,17 +36,25 @@ public class ClaimService {
         this.memberService = new MemberService();
 
     }
-
+    /**
+     * Performs checks on users status and date of their first payment.
+     * Returns Hash map containing boolean result of the checks and a corresponding message.
+     * @param user
+     * @param claimAmount
+     * @return
+     * @throws SQLException
+     * @throws ParseException 
+     */
     public Map<String, String> validateClaim(User user, double claimAmount) throws SQLException, ParseException {
 
         MemberService memberService = new MemberService();
         Map<String, String> claimResponse = new HashMap();
+        //Retrieve value of date 6 months ago
         Calendar cal = Calendar.getInstance();
         cal.add(cal.MONTH, -6);
         long sixMonthsAgo = cal.getTime().getTime();
         long membersFirstPaymnet = memberDao.getFirstMembership(user.getUserId());
-        Member member = memberDao.findById(user.getUserId());
-
+        
         if (!"PAID".equals(user.getStatus())) {
             claimResponse.put("success", "false");
             claimResponse.put("message", "You're not a paid member");
@@ -58,7 +64,7 @@ public class ClaimService {
         if (!(membersFirstPaymnet < sixMonthsAgo) && membersFirstPaymnet != 0) {
 
             claimResponse.put("success", "false");
-            claimResponse.put("message", "You've not waited the arbitrary time limit of 6 moths");
+            claimResponse.put("message", "You've not waited the arbitrary time limit of 6 months");
             return claimResponse;
 
         }
@@ -89,8 +95,12 @@ public class ClaimService {
         boolean success = false;
         try {
             int totalUsers = memberDao.findAll().size();
-            double amountToDeduct = Double.valueOf(claimDao.getTotalOfAllClaims()) / (double) totalUsers;
-            memberDao.deductAmountFromAllUsers(amountToDeduct);
+            String totalOfAllClaimsString = claimDao.getTotalOfAllClaims();
+            Double amountToDeduct = 0.0;
+            if (!(totalOfAllClaimsString.equals("null"))) {
+                amountToDeduct = Double.valueOf(claimDao.getTotalOfAllClaims()) / totalUsers;
+                memberDao.deductAmountFromAllUsers(amountToDeduct);
+            }
             success = true;
         } catch (Exception e) {
             System.out.println("Failed to charge all users based on total claims");
@@ -122,6 +132,6 @@ public class ClaimService {
     }
 
     public boolean updateClaim(boolean accept, String claimId) {
-        return claimDao.updateClaim(accept,claimId);
+        return claimDao.updateClaim(accept, claimId);
     }
 }

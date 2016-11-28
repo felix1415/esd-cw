@@ -7,13 +7,23 @@
 <!-- include header start (leave alone) -->
 <jsp:include page='header.jsp'/>
 <!-- include header end -->
-<!-- page content start (customise) -->
+
+<!-- page content start -->
 <%
     User user = (User) session.getAttribute("user");
-    ClaimService cService = new ClaimService();
     List<Payment> payment = (List) request.getAttribute("payments");
-    List<Claim> claim = (List) request.getAttribute("claims");%>
-<h1>Paid Member Dashboard</h1>
+    List<Claim> claim = (List) request.getAttribute("claims");
+%>
+
+<!-- header -->
+<div class="row">
+    <div class="col-md-12">
+        <h1>Paid Member Dashboard</h1>
+    </div>
+</div>
+<!-- end header -->
+
+<!-- user information -->
 <div class="row">
     <div class="col-md-12">
         <div class="user-information-section">
@@ -42,87 +52,99 @@
                 <div class="information-value"><%=user.getMember().getStatus()%></div>
                 <div class="user-information-block">
                     <label class="information-title">Claim Status</label>
-                    <div class="information-value"><%=cService.claimStatus(user)%></div>
+                    <div class="information-value"><%=request.getAttribute("claimStatusMessage")%></div>
                 </div>
             </div>
         </div>
     </div>
-    <br>
-    <a href='claim'>Make Claim</a>
-    <div class ="user-information-block">
-        <div class="information-title" > <br>
-            <label class="information-title">Payments</label>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
+</div>
+<!-- user information end -->
 
-                        for (Payment payment1 : payment) {
-
-                            String date = payment1.getDateOfPayment().toString();
-                            String amount = Float.toString(payment1.getPaymentAmount());
-                            String type = payment1.getTypeOfPayment();
-                    %>
-
-                    <tr>
-                        <td><%=type%></td>
-                        <td><%=date%></td>
-                        <td><%=amount%></td>
-                    </tr>
-
-                    <%
-                        }
-                    %>
-                </tbody>
-            </table>
-        </div>
+<!-- user actions -->
+<div class="row">
+    <div class="col-md-12">
+        <a href='claim'>Make Claim</a>
     </div>
+</div>
+<!-- user actions end -->
 
-    <div class ="user-information-block">
-        <div class="information-title" > <br>
-            <label class="information-title">Claims</label>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>rationale</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        for (Claim claim1 : claim) {
+<!-- user payments -->
+<div class="row">
+    <div class="col-md-12">
+        <h4>Payments</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
 
-                            String date = claim1.getClaimDate().toString();
-                            String amount = Float.toString(claim1.getAmount());
-                            String rationale = claim1.getRationale();
-                            String status = claim1.getStatus();
-                    %>
+                    for (Payment payment1 : payment) {
 
-                    <tr>
-                        <td><%=rationale%></td>
-                        <td><%=date%></td>
-                        <td><%=amount%></td>
-                        <td><%=status%></td>
-                    </tr>
+                        String date = payment1.getDateOfPayment().toString();
+                        String amount = Float.toString(payment1.getPaymentAmount());
+                        String type = payment1.getTypeOfPayment();
+                %>
 
-                    <%
-                        }
-                    %>
-                </tbody>
-            </table>
-        </div>
+                <tr>
+                    <td><%=type%></td>
+                    <td><%=date%></td>
+                    <td><%=amount%></td>
+                </tr>
+
+                <%
+                    }
+                %>
+            </tbody>
+        </table>
     </div>
+</div>
+<!-- user payments end -->
 
-    <!-- page content end -->
+<!-- user claims -->
+<div class="row">
+    <div class="col-md-12">
+        <h4>Claims</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>rationale</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    for (Claim claim1 : claim) {
 
-    <!-- include footer start (leave alone) -->
-    <jsp:include page='footer.jsp'/>
-    <!-- include header end -->
+                        String date = claim1.getClaimDate().toString();
+                        String amount = Float.toString(claim1.getAmount());
+                        String rationale = claim1.getRationale();
+                        String status = claim1.getStatus();
+                %>
+
+                <tr>
+                    <td><%=rationale%></td>
+                    <td><%=date%></td>
+                    <td><%=amount%></td>
+                    <td><%=status%></td>
+                </tr>
+
+                <%
+                    }
+                %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- user claims end -->
+<!-- page content end -->
+
+<!-- include footer start (leave alone) -->
+<jsp:include page='footer.jsp'/>
+<!-- include header end -->
