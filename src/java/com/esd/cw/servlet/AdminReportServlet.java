@@ -7,6 +7,7 @@ package com.esd.cw.servlet;
 
 import com.esd.cw.model.User;
 import com.esd.cw.services.AdminManageUserService;
+import com.esd.cw.services.ReportService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AdminReportServlet extends HttpServlet {
 
-//    AdminManageUserService manageUserService = new AdminManageUserService();
+    ReportService reportService = new ReportService();
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -38,14 +40,17 @@ public class AdminReportServlet extends HttpServlet {
 
         // get the logged in user for authentication (the admin)
         User user = (User) request.getSession().getAttribute("user");
+        HttpSession session = request.getSession();
 
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         } else if (user.isIsAdmin()) {
-            
-            
-            
-            
+            try {
+                double totalClaimsInPastYear = reportService.getTotalOfAllClaimsInPastYear();
+                session.setAttribute("totalClaimsInPastYear", totalClaimsInPastYear);
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminReportServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             RequestDispatcher dispatcher = request.getRequestDispatcher("admin_report.jsp");
             dispatcher.forward(request, response);
         } else {
