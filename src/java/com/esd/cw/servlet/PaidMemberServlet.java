@@ -11,9 +11,11 @@ import com.esd.cw.dao.PaymentDao;
 import com.esd.cw.model.Claim;
 import com.esd.cw.model.Payment;
 import com.esd.cw.model.User;
+import com.esd.cw.services.ClaimService;
 import com.esd.cw.services.DashboardService;
 import java.io.*;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +51,7 @@ public class PaidMemberServlet extends HttpServlet {
         DashboardService dbService = new DashboardService();
         List<Payment> payments;
         List<Claim> claims = null;
+        ClaimService claimService = new ClaimService();
 
         //get user from session, check if logged in
         User user = (User) session.getAttribute("user");
@@ -66,6 +69,18 @@ public class PaidMemberServlet extends HttpServlet {
 
             //go to the paid member dashboard if member has paid
             if (user.getMember().getStatus().equals("PAID")) {
+                
+                String claimStatusMessage;
+                try {
+                    claimStatusMessage = claimService.claimStatus(user);
+                    request.setAttribute("claimStatusMessage", claimStatusMessage);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PaidMemberServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    request.setAttribute("claimStatusMessage", "Error getting claim status");
+                } catch (ParseException ex) {
+                    Logger.getLogger(PaidMemberServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    request.setAttribute("claimStatusMessage", "Error getting claim status");
+                }
                 path = "paid_member_dashboard.jsp";
             } else {
                 path = "unpaid_member_dashboard.jsp";
@@ -73,6 +88,7 @@ public class PaidMemberServlet extends HttpServlet {
         } else {
             path = "/";
         }
+        
         request.setAttribute("payments", payments);
         request.setAttribute("claims", claims);
 

@@ -21,7 +21,7 @@
                 <input type="text" name="rationale" class="form-control" id="rationale" placeholder="">
             </div>
 
-            <input type="submit" value="submit">
+            <input class="btn btn-default" type="submit" value="Make Claim">
         </form>
     </div>
 </div>
