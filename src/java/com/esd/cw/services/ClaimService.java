@@ -1,7 +1,3 @@
-/*
- * Stephen Turner, Computer Science BSc Year 3
- * University Of the West Of England
- */
 package com.esd.cw.services;
 
 import com.esd.cw.dao.ClaimDao;
@@ -20,6 +16,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -149,6 +149,23 @@ public class ClaimService {
     }
 
     public boolean updateClaim(boolean accept, String claimId) {
-        return claimDao.updateClaim(accept, claimId);
+        boolean result = false;
+        try {
+            Set<Claim> claims = claimDao.getAllPendingClaims().stream()
+                        .filter(c->c.getId() == Integer.valueOf(claimId))
+                        .collect(Collectors.toSet());
+            
+            result =  claimDao.updateClaim(accept, claimId);
+            if(accept && result){
+                
+                
+                String memberId = claims.iterator().next().getMemberId();
+                memberDao.decrementClaimsRemainingForMember(memberId);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClaimService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     return result;   
     }
 }

@@ -22,6 +22,7 @@ public enum Queries {
     DEDUCT_AMOUNT_FROM_ALL_MEMBERS_BALANCE("UPDATE Members set balance = balance - %s"),
     SELECT_ALL_MEMBERS("SELECT * FROM Members"),
     SELECT_MEMBER_BY_ID("SELECT * FROM Members WHERE id='%s'"),
+    DECREMENET_CLAIMS_REMAINING("update Members set claims_remaining = claims_remaining - 1 where id = '%s'"),
     //Claims
     INSERT_CLAIM("INSERT INTO Claims (mem_id, date, rationale, status,amount) VALUES ('%s','%s','%s' ,'%s', %s)"),
     GET_CLAIMS_MADE_BY_A_MEMBER("SELECT * from Claims WHERE mem_id = '%s'"),
