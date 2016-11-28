@@ -14,8 +14,8 @@
     <div class="form-group">
         <label for="paymentType">Payment Type</label>
         <select class="form-control" name="paymentType" id="paymentType">
-            <option>Mastercard</option>
-            <option selected="selected">Visa</option>
+            <option>Membership</option>
+            <option selected="selected">Donation</option>
         </select>
     </div>
     <input class="btn btn-success" type="submit" value="Make Payment">

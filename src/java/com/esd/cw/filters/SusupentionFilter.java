@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author sturner
  */
-public class AdminFilter implements Filter {
+public class SusupentionFilter implements Filter {
 
     private static final boolean debug = true;
 
@@ -31,21 +31,33 @@ public class AdminFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public AdminFilter() {
+    public SusupentionFilter() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("AdminFilter:DoBeforeProcessing");
-        }
-        
-        User user = (User) ((HttpServletRequest) request).getSession().getAttribute("user");
-        if (!user.isIsAdmin()) {
+            log("SusupentionFilter:DoBeforeProcessing");
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/ErrorServlet");
-            dispatcher.forward(request, response);
         }
+
+        if (((HttpServletRequest) request).getSession().getAttribute("user") != null) {
+            User user = (User) ((HttpServletRequest) request).getSession().getAttribute("user");
+
+            if (user.getStatus().equals("SUSPENDED")) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/SuspentionServlet");
+                dispatcher.forward(request, response);
+            }
+        }
+
+    }
+
+    private void doAfterProcessing(ServletRequest request, ServletResponse response)
+            throws IOException, ServletException {
+        if (debug) {
+            log("SusupentionFilter:DoAfterProcessing");
+        }
+
     }
 
     /**
@@ -62,7 +74,7 @@ public class AdminFilter implements Filter {
             throws IOException, ServletException {
 
         if (debug) {
-            log("AdminFilter:doFilter()");
+            log("SusupentionFilter:doFilter()");
         }
 
         doBeforeProcessing(request, response);
@@ -77,6 +89,8 @@ public class AdminFilter implements Filter {
             problem = t;
             t.printStackTrace();
         }
+
+        doAfterProcessing(request, response);
 
         // If there was a problem, we want to rethrow it if it is
         // a known type, otherwise log it.
@@ -120,7 +134,7 @@ public class AdminFilter implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {
-                log("AdminFilter:Initializing filter");
+                log("SusupentionFilter:Initializing filter");
             }
         }
     }
@@ -131,9 +145,9 @@ public class AdminFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("AdminFilter()");
+            return ("SusupentionFilter()");
         }
-        StringBuffer sb = new StringBuffer("AdminFilter(");
+        StringBuffer sb = new StringBuffer("SusupentionFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
