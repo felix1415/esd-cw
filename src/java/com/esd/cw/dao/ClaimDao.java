@@ -67,8 +67,8 @@ public class ClaimDao {
         return allClaims;
     }
 
-    public String getTotalOfAllClaims() throws SQLException {
-        return DbBean.getInstance().doQueryReturningXColumns(Queries.TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE.getSql(), 1);
+    public String getTotalOfAllClaimsInPastYear() throws SQLException {
+        return DbBean.getInstance().doQueryReturningXColumns(Queries.TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE_PAST_YEAR.getSql(), 1);
     }
 
     public boolean updateClaim(boolean accept, String claimId) {

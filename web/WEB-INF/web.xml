@@ -57,6 +57,10 @@
         <servlet-class>com.esd.cw.servlet.ChargeAllUsersServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AdminReport</servlet-name>
+        <servlet-class>com.esd.cw.servlet.AdminReportServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.esd.cw.servlet.ErrorServlet</servlet-class>
     </servlet>
@@ -140,6 +144,10 @@
     <servlet-mapping>
         <servlet-name>ChargeAllUsers</servlet-name>
         <url-pattern>/admin/ChargeAllUsers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminReport</servlet-name>
+        <url-pattern>/admin/AdminReport</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PendingClaimsServlet</servlet-name>

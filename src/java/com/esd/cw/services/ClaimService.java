@@ -109,10 +109,10 @@ public class ClaimService {
         boolean success = false;
         try {
             int totalUsers = memberDao.findAll().size();
-            String totalOfAllClaimsString = claimDao.getTotalOfAllClaims();
+            String totalOfAllClaimsString = claimDao.getTotalOfAllClaimsInPastYear();
             Double amountToDeduct = 0.0;
             if (!(totalOfAllClaimsString.equals("null"))) {
-                amountToDeduct = Double.valueOf(claimDao.getTotalOfAllClaims()) / totalUsers;
+                amountToDeduct = Double.valueOf(claimDao.getTotalOfAllClaimsInPastYear()) / totalUsers;
                 memberDao.deductAmountFromAllUsers(amountToDeduct);
             }
             success = true;

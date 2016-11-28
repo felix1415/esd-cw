@@ -17,6 +17,7 @@
 
 <div class="row">
     <div class="col-md-12">
+<<<<<<< HEAD
         <h4>Filters</h4>
         <form role="form" method="get" class="form-inline">
             <div class="form-group">
@@ -28,6 +29,21 @@
     </div>
 </div>
 
+=======
+        <form method="get" action="AdminReport">
+            <button class="btn btn-default">Reports</button>
+        </form>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" action="ChargeAllUsers">
+            <button class="btn btn-default" type="submit">Charge All Users</button>
+        </form>
+    </div>
+</div>
+>>>>>>> stash
 <div class="row">
     <div class="col-md-12">
         <table class="table">
@@ -54,18 +70,6 @@
             %>
             </tbody>
         </table>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <h1>Charge All Users</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <form method="post" action="ChargeAllUsers">
-            <button class="btn btn-default" type="submit">Charge All Users</button>
-        </form>
     </div>
 </div>
 <!-- page content end -->

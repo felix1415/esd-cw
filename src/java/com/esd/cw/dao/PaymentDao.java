@@ -66,4 +66,7 @@ public class PaymentDao {
         return allPayments;
     }
 
+    public String getTotalOfAllPaymentsInPastYear() throws SQLException {
+        return DbBean.getInstance().doQueryReturningXColumns(Queries.SELECT_PAYMENTS_FOR_ALL_USERS_PAST_YEAR.getSql(), 1);
+    }
 }
