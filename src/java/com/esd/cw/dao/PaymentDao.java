@@ -46,7 +46,7 @@ public class PaymentDao {
 
         try {
             // run the query and get a hash map of all rows
-            result = DbBean.getInstance().select("SELECT * FROM payments WHERE mem_id='" + userId + "'");
+            result = DbBean.getInstance().select(String.format(Queries.SELECT_PAYMENTS_FOR_USER.getSql(), userId));
         } catch (SQLException e) {
             // error
             System.out.println("ERROR: PaymentDao().findPaymentsForUser() - " + e.toString());
