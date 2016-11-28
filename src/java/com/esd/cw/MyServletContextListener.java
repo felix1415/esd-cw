@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.esd.cw;
 
 import com.esd.cw.dao.DbBean;
@@ -10,10 +5,6 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-/**
- *
- * @author shaun
- */
 public class MyServletContextListener implements ServletContextListener {
 
     private static final String URL_KEY = "database-url";

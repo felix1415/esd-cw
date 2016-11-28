@@ -9,10 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author shaun
- */
 public class PendingClaimsServlet extends HttpServlet {
 
     ClaimService claimService = new ClaimService();

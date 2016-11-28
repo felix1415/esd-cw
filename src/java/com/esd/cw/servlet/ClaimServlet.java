@@ -1,7 +1,3 @@
-/*
- * Stephen Turner, Computer Science BSc Year 3
- * University Of the West Of England
- */
 package com.esd.cw.servlet;
 
 import com.esd.cw.services.ClaimService;
@@ -20,10 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author sturner
- */
 @WebServlet(name = "claimServlet", urlPatterns = {"/claimServlet"})
 public class ClaimServlet extends HttpServlet {
 

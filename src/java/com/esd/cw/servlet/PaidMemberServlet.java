@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.esd.cw.servlet;
 
 import com.esd.cw.dao.ClaimDao;
@@ -22,10 +17,6 @@ import java.util.logging.Logger;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-/**
- *
- * @author alexgray
- */
 public class PaidMemberServlet extends HttpServlet {
 
     MemberDao memberDao = new MemberDao();

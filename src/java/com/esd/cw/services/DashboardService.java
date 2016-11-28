@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.esd.cw.services;
 
 import com.esd.cw.dao.MemberDao;
 import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
 
-/**
- *
- * @author alexgray
- */
 public class DashboardService {
 
     MemberDao memberDao;

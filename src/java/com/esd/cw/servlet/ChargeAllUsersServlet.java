@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.esd.cw.servlet;
 
 import com.esd.cw.services.ClaimService;
@@ -12,10 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author shaun
- */
 public class ChargeAllUsersServlet extends HttpServlet {
 
     ClaimService claimService = new ClaimService();

@@ -1,7 +1,3 @@
-/*
- * Stephen Turner, Computer Science BSc Year 3
- * University Of the West Of England
- */
 package com.esd.cw.servlet;
 
 import java.io.IOException;
@@ -10,10 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author sturner
- */
 public class ErrorServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

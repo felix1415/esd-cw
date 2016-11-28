@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.esd.cw.services;
 
 import com.esd.cw.util.PropertiesUtil;
@@ -15,10 +10,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
 
-/**
- *
- * @author shaun
- */
 public class AddressLookupService {
 
     public String doLookup(String postcode) throws MalformedURLException, IOException {

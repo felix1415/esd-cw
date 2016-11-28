@@ -71,13 +71,10 @@ public class ClaimService {
             return claimResponse;
         }
         if (!(membersFirstPaymnet < sixMonthsAgo) && membersFirstPaymnet != 0) {
-
             claimResponse.put("success", "false");
             claimResponse.put("message", "You've not waited the arbitrary time limit of 6 months");
             return claimResponse;
-
         }
-
         claimResponse.put("success", "true");
         claimResponse.put("message", "You're claim is pending approval");
 
@@ -114,10 +111,10 @@ public class ClaimService {
         try {
             List<Member> allMembers = memberDao.findAll();
             int totalUsers = allMembers.size();
-            String totalOfAllClaimsString = claimDao.getTotalOfAllClaims();
+            String totalOfAllClaimsString = claimDao.getTotalOfAllClaimsInPastYear();
             Float amountToDeduct = 0.0f;
             if (!(totalOfAllClaimsString.equals("null"))) {
-                amountToDeduct = Float.valueOf(claimDao.getTotalOfAllClaims()) / totalUsers;
+                amountToDeduct = Float.valueOf(claimDao.getTotalOfAllClaimsInPastYear()) / totalUsers;
                 memberDao.deductAmountFromAllUsers(amountToDeduct);
                 
                 for(Member member : allMembers){
@@ -145,13 +142,9 @@ public class ClaimService {
         member = memberDao.findById(user.getUserId());
 
         if (membersFirstPayment < sixMonthsAgo && membersFirstPayment != 0) {
-
             return "You are able to claim";
-
         } else {
-
             return "You are unable to claim";
-
         }
     }
 

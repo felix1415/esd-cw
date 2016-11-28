@@ -1,7 +1,3 @@
-/*
- * Stephen Turner, Computer Science BSc Year 3
- * University Of the West Of England
- */
 package com.esd.cw.filters;
 
 import com.esd.cw.model.User;
