@@ -7,8 +7,6 @@ package com.esd.cw.servlet;
 
 import com.esd.cw.services.ClaimService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author shaun
  */
 public class ChargeAllUsersServlet extends HttpServlet {
-    
-    ClaimService claimService = new ClaimService();
 
+    ClaimService claimService = new ClaimService();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -49,26 +46,15 @@ public class ChargeAllUsersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         boolean success = claimService.chargeAllUsersForClaims();
-        if(success){
+        if (success) {
             request.setAttribute("status", "All users have successfully been charged.");
-        }else{
+        } else {
             request.setAttribute("status", "Failed to charge all users.");
         }
-        
+
         request.getRequestDispatcher("charge_users.jsp").forward(request, response);
 //        response.sendRedirect("dashboard.jsp");
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

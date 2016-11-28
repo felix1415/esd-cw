@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
  * @author shaun
  */
 public class PaymentServlet extends HttpServlet {
+
     UserService userService;
     MemberService memberService;
     PaymentService paymentService;
@@ -53,8 +54,11 @@ public class PaymentServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Create a new payment for membership. 
+     * Takes the inputs from the form in order to create a payment in the database.
+     * Form returns an amount(double) and the type of payment(string).
      *
+     *Session is then updated to match members new status.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -72,16 +76,15 @@ public class PaymentServlet extends HttpServlet {
         HttpSession session = request.getSession();
         com.esd.cw.model.User user = (com.esd.cw.model.User) session.getAttribute("user");
 
-        String paymentStatus;
         try {
             String paymentResponse = paymentService.makeMembershipPayment(paymentAmount, paymentType, user);
-            
+
             //update session user and member
             user = userService.getUser(user.getUserId());
             session.setAttribute("user", user);
             Member member = memberService.getMember(user.getUserId());
             session.setAttribute("member", member);
-            
+
             request.setAttribute("paymentStatus", paymentResponse);
         } catch (SQLException ex) {
             Logger.getLogger(PaymentServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,15 +94,4 @@ public class PaymentServlet extends HttpServlet {
 
         dispatcher.forward(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
