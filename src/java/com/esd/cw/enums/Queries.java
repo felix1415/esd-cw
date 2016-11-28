@@ -13,7 +13,7 @@ public enum Queries {
     //Payments
     INSERT_PAYMENT("INSERT INTO payments (mem_id, type_of_payment, amount, date) VALUES ('%s','%s',%s ,'%s')"),
     SELECT_PAYMENTS_FOR_USER("SELECT * FROM payments WHERE mem_id='%s'"),
-    SELECT_PAYMENTS_FOR_ALL_USERS_PAST_YEAR("SELECT SUM(amount) FROM payments WHERE order_date >= DATE_SUB(NOW(),INTERVAL 1 YEAR)"),
+    SELECT_PAYMENTS_FOR_ALL_USERS_PAST_YEAR("SELECT SUM(amount) FROM payments WHERE date > DATE_SUB(NOW(), INTERVAL 1 YEAR)"),
     //Members
     INSERT_MEMBER("INSERT INTO Members (id, name, address, dob, dor, status, balance, claims_remaining) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"),
     UPDATE_MEMBER_STATUS("UPDATE Members SET status = '%s' WHERE id = '%s'"),

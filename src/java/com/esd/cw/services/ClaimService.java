@@ -116,9 +116,9 @@ public class ClaimService {
             if (!(totalOfAllClaimsString.equals("null"))) {
                 amountToDeduct = Float.valueOf(claimDao.getTotalOfAllClaimsInPastYear()) / totalUsers;
                 memberDao.deductAmountFromAllUsers(amountToDeduct);
-                
-                for(Member member : allMembers){
-                    Payment payment = new Payment(member.getMemberId(),"Charge", amountToDeduct, new Date());
+
+                for (Member member : allMembers) {
+                    Payment payment = new Payment(member.getMemberId(), "Charge", amountToDeduct, new Date());
                     paymentDao.makePayment(payment);
                 }
             }
