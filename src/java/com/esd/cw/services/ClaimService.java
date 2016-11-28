@@ -114,14 +114,14 @@ public class ClaimService {
         try {
             List<Member> allMembers = memberDao.findAll();
             int totalUsers = allMembers.size();
-            String totalOfAllClaimsString = claimDao.getTotalOfAllClaims();
+            String totalOfAllClaimsString = claimDao.getTotalOfAllClaimsInPastYear();
             Float amountToDeduct = 0.0f;
             if (!(totalOfAllClaimsString.equals("null"))) {
-                amountToDeduct = Float.valueOf(claimDao.getTotalOfAllClaims()) / totalUsers;
+                amountToDeduct = Float.valueOf(claimDao.getTotalOfAllClaimsInPastYear()) / totalUsers;
                 memberDao.deductAmountFromAllUsers(amountToDeduct);
-                
-                for(Member member : allMembers){
-                    Payment payment = new Payment(member.getMemberId(),"Charge", amountToDeduct, new Date());
+
+                for (Member member : allMembers) {
+                    Payment payment = new Payment(member.getMemberId(), "Charge", amountToDeduct, new Date());
                     paymentDao.makePayment(payment);
                 }
             }
