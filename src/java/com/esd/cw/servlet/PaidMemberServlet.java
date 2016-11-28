@@ -14,8 +14,6 @@ import com.esd.cw.model.User;
 import com.esd.cw.services.DashboardService;
 import java.io.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +33,9 @@ public class PaidMemberServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
+     * Gets the details for a member, payments and claims for that member, from 
+     * a user
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws javax.servlet.ServletException
@@ -60,10 +61,7 @@ public class PaidMemberServlet extends HttpServlet {
             Logger.getLogger(PaidMemberServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // memberClaims = claimDao.
-        // membersPayments = memberDao.
         if (user != null) {
-
             //go to the paid member dashboard if member has paid
             if (user.getMember().getStatus().equals("PAID")) {
                 path = "paid_member_dashboard.jsp";
@@ -80,19 +78,4 @@ public class PaidMemberServlet extends HttpServlet {
         dispatcher.forward(request, response);
 
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws javax.servlet.ServletException
-     * @throws java.io.IOException
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
 }
