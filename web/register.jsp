@@ -121,9 +121,9 @@
         
         $('#selectAddress').change(function (event) {
             event.preventDefault();
-            $('#address').val($('#selectAddress').val() + ", " + $('#postcode').val());
+            $('#address').val($('#selectAddress').val() + ", " + $('#postCode').val());
             $('#addressLookupSection').hide();
-            $('#postcode').val("");
+            $('#postCode').val("");
             $('#selectAddress').html("");
         });
         
