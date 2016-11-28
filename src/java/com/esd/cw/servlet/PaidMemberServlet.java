@@ -16,12 +16,9 @@ import com.esd.cw.services.DashboardService;
 import java.io.*;
 import java.text.ParseException;
 import java.sql.SQLException;
-<<<<<<< HEAD
-=======
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
->>>>>>> 36c2f391b9ca52dd45400923e313fad88258b789
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
