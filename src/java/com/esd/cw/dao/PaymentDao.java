@@ -7,12 +7,10 @@ package com.esd.cw.dao;
 
 import com.esd.cw.enums.Queries;
 import com.esd.cw.model.Payment;
-import com.esd.cw.model.User;
 import com.esd.cw.util.Util;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
