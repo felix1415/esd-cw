@@ -6,10 +6,8 @@
 package com.esd.cw.servlet;
 
 import com.esd.cw.dao.MemberDao;
-import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
 import com.esd.cw.services.DashboardService;
-import com.esd.cw.services.UserService;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -22,8 +20,12 @@ public class UnPaidMemberServlet extends HttpServlet
 {
     MemberDao memberDao = new MemberDao();
     /** Handles the HTTP <code>GET</code> method.
-   * @param request servlet request
-   * @param response servlet response
+     * 
+     * Directs a member to the correct member dashboard (paid/unpaid), or if not 
+     * logged in, to the index dashboard
+     * 
+     * @param request servlet request
+     * @param response servlet response
      * @throws javax.servlet.ServletException
      * @throws java.io.IOException
    */
@@ -55,17 +57,5 @@ public class UnPaidMemberServlet extends HttpServlet
         dispatcher.forward(request, response);
         
     }
-  
-  /** Handles the HTTP <code>POST</code> method.
-   * @param request servlet request
-   * @param response servlet response
-     * @throws javax.servlet.ServletException
-     * @throws java.io.IOException
-   */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {    
-        
-    }    
     
 }

@@ -5,11 +5,8 @@
  */
 package com.esd.cw.servlet;
 
-import com.esd.cw.model.Claim;
 import com.esd.cw.services.ClaimService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +25,8 @@ public class PendingClaimsServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
+     * Gets all the pending claims and puts them into the session
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -38,7 +37,6 @@ public class PendingClaimsServlet extends HttpServlet {
             throws ServletException, IOException {
         String path = "pending_claims.jsp";
         HttpSession session = request.getSession();
-//        session.removeAttribute("pendingClaims");
         request.setAttribute("pendingClaims", claimService.getAllPendingClaims());
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
         dispatcher.forward(request, response);
@@ -47,6 +45,9 @@ public class PendingClaimsServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
+     * Posts the claimId response to a claim, the claim is updated with the
+     * claim action from the form
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -64,15 +65,4 @@ public class PendingClaimsServlet extends HttpServlet {
         claimService.updateClaim(accept,claimId);   
         doGet(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Servlet to accept(post) and get(get) all pending claims";
-    }// </editor-fold>
-
 }
