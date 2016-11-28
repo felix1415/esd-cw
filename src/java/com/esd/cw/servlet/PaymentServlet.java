@@ -69,11 +69,8 @@ public class PaymentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String paymentType = request.getParameter("paymentType");
-        System.out.println(paymentType);
+        String paymentType = "Membership";
         int paymentAmount = Integer.parseInt(request.getParameter("paymentAmount"));
-        System.out.println(paymentAmount);
-
         HttpSession session = request.getSession();
         com.esd.cw.model.User user = (com.esd.cw.model.User) session.getAttribute("user");
 

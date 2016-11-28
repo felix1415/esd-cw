@@ -62,7 +62,6 @@ public class PaymentDao {
             );
         }
 
-        // return all the users
         return allPayments;
     }
 

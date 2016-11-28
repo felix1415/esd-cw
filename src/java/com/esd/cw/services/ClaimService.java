@@ -6,9 +6,11 @@ package com.esd.cw.services;
 
 import com.esd.cw.dao.ClaimDao;
 import com.esd.cw.dao.MemberDao;
+import com.esd.cw.dao.PaymentDao;
 import com.esd.cw.dao.UserDao;
 import com.esd.cw.model.Claim;
 import com.esd.cw.model.Member;
+import com.esd.cw.model.Payment;
 import com.esd.cw.model.User;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -29,6 +31,7 @@ public class ClaimService {
     ClaimDao claimDao;
     UserDao userDao;
     MemberService memberService;
+    PaymentDao paymentDao;
     long sixMonthsAgo;
     long membersLastPayment;
 
@@ -37,6 +40,7 @@ public class ClaimService {
         this.claimDao = new ClaimDao();
         this.memberService = new MemberService();
         this.userDao = new UserDao();
+        this.paymentDao = new PaymentDao();
     }
 
     /**
@@ -108,12 +112,18 @@ public class ClaimService {
     public boolean chargeAllUsersForClaims() {
         boolean success = false;
         try {
-            int totalUsers = memberDao.findAll().size();
+            List<Member> allMembers = memberDao.findAll();
+            int totalUsers = allMembers.size();
             String totalOfAllClaimsString = claimDao.getTotalOfAllClaims();
-            Double amountToDeduct = 0.0;
+            Float amountToDeduct = 0.0f;
             if (!(totalOfAllClaimsString.equals("null"))) {
-                amountToDeduct = Double.valueOf(claimDao.getTotalOfAllClaims()) / totalUsers;
+                amountToDeduct = Float.valueOf(claimDao.getTotalOfAllClaims()) / totalUsers;
                 memberDao.deductAmountFromAllUsers(amountToDeduct);
+                
+                for(Member member : allMembers){
+                    Payment payment = new Payment(member.getMemberId(),"Charge", amountToDeduct, new Date());
+                    paymentDao.makePayment(payment);
+                }
             }
             success = true;
         } catch (Exception e) {
