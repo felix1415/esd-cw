@@ -48,6 +48,9 @@ public class AdminReportServlet extends HttpServlet {
             try {
                 double totalClaimsInPastYear = reportService.getTotalOfAllClaimsInPastYear();
                 session.setAttribute("totalClaimsInPastYear", totalClaimsInPastYear);
+                
+                double totalPaymentsInPastYear = reportService.getTotalOfAllPaymentsInPastYear();
+                session.setAttribute("totalPaymentsInPastYear", totalPaymentsInPastYear);
             } catch (SQLException ex) {
                 Logger.getLogger(AdminReportServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
