@@ -69,6 +69,6 @@ VALUES ('1','me-aydin', 'Membership', 500, '2015-11-27');
 
 /* Add claims info to the Claims table */
 INSERT INTO Claims (id, mem_id, date, rationale, status, amount)
-VALUES ('1','me-aydin', '2016-11-27', 'Replace front bumper and bonnet', 'ACCEPTED', 400);
+VALUES ('1','me-aydin', '2016-11-27', 'Replace front bumper and bonnet', 'APPROVED', 400);
 INSERT INTO Claims (id, mem_id, date, rationale, status, amount)
-VALUES ('2','me-aydin', '2016-11-27', 'Front tyre and wheel replacements', 'ACCEPTED', 300);
+VALUES ('2','me-aydin', '2016-11-27', 'Front tyre and wheel replacements', 'APPROVED', 300);
