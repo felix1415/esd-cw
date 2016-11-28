@@ -15,6 +15,9 @@ public enum Queries {
     INSERT_USER("INSERT INTO users (id, password, status, is_admin) VALUES ('%s', '%s', '%s', %b)"),
     SELECT_USER_LAST_PAYMENT("SELECT date FROM payments WHERE mem_id ='%s' ORDER BY date DESC LIMIT 1"),
     UPDATE_USER_STATUS("UPDATE users SET status = '%s' WHERE id= '%s'"),
+    SELECT_ALL_USERS("SELECT * FROM users"),
+    SELECT_ALL_NON_ADMIN_USERS("SELECT * FROM users WHERE is_admin=0"),
+    SELECT_USER_BY_ID("SELECT * FROM users WHERE id='%s'"),
     
     //Payments
     INSERT_PAYMENT("INSERT INTO payments (mem_id, type_of_payment, amount, date) VALUES ('%s','%s',%s ,'%s')"),
