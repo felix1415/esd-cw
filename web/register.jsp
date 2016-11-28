@@ -121,7 +121,7 @@
         
         $('#selectAddress').change(function (event) {
             event.preventDefault();
-            $('#address').val($('#selectAddress').val());
+            $('#address').val($('#selectAddress').val() + ", " + $('#postcode').val());
             $('#addressLookupSection').hide();
             $('#postcode').val("");
             $('#selectAddress').html("");
