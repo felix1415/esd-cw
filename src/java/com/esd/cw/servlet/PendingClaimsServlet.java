@@ -39,7 +39,7 @@ public class PendingClaimsServlet extends HttpServlet {
         String path = "pending_claims.jsp";
         HttpSession session = request.getSession();
 //        session.removeAttribute("pendingClaims");
-        request.setAttribute("pendingClaims", claimService.getAllPendingClaims());
+        request.setAttribute("pendingClaims", claimService.getAllPendingClaimsAndCorrespondingUserModels());
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
         dispatcher.forward(request, response);
     }

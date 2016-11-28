@@ -6,6 +6,7 @@ package com.esd.cw.services;
 
 import com.esd.cw.dao.ClaimDao;
 import com.esd.cw.dao.MemberDao;
+import com.esd.cw.dao.UserDao;
 import com.esd.cw.model.Claim;
 import com.esd.cw.model.Member;
 import com.esd.cw.model.User;
@@ -28,6 +29,7 @@ public class ClaimService {
 
     MemberDao memberDao;
     ClaimDao claimDao;
+    UserDao userDao;
     MemberService memberService;
     long sixMonthsAgo;
     long membersLastPayment;
@@ -36,7 +38,7 @@ public class ClaimService {
         this.memberDao = new MemberDao();
         this.claimDao = new ClaimDao();
         this.memberService = new MemberService();
-
+        this.userDao = new UserDao();
     }
 
     public Map<String, String> validateClaim(User user, double claimAmount) throws SQLException, ParseException {
@@ -70,14 +72,23 @@ public class ClaimService {
 
     }
 
-    public List<Claim> getAllPendingClaims() {
+    public HashMap<String,List<Object>>  getAllPendingClaimsAndCorrespondingUserModels() {
+        //String is user Id, other map is user and corresponding claim.
+        HashMap<String,List<Object>> userClaimMap = new HashMap<String,List<Object>>();
         List<Claim> pendingClaims = new ArrayList<>();
         try {
             pendingClaims = claimDao.getAllPendingClaims();
+            for(Claim claim : pendingClaims){
+                User user = userDao.findById(claim.getMemberId());
+                ArrayList<Object> userAndClaim = new ArrayList<>();
+                userAndClaim.add(user);
+                userAndClaim.add(claim);
+                userClaimMap.put(claim.getMemberId(),userAndClaim);
+            }
         } catch (SQLException ex) {
             System.out.println("Failed to get all pending claims : " + ex);
         }
-        return pendingClaims;
+        return userClaimMap;
     }
 
     public void makeClaim(double claimAmount, String rationale, String memId) throws SQLException {
