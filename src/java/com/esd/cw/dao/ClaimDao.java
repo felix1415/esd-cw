@@ -67,7 +67,7 @@ public class ClaimDao {
         return allClaims;
     }
 
-    public String getTotalOfAllClaims() throws SQLException {
+    public String getTotalOfAllClaimsInPastYear() throws SQLException {
         return DbBean.getInstance().doQueryReturningXColumns(Queries.TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE.getSql(), 1);
     }
 

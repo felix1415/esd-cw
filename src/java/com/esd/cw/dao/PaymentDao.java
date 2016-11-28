@@ -28,7 +28,14 @@ public class PaymentDao {
 
         try {
             String dateString = new SimpleDateFormat("YYYY-MM-dd hh-mm-ss").format(payment.getDateOfPayment());
-            DbBean.getInstance().runQuery(String.format(Queries.INSERT_PAYMENT.getSql(), payment.getMemberId(), payment.getTypeOfPayment(), payment.getPaymentAmount(), dateString));
+            DbBean.getInstance().runQuery(String.format(
+                    Queries.INSERT_PAYMENT.getSql(),
+                    payment.getMemberId(),
+                    payment.getTypeOfPayment(),
+                    payment.getPaymentAmount(),
+                    dateString)
+            );
+            
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -65,4 +72,7 @@ public class PaymentDao {
         return allPayments;
     }
 
+    public String getTotalOfAllPaymentsInPastYear() throws SQLException {
+        return DbBean.getInstance().doQueryReturningXColumns(Queries.SELECT_PAYMENTS_FOR_ALL_USERS_PAST_YEAR.getSql(), 1);
+    }
 }

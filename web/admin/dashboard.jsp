@@ -27,6 +27,14 @@
         </form>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <br>
+        <form method="post" action="ChargeAllUsers">
+            <button class="btn btn-default" type="submit">Charge All Users</button>
+        </form>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-12">
@@ -54,18 +62,6 @@
             %>
             </tbody>
         </table>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <h1>Charge All Users</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <form method="post" action="ChargeAllUsers">
-            <button class="btn btn-default" type="submit">Charge All Users</button>
-        </form>
     </div>
 </div>
 <!-- page content end -->
