@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author shaun
  */
 public class AddressLookupServlet extends HttpServlet {
-    
+
     AddressLookupService addressLookupService = new AddressLookupService();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -33,7 +33,7 @@ public class AddressLookupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 
     /**
@@ -47,27 +47,16 @@ public class AddressLookupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String postcode  = request.getParameter("postcode");
+        String postcode = request.getParameter("postcode");
         response.setContentType("application/json");
         String failureJsonString = "{\"status\":\"failure\"}";
-        try{
-        String responseJson = addressLookupService.doLookup(postcode);
-        response.getWriter().println(responseJson);
-        }catch(Exception ex){
+        try {
+            String responseJson = addressLookupService.doLookup(postcode);
+            response.getWriter().println(responseJson);
+        } catch (Exception ex) {
             response.getWriter().println(failureJsonString);
             System.out.println("Failed to get address lookup for postcode " + postcode);
             ex.printStackTrace();
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
