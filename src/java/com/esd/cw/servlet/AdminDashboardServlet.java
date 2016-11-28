@@ -27,7 +27,25 @@ public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
+        String searchTerm = (String) request.getParameter("search");
 
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        } else {
+            try {
+                // get all users data
+                request.setAttribute("allUsers", userService.getUsersWithIdContaining(searchTerm));
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminDashboardServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+        }
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
         String searchTerm = (String) request.getParameter("search");
 
