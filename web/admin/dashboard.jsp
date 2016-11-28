@@ -17,7 +17,6 @@
 
 <div class="row">
     <div class="col-md-12">
-<<<<<<< HEAD
         <h4>Filters</h4>
         <form role="form" method="get" class="form-inline">
             <div class="form-group">
@@ -29,7 +28,6 @@
     </div>
 </div>
 
-=======
         <form method="get" action="AdminReport">
             <button class="btn btn-default">Reports</button>
         </form>
@@ -43,7 +41,7 @@
         </form>
     </div>
 </div>
->>>>>>> stash
+
 <div class="row">
     <div class="col-md-12">
         <table class="table">
