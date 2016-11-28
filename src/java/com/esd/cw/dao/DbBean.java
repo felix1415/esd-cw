@@ -1,6 +1,5 @@
 package com.esd.cw.dao;
 
-import com.esd.cw.util.PropertiesUtil;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -90,13 +89,10 @@ public class DbBean {
         ArrayList<HashMap> result = new ArrayList<>();
 
         while (rs.next()) {
-
             HashMap row = new HashMap(columns);
-
             for (int i = 1; i <= columns; i++) {
                 row.put(md.getColumnName(i), rs.getObject(i));
             }
-
             result.add(row);
         }
         rs.close();
@@ -110,7 +106,7 @@ public class DbBean {
         state = instance.getConnection().createStatement();
         rs = state.executeQuery(query);
         while (rs.next()) {
-            sb.append(rs.getString(1) + "," + rs.getString(2));
+            sb.append(rs.getString(1)).append(",").append(rs.getString(2));
         }
         rs.close();
         state.close();

@@ -26,7 +26,7 @@ public class AddressLookupService {
         StringBuilder stringBuilder = new StringBuilder();
         String username = PropertiesUtil.getPropertyAsString("address-lookup-api-username");
         String password = PropertiesUtil.getPropertyAsString("address-lookup-api-password");
-        String urlString = PropertiesUtil.getPropertyAsString("address-lookup-api-url") + postcode + "?format=true";
+        String urlString = PropertiesUtil.getPropertyAsString("address-lookup-api-url") + postcode;
         
      
         
