@@ -9,13 +9,13 @@
 <form action="payment" method="post">
     <div class="form-group">
         <label for="paymentAmount">Payment Amount</label>
-        <input class="form-control" type="text" name="paymentAmount" name="paymentAmount">
+        <input class="form-control" type="text" name="paymentAmount">
     </div>
     <div class="form-group">
         <label for="paymentType">Payment Type</label>
         <select class="form-control" name="paymentType" id="paymentType">
-            <option>Membership</option>
-            <option selected="selected">Claim</option>
+            <option>Mastercard</option>
+            <option selected="selected">Visa</option>
         </select>
     </div>
     <input class="btn btn-success" type="submit" value="Make Payment">
