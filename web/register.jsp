@@ -34,7 +34,7 @@
                 <label for="lastName">Last Name</label>
                 <input type="text" name="lastName" class="form-control" id="lastName" placeholder="" value="${registerResponse.get("lastName")}">
             </div>
-            
+
             <div class="form-group">
                 <label for="address">Address</label>
                 <input class="form-control" id="address" name="address" type="text">
@@ -45,18 +45,18 @@
                 <button id="addressLookup" class="btn btn-info">Lookup Address</button>
             </div>
             <div id="addressLookupSection" style="display: none;">
-            <div class="form-group">
-                <label for="postCode">Enter Postcode</label>
-                <input type="text" name="postCode" class="form-control" id="postCode" placeholder="">
-            </div>
-            <div class="form-group">
-                <button id="addressLookupBtn" class="btn btn-success">Lookup</button>
-            </div>
-            <div class="form-group">
-                <label for="selectAddress">Select Address</label>
-                <select class="form-control" id="selectAddress" name="selectAddress">
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="postCode">Enter Postcode</label>
+                    <input type="text" name="postCode" class="form-control" id="postCode" placeholder="">
+                </div>
+                <div class="form-group">
+                    <button id="addressLookupBtn" class="btn btn-success">Lookup</button>
+                </div>
+                <div class="form-group">
+                    <label for="selectAddress">Select Address</label>
+                    <select class="form-control" id="selectAddress" name="selectAddress">
+                    </select>
+                </div>
             </div>
             <div class="form-group">
                 <label for="dob">Date of Birth (dd-MM-yyyy)</label>
@@ -118,7 +118,7 @@
                 }
             });
         });
-        
+
         $('#selectAddress').change(function (event) {
             event.preventDefault();
             $('#address').val($('#selectAddress').val());
@@ -126,7 +126,7 @@
             $('#postcode').val("");
             $('#selectAddress').html("");
         });
-        
+
         $('#addressLookup').click(function (event) {
             event.preventDefault();
             $('#addressLookupSection').show();

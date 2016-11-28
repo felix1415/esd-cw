@@ -15,17 +15,15 @@ import java.util.Locale;
  *
  * @author alexgray
  */
-public class Util
-{
+public class Util {
+
     static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-    public static Date getDateFromString(String dateIn)
-    {
+
+    public static Date getDateFromString(String dateIn) {
         Date dob;
-        try
-        {
+        try {
             dob = format.parse(dateIn);
-        } catch (ParseException ex)
-        {
+        } catch (ParseException ex) {
             return null;
         }
         return dob;

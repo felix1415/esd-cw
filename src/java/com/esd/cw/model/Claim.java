@@ -8,7 +8,7 @@ package com.esd.cw.model;
 import java.util.Date;
 
 public class Claim {
-    
+
     private int id;
     private final String memberId;
     private Date claimDate;
@@ -16,7 +16,7 @@ public class Claim {
     private String status;
     private float amount;
 
-    public Claim(int id,float amount, String rationale, String memberId, Date claimDate, String status) {
+    public Claim(int id, float amount, String rationale, String memberId, Date claimDate, String status) {
         this.memberId = memberId;
         this.claimDate = claimDate;
         this.rationale = rationale;
@@ -24,7 +24,7 @@ public class Claim {
         this.amount = amount;
         this.id = id;
     }
-    
+
     public Claim(float amount, String rationale, String memberId, Date claimDate, String status) {
         this.memberId = memberId;
         this.claimDate = claimDate;

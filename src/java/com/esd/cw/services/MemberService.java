@@ -32,9 +32,8 @@ public class MemberService {
         return (excess < member.getBalance());
 
     }
-    
-    public Member getMember(String memberId)
-    {
+
+    public Member getMember(String memberId) {
         return memberDao.findById(memberId);
     }
 }

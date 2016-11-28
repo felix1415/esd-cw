@@ -14,14 +14,14 @@ import javax.servlet.http.HttpSession;
  * @author shaun
  */
 public class PendingClaimsServlet extends HttpServlet {
-    
+
     ClaimService claimService = new ClaimService();
-    
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
      * Gets all the pending claims and puts them into the session
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -42,7 +42,7 @@ public class PendingClaimsServlet extends HttpServlet {
      *
      * Posts the claimId response to a claim, the claim is updated with the
      * claim action from the form
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -51,13 +51,13 @@ public class PendingClaimsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String claimId = request.getParameter("claimId");
         boolean accept = false;
         if (request.getParameter("action").equals("accept")) {
-         accept = true;
+            accept = true;
         }
-        claimService.updateClaim(accept,claimId);   
+        claimService.updateClaim(accept, claimId);
         doGet(request, response);
     }
 }

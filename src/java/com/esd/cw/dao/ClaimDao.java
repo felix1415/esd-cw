@@ -14,8 +14,8 @@ public class ClaimDao {
     public ClaimDao() {
 
     }
-    
-    public List<Claim> getAllPendingClaims() throws SQLException{
+
+    public List<Claim> getAllPendingClaims() throws SQLException {
         List<Claim> pendingClaims = new ArrayList<>();
         ArrayList<HashMap> result = new ArrayList<>();
 
@@ -39,24 +39,17 @@ public class ClaimDao {
 
     public void makeClaim(Claim claim) throws SQLException {
         String claimDate = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(claim.getClaimDate());
-
         String query = String.format(Queries.INSERT_CLAIM.getSql(), claim.getMemberId(), claimDate, claim.getRationale(), claim.getStatus(), claim.getAmount());
-
         DbBean.getInstance().runQuery(query);
-
     }
 
     public List<Claim> getClaimsForMember(String memberId) throws SQLException, SQLException, SQLException {
 
-        // define a list of users
         List<Claim> allClaims = new ArrayList<>();
-
-        // define a hash map to store the result in
         ArrayList<HashMap> result = new ArrayList();
         try {
             result = DbBean.getInstance().select(String.format(Queries.GET_CLAIMS_MADE_BY_A_MEMBER.getSql(), memberId));
         } catch (SQLException e) {
-            // error
             System.out.println("ERROR: ClaimDa0().findClaimsForUser() - " + e.toString());
         }
         for (HashMap r : result) {
@@ -71,8 +64,6 @@ public class ClaimDao {
                     )
             );
         }
-
-        // return all the users
         return allClaims;
     }
 
@@ -80,16 +71,16 @@ public class ClaimDao {
         return DbBean.getInstance().doQueryReturningXColumns(Queries.TOTAL_AMOUNT_FOR_ALL_CLAIMS_MADE.getSql(), 1);
     }
 
-    public boolean updateClaim(boolean accept,String claimId) {
+    public boolean updateClaim(boolean accept, String claimId) {
         boolean result = false;
-        try{
-            if(accept){
-                DbBean.getInstance().runQuery(String.format(Queries.ACCEPT_CLAIM.getSql(), claimId));            
-            }else{
-                DbBean.getInstance().runQuery(String.format(Queries.DECLINE_CLAIM.getSql(), claimId));            
+        try {
+            if (accept) {
+                DbBean.getInstance().runQuery(String.format(Queries.ACCEPT_CLAIM.getSql(), claimId));
+            } else {
+                DbBean.getInstance().runQuery(String.format(Queries.DECLINE_CLAIM.getSql(), claimId));
             }
             result = true;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Failed to accpet claim with id = " + claimId);
             e.printStackTrace();
         }

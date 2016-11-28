@@ -54,11 +54,12 @@ public class PaymentServlet extends HttpServlet {
     }
 
     /**
-     * Create a new payment for membership. 
-     * Takes the inputs from the form in order to create a payment in the database.
-     * Form returns an amount(double) and the type of payment(string).
+     * Create a new payment for membership. Takes the inputs from the form in
+     * order to create a payment in the database. Form returns an amount(double)
+     * and the type of payment(string).
      *
-     *Session is then updated to match members new status.
+     * Session is then updated to match members new status.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs

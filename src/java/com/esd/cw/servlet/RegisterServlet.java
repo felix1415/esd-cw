@@ -23,7 +23,7 @@ public class RegisterServlet extends HttpServlet {
      * Handles the HTTP <code>GET</code> method.
      *
      * Displays the register page
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -32,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // display register page
         request.getRequestDispatcher("register.jsp").forward(request, response);
     }
@@ -40,9 +40,9 @@ public class RegisterServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * Puts the fields from the form into the RegistrationService to create a 
+     * Puts the fields from the form into the RegistrationService to create a
      * new User and Member
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -51,29 +51,29 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // define forwarding path
         String forwardPath = "login.jsp";
-        
+
         // instance registration service
         RegistrationService registerService = new RegistrationService();
-        
+
         // register the user
         Map registerResponse = registerService.registerUser(
-                request.getParameter("username"), 
-                request.getParameter("firstName"), 
-                request.getParameter("lastName"), 
-                request.getParameter("address"), 
-                request.getParameter("dob"), 
+                request.getParameter("username"),
+                request.getParameter("firstName"),
+                request.getParameter("lastName"),
+                request.getParameter("address"),
+                request.getParameter("dob"),
                 request.getParameter("password"),
                 request.getParameter("confirmPassword")
         );
-        
+
         // if registration was not successfull, change the forwarding path
         if (!Boolean.valueOf((String) registerResponse.get("success"))) {
             forwardPath = "register.jsp";
         }
-        
+
         request.setAttribute("registerResponse", registerResponse);
         request.getRequestDispatcher(forwardPath).forward(request, response);
     }

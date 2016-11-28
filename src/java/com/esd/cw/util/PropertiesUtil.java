@@ -19,8 +19,9 @@ import java.util.logging.Logger;
  * @author shaun
  */
 public class PropertiesUtil {
-    
+
     private static final ResourceBundle properties = ResourceBundle.getBundle("resources/config");
+
     public static String getPropertyAsString(String key) {
         return properties.getString(key);
     }

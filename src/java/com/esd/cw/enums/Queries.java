@@ -18,6 +18,7 @@ public enum Queries {
     SELECT_ALL_USERS("SELECT * FROM users"),
     SELECT_ALL_NON_ADMIN_USERS("SELECT * FROM users WHERE is_admin=0"),
     SELECT_USER_BY_ID("SELECT * FROM users WHERE id='%s'"),
+    SELECT_USER_WITH_ID_LIKE("select * from users where id like('%%s%')"),
     
     //Payments
     INSERT_PAYMENT("INSERT INTO payments (mem_id, type_of_payment, amount, date) VALUES ('%s','%s',%s ,'%s')"),

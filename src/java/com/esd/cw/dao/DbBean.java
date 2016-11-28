@@ -128,10 +128,10 @@ public class DbBean {
         rs = state.executeQuery(query);
         while (rs.next()) {
             for (int i = 0; i < columns; i++) {
-                if(i>0){
-                  sb.append(rs.getString(i + 1) + ",");  
-                }else{
-                  sb.append(rs.getString(i + 1));
+                if (i > 0) {
+                    sb.append(rs.getString(i + 1) + ",");
+                } else {
+                    sb.append(rs.getString(i + 1));
                 }
             }
         }

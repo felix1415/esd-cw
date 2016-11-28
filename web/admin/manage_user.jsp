@@ -89,15 +89,15 @@
             <tbody>
                 <%
                 for (Claim claim : manageUser.getClaims()) {
-                    %>
-                    <tr>
-                        <td><%=claim.getId()%></td>
-                        <td><%=claim.getAmount()%></td>
-                        <td><%=claim.getRationale()%></td>
-                        <td><%=claim.getStatus()%></td>
-                    </tr>
-                    <%
-                }
+                %>
+                <tr>
+                    <td><%=claim.getId()%></td>
+                    <td><%=claim.getAmount()%></td>
+                    <td><%=claim.getRationale()%></td>
+                    <td><%=claim.getStatus()%></td>
+                </tr>
+                <%
+            }
                 %>
             </tbody>
         </table>

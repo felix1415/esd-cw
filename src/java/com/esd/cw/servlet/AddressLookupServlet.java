@@ -24,7 +24,7 @@ public class AddressLookupServlet extends HttpServlet {
      * Handles the HTTP <code>POST</code> method.
      *
      * Gets an address from the AddressLookupService with a postcode
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs

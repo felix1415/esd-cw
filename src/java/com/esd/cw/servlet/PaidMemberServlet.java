@@ -35,9 +35,9 @@ public class PaidMemberServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * Gets the details for a member, payments and claims for that member, from 
+     * Gets the details for a member, payments and claims for that member, from
      * a user
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws javax.servlet.ServletException
@@ -67,7 +67,7 @@ public class PaidMemberServlet extends HttpServlet {
         if (user != null) {
             //go to the paid member dashboard if member has paid
             if (user.getMember().getStatus().equals("PAID")) {
-                
+
                 String claimStatusMessage;
                 try {
                     claimStatusMessage = claimService.claimStatus(user);
@@ -86,7 +86,7 @@ public class PaidMemberServlet extends HttpServlet {
         } else {
             path = "/";
         }
-        
+
         request.setAttribute("payments", payments);
         request.setAttribute("claims", claims);
 

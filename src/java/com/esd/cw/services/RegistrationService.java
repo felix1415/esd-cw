@@ -26,12 +26,11 @@ import java.util.logging.Logger;
  * @author shaun
  */
 public class RegistrationService {
-    
+
     UserDao userDao = new UserDao();
     MemberDao memberDao = new MemberDao();
 
     public Map<String, String> registerUser(String username, String firstName, String lastName, String address, String dob, String password, String confirmPassword) {
-        
 
         try {
             String result = DbBean.getInstance().doQueryReturningTwoColumns("SELECT * FROM users");

@@ -13,14 +13,14 @@ import com.esd.cw.model.User;
  *
  * @author alexgray
  */
-public class DashboardService
-{
+public class DashboardService {
+
     MemberDao memberDao;
 
     public DashboardService() {
         this.memberDao = new MemberDao();
     }
-    
+
     public Member getMember(User user) {
         Member member = memberDao.findById(user.getUserId());
 

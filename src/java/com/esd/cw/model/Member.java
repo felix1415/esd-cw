@@ -6,9 +6,8 @@ import java.util.Date;
  *
  * @author alexgray
  */
-public class Member
-{
-    
+public class Member {
+
     private final String memberId;
     private String name;
     private String address;
@@ -18,8 +17,7 @@ public class Member
     private float balance;
     private int claimsRemaining;
 
-    public Member()
-    {
+    public Member() {
         this.memberId = null;
         this.name = null;
         this.address = null;
@@ -30,18 +28,15 @@ public class Member
         this.claimsRemaining = 0;
     }
 
-    public int getClaimsRemaining()
-    {
+    public int getClaimsRemaining() {
         return claimsRemaining;
     }
 
-    public void setClaimsRemaining(int claimsRemaining)
-    {
+    public void setClaimsRemaining(int claimsRemaining) {
         this.claimsRemaining = claimsRemaining;
     }
 
-    public Member(String memberId, String name, String address, Date dateOfBirth, Date dateOfRegistration, String status, float balance, int claimsRemaining)
-    {
+    public Member(String memberId, String name, String address, Date dateOfBirth, Date dateOfRegistration, String status, float balance, int claimsRemaining) {
         this.memberId = memberId;
         this.name = name;
         this.address = address;
@@ -51,59 +46,48 @@ public class Member
         this.balance = balance;
         this.claimsRemaining = claimsRemaining;
     }
-    
-    public float getBalance()
-    {
+
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(float balance)
-    {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public Date getDateOfRegistration()
-    {
+    public Date getDateOfRegistration() {
         return dateOfRegistration;
     }
 
-    public Date getDateOfBirth()
-    {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address)
-    {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getMemberId()
-    {
+    public String getMemberId() {
         return memberId;
     }
 }

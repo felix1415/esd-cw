@@ -27,33 +27,33 @@
     </thead>
     <tbody>
         <%
-            HashMap<String,List<Object>>  claimsAndUserMap = (HashMap<String,List<Object>>)request.getAttribute("pendingClaims");
-            if(claimsAndUserMap.size() > 0){
-            Iterator it = claimsAndUserMap.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                String userName = (String) pair.getKey();
-                List<Object> userAndClaim = (List<Object>) pair.getValue();
-                User user = (User) userAndClaim.get(0);
-                Member member = user.getMember();
-                Claim claim = (Claim)userAndClaim.get(1);
-                            
+            HashMap<String, List<Object>> claimsAndUserMap = (HashMap<String, List<Object>>) request.getAttribute("pendingClaims");
+            if (claimsAndUserMap.size() > 0) {
+                Iterator it = claimsAndUserMap.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry) it.next();
+                    String userName = (String) pair.getKey();
+                    List<Object> userAndClaim = (List<Object>) pair.getValue();
+                    User user = (User) userAndClaim.get(0);
+                    Member member = user.getMember();
+                    Claim claim = (Claim) userAndClaim.get(1);
+
         %>
     <form role="form" method="post" action="PendingClaims">
         <tr>
-            <input hidden name="claimId" value="<%=claim.getId()%>">           
-            <td><%=claim.getMemberId()%></td>
-            <td><%=claim.getClaimDate()%></td>
-            <td><%=claim.getRationale()%></td>
-            <td><%=claim.getAmount()%></td>
-            <td><%=member.getClaimsRemaining()%></td>
-            <td>
-                <select name="action">
-                    <option value="accept">Accept</option>                    
-                    <option value="reject">Reject</option>
-                </select>
-            </td>
-            <td><button class="btn btn-success">Update</button></td>
+        <input hidden name="claimId" value="<%=claim.getId()%>">           
+        <td><%=claim.getMemberId()%></td>
+        <td><%=claim.getClaimDate()%></td>
+        <td><%=claim.getRationale()%></td>
+        <td><%=claim.getAmount()%></td>
+        <td><%=member.getClaimsRemaining()%></td>
+        <td>
+            <select name="action">
+                <option value="accept">Accept</option>                    
+                <option value="reject">Reject</option>
+            </select>
+        </td>
+        <td><button class="btn btn-success">Update</button></td>
         </tr>
     </form>
     <%

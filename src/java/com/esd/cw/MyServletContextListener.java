@@ -5,7 +5,6 @@
  */
 package com.esd.cw;
 
-
 import com.esd.cw.dao.DbBean;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContextEvent;
@@ -16,7 +15,7 @@ import javax.servlet.ServletContextListener;
  * @author shaun
  */
 public class MyServletContextListener implements ServletContextListener {
-    
+
     private static final String URL_KEY = "database-url";
     private static final String PORT_KEY = "database-url";
     private static final String USERNAME_KEY = "database-username";
@@ -29,13 +28,13 @@ public class MyServletContextListener implements ServletContextListener {
         String username = sce.getServletContext().getInitParameter(USERNAME_KEY);
         String password = sce.getServletContext().getInitParameter(PASSWORD_KEY);
         String databaseName = sce.getServletContext().getInitParameter(DATABASE_NAME_KEY);
-        
-        DbBean.setParameters(url,username,password,databaseName);
+
+        DbBean.setParameters(url, username, password, databaseName);
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         DbBean.getInstance().shutDown();
     }
-    
+
 }

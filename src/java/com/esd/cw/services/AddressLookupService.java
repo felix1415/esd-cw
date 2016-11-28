@@ -20,34 +20,28 @@ import java.util.Base64;
  * @author shaun
  */
 public class AddressLookupService {
-    
-    public String doLookup(String postcode) throws MalformedURLException, IOException{
-        
+
+    public String doLookup(String postcode) throws MalformedURLException, IOException {
+
         StringBuilder stringBuilder = new StringBuilder();
         String username = PropertiesUtil.getPropertyAsString("address-lookup-api-username");
         String password = PropertiesUtil.getPropertyAsString("address-lookup-api-password");
         String urlString = PropertiesUtil.getPropertyAsString("address-lookup-api-url") + postcode;
-        
-     
-        
-        URL url = new URL (urlString);
+
+        URL url = new URL(urlString);
         String encodingString = username + ":" + password;
         String encoding = Base64.getEncoder().encodeToString(encodingString.getBytes());
+        URLConnection connection = url.openConnection();
+        connection.setRequestProperty("Authorization", "Basic " + encoding);
+        InputStream content = connection.getInputStream();
+        BufferedReader in
+                = new BufferedReader(new InputStreamReader(content));
+        String line;
+        while ((line = in.readLine()) != null) {
+            stringBuilder.append(line);
+        }
 
-            URLConnection connection =  url.openConnection();
-           
-            connection.setRequestProperty  ("Authorization", "Basic " + encoding);
-            InputStream content = connection.getInputStream();
-            BufferedReader in   = 
-                new BufferedReader (new InputStreamReader (content));
-            String line;
-            while ((line = in.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-            
-          
-        
         return stringBuilder.toString();
     }
-    
+
 }

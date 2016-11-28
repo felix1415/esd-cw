@@ -38,14 +38,17 @@ public class ClaimService {
         this.memberService = new MemberService();
         this.userDao = new UserDao();
     }
+
     /**
-     * Performs checks on users status and date of their first payment.
-     * Returns Hash map containing boolean result of the checks and a corresponding message.
+     * Performs checks on users status and date of their first payment. Returns
+     * Hash map containing boolean result of the checks and a corresponding
+     * message.
+     *
      * @param user
      * @param claimAmount
      * @return
      * @throws SQLException
-     * @throws ParseException 
+     * @throws ParseException
      */
     public Map<String, String> validateClaim(User user, double claimAmount) throws SQLException, ParseException {
 
@@ -56,7 +59,7 @@ public class ClaimService {
         cal.add(cal.MONTH, -6);
         long sixMonthsAgo = cal.getTime().getTime();
         long membersFirstPaymnet = memberDao.getFirstMembership(user.getUserId());
-        
+
         if (!"PAID".equals(user.getStatus())) {
             claimResponse.put("success", "false");
             claimResponse.put("message", "You're not a paid member");
@@ -78,18 +81,18 @@ public class ClaimService {
 
     }
 
-    public HashMap<String,List<Object>>  getAllPendingClaimsAndCorrespondingUserModels() {
+    public HashMap<String, List<Object>> getAllPendingClaimsAndCorrespondingUserModels() {
         //String is user Id, other map is user and corresponding claim.
-        HashMap<String,List<Object>> userClaimMap = new HashMap<String,List<Object>>();
+        HashMap<String, List<Object>> userClaimMap = new HashMap<String, List<Object>>();
         List<Claim> pendingClaims = new ArrayList<>();
         try {
             pendingClaims = claimDao.getAllPendingClaims();
-            for(Claim claim : pendingClaims){
+            for (Claim claim : pendingClaims) {
                 User user = userDao.findById(claim.getMemberId());
                 ArrayList<Object> userAndClaim = new ArrayList<>();
                 userAndClaim.add(user);
                 userAndClaim.add(claim);
-                userClaimMap.put(claim.getMemberId(),userAndClaim);
+                userClaimMap.put(claim.getMemberId(), userAndClaim);
             }
         } catch (SQLException ex) {
             System.out.println("Failed to get all pending claims : " + ex);
