@@ -21,6 +21,7 @@ public enum Queries {
     
     //Payments
     INSERT_PAYMENT("INSERT INTO payments (mem_id, type_of_payment, amount, date) VALUES ('%s','%s',%s ,'%s')"),
+    SELECT_PAYMENTS_FOR_USER("SELECT * FROM payments WHERE mem_id='%s'"),
     
     //Members
     INSERT_MEMBER("INSERT INTO Members (id, name, address, dob, dor, status, balance, claims_remaining) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"),
