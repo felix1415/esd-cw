@@ -51,6 +51,7 @@
             <select class="form-control" name="newStatus">
                 <option ${manageUser.getMember().getStatus().equals("PENDING") ? 'selected' : ''} value="PENDING">Pending</option>
                 <option ${manageUser.getMember().getStatus().equals("UNPAID") ? 'selected' : ''} value="UNPAID">Unpaid</option>
+                <option ${manageUser.getMember().getStatus().equals("SUSPENDED") ? 'selected' : ''} value="SUSPENDED">Suspended</option>
                 <option ${manageUser.getMember().getStatus().equals("PAID") ? 'selected' : ''} value="PAID">Paid</option>
             </select>
         </div>
@@ -88,7 +89,7 @@
             </thead>
             <tbody>
                 <%
-                for (Claim claim : manageUser.getClaims()) {
+                    for (Claim claim : manageUser.getClaims()) {
                 %>
                 <tr>
                     <td><%=claim.getId()%></td>
@@ -97,7 +98,7 @@
                     <td><%=claim.getStatus()%></td>
                 </tr>
                 <%
-            }
+                    }
                 %>
             </tbody>
         </table>
