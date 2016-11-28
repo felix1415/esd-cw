@@ -30,10 +30,6 @@
 <div class="row">
     <div class="col-md-12">
         <br>
-        <form method="get" action="AdminReport">
-            <button class="btn btn-default">Reports</button>
-        </form>
-        <br>
         <form method="post" action="ChargeAllUsers">
             <button class="btn btn-default" type="submit">Charge All Users</button>
         </form>

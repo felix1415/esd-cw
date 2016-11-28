@@ -147,7 +147,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminReport</servlet-name>
-        <url-pattern>/admin/AdminReport</url-pattern>
+        <url-pattern>/admin/reports</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PendingClaimsServlet</servlet-name>
