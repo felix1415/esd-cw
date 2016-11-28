@@ -28,6 +28,8 @@ public enum Queries {
     SELECT_USER_FIRST_PAYMENT("SELECT date FROM payments WHERE mem_id ='%s' ORDER BY date ASC LIMIT 1"),
     SELECT_MEMBER_REG_DATE("SELECT dor FROM Members WHERE id ='%s'"),
     DEDUCT_AMOUNT_FROM_ALL_MEMBERS_BALANCE("UPDATE Members set balance = balance - %s"),
+    SELECT_ALL_MEMBERS("SELECT * FROM Members"),
+    SELECT_MEMBER_BY_ID("SELECT * FROM Members WHERE id='%s'"),
     
     //Claims
     INSERT_CLAIM("INSERT INTO Claims (mem_id, date, rationale, status,amount) VALUES ('%s','%s','%s' ,'%s', %s)"),
