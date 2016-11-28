@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import javafx.scene.shape.QuadCurve;
 
 /**
  *
@@ -44,7 +43,7 @@ public class MemberDao {
     public List<Member> findAll() {
 
         // define a list of members
-        List<Member> allMembers = new ArrayList<Member>();
+        List<Member> allMembers = new ArrayList<>();
 
         // define a hash map to store the result in
         ArrayList<HashMap> result = new ArrayList();

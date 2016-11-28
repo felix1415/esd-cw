@@ -1,6 +1,5 @@
 package com.esd.cw.dao;
 
-import com.esd.cw.util.PropertiesUtil;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
