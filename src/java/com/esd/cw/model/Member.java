@@ -2,10 +2,6 @@ package com.esd.cw.model;
 
 import java.util.Date;
 
-/**
- *
- * @author alexgray
- */
 public class Member {
 
     private final String memberId;

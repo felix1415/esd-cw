@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.esd.cw.services;
 
 import com.esd.cw.dao.ClaimDao;
@@ -11,10 +6,6 @@ import com.esd.cw.dao.PaymentDao;
 import com.esd.cw.dao.UserDao;
 import java.sql.SQLException;
 
-/**
- *
- * @author alexgray
- */
 public class ReportService
 {
     ClaimDao claimDao;

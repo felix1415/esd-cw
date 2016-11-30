@@ -1,7 +1,3 @@
-/*
- * Stephen Turner, Computer Science BSc Year 3
- * University Of the West Of England
- */
 package com.esd.cw.services;
 
 import com.esd.cw.dao.ClaimDao;
@@ -20,6 +16,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -71,13 +71,10 @@ public class ClaimService {
             return claimResponse;
         }
         if (!(membersFirstPaymnet < sixMonthsAgo) && membersFirstPaymnet != 0) {
-
             claimResponse.put("success", "false");
             claimResponse.put("message", "You've not waited the arbitrary time limit of 6 months");
             return claimResponse;
-
         }
-
         claimResponse.put("success", "true");
         claimResponse.put("message", "You're claim is pending approval");
 
@@ -144,18 +141,31 @@ public class ClaimService {
         Member member = new Member();
         member = memberDao.findById(user.getUserId());
 
-        if (membersFirstPayment < sixMonthsAgo && membersFirstPayment != 0) {
-
+        if (membersFirstPayment < sixMonthsAgo && membersFirstPayment != 0 && member.getClaimsRemaining() != 0) {
             return "You are able to claim";
-
         } else {
-
             return "You are unable to claim";
-
         }
     }
 
     public boolean updateClaim(boolean accept, String claimId) {
-        return claimDao.updateClaim(accept, claimId);
+        boolean result = false;
+        try {
+            Set<Claim> claims = claimDao.getAllPendingClaims().stream()
+                        .filter(c->c.getId() == Integer.valueOf(claimId))
+                        .collect(Collectors.toSet());
+            
+            result =  claimDao.updateClaim(accept, claimId);
+            if(accept && result){
+                
+                
+                String memberId = claims.iterator().next().getMemberId();
+                memberDao.decrementClaimsRemainingForMember(memberId);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClaimService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     return result;   
     }
 }

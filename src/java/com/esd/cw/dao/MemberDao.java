@@ -111,4 +111,8 @@ public class MemberDao {
     public void deductAmountFromAllUsers(double toDeductFromEachUser) throws SQLException {
         DbBean.getInstance().runQuery(String.format(Queries.DEDUCT_AMOUNT_FROM_ALL_MEMBERS_BALANCE.getSql(), String.valueOf(toDeductFromEachUser)));
     }
+
+    public void decrementClaimsRemainingForMember(String memberId) throws SQLException {
+       DbBean.getInstance().runQuery(String.format(Queries.DECREMENET_CLAIMS_REMAINING.getSql(),memberId));
+    }
 }

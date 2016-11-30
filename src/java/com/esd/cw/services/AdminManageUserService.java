@@ -13,10 +13,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author aidanayala-angear
- */
 public class AdminManageUserService {
 
     private final UserDao userDao = new UserDao();
